@@ -16,4 +16,5 @@ public class RobotMap
 	public static int driveTalonBL = 2;
 	public static int driveTalonFR = 5;
 	public static int driveTalonBR = 6;
+	public static double c_deadBand = 0.1; 
 }
