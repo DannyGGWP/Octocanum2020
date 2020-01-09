@@ -21,7 +21,8 @@ import edu.wpi.first.wpilibj.SerialPort.Port;
 /**
  * Add your docs here.
  */
-public class FasterOctoCanum extends Subsystem {
+public class FasterOctoCanum extends Subsystem 
+{
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private MecanumDrive m_mecanumDrive;
@@ -34,14 +35,22 @@ public class FasterOctoCanum extends Subsystem {
   private SpeedControllerGroup m_leftSideDifferentialGroup; 
   private SpeedControllerGroup m_rightSideDifferentialGroup; 
   private Boolean m_inMecanumDrive = true; 
+
+  private Boolean m_inMecanumDriveField = true; 
+  private Boolean m_inMecanumDriveRobot = true; 
+  private Boolean m_inTankDrive = true; 
+
   private Boolean m_driveStraight = false;
   private double m_angleSetPoint = 0.0; 
   private static final double c_kPcorrection = 0.05; 
   @Override
-  public void initDefaultCommand() {
+
+  public void initDefaultCommand() 
+  {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
   }
+
   public FasterOctoCanum()
   {
     m_frontLeft = new WPI_TalonSRX(5);
@@ -56,6 +65,7 @@ public class FasterOctoCanum extends Subsystem {
     m_mecanumDrive.setDeadband(RobotMap.c_deadBand);
     m_differentialDrive.setDeadband(RobotMap.c_deadBand);
   }
+
   public void enableDropDrive()
   {
     m_inMecanumDrive = false; 
@@ -73,6 +83,7 @@ public class FasterOctoCanum extends Subsystem {
   {
     m_driveStraight = false; 
   }
+  
   public void drive(double x, double y, double rotation)
   {
     double error = 0.0; 
@@ -84,24 +95,50 @@ public class FasterOctoCanum extends Subsystem {
       {
         error = 0.0; 
       }
-
     }
-    if (m_inMecanumDrive){
+    /*if (m_inMecanumDrive)
+    {
       // Only compensate for drift if NOT turning. 
-      
       m_mecanumDrive.driveCartesian(-x, y, rotation, -m_gyro.getAngle());
     }
-    else {
-      if (m_driveStraight && Math.abs(rotation) < RobotMap.c_deadBand)
-      {
-        rotation = error*c_kPcorrection;
-      }
-      // We are doing a Turn and want to keep updating the Angle Set Point 
-      else if (m_driveStraight)
-      {
-        m_angleSetPoint = currentHeading; 
-      }
-      m_differentialDrive.arcadeDrive(-x, y);
+    else
+    {
+    */
+  public enum driveMode
+	{
+    fieldMechanum,
+    robotMechanum,
+    tank
+  };
+
+  private driveMode m_driveState;
+  void setMode(m_driveState);
+
+  switch(m_driveState)
+    {
+      case fieldMechanum:
+          m_driveState= m_mecanumDrive.driveCartesian(-x, y, rotation, -m_gyro.getAngle());
+          m_driveState = state;
+          break;
+      case robotMechanum:
+          currentDrive = m_mecanumDrive.driveCartesian(-x, y, rotation); 
+          m_driveState = state;
+          break;
+      case tank:
+          currentDrive = m_differentialDrive.arcadeDrive(-x, y);
+        if (m_driveStraight && Math.abs(rotation) < RobotMap.c_deadBand)
+        {
+          rotation = error*c_kPcorrection;
+        }
+        // We are doing a Turn and want to keep updating the Angle Set Point 
+        else if (m_driveStraight)
+        {
+          m_angleSetPoint = currentHeading; 
+        }
+          m_driveState = state;
+        break;
+      default:
+      break;
     }
   }
 }
