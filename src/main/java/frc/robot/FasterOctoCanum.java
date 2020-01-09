@@ -138,6 +138,8 @@ public class FasterOctoCanum extends Subsystem
           m_driveState = state;
         break;
       default:
+      m_differentialDrive.arcadeDrive(0, 0);
+      m_mecanumDrive.driveCartesian(0, 0, 0);
       break;
     }
   }
