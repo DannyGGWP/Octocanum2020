@@ -36,7 +36,7 @@ public class FasterOctoCanum extends Subsystem {
   private Boolean m_inMecanumDrive = true; 
   private Boolean m_driveStraight = false;
   private double m_angleSetPoint = 0.0; 
-  private static final double c_kPcorrection = 0.2; 
+  private static final double c_kPcorrection = 0.05; 
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
@@ -56,9 +56,18 @@ public class FasterOctoCanum extends Subsystem {
     m_mecanumDrive.setDeadband(RobotMap.c_deadBand);
     m_differentialDrive.setDeadband(RobotMap.c_deadBand);
   }
+  public void enableDropDrive()
+  {
+    m_inMecanumDrive = false; 
+  }
+  public void disableDropDrive()
+  {
+    m_inMecanumDrive = true; 
+  }
   public void enableDriveStraight()
   {
     m_driveStraight = true; 
+    m_angleSetPoint = m_gyro.getYaw(); 
   }
   public void disableDriveStraight()
   {
@@ -67,7 +76,7 @@ public class FasterOctoCanum extends Subsystem {
   public void drive(double x, double y, double rotation)
   {
     double error = 0.0; 
-    double currentHeading = -m_gyro.getAngle(); 
+    double currentHeading = m_gyro.getYaw(); 
     if (m_driveStraight)
     {
       error = m_angleSetPoint - currentHeading;
@@ -79,6 +88,10 @@ public class FasterOctoCanum extends Subsystem {
     }
     if (m_inMecanumDrive){
       // Only compensate for drift if NOT turning. 
+      
+      m_mecanumDrive.driveCartesian(-x, y, rotation, -m_gyro.getAngle());
+    }
+    else {
       if (m_driveStraight && Math.abs(rotation) < RobotMap.c_deadBand)
       {
         rotation = error*c_kPcorrection;
@@ -88,9 +101,6 @@ public class FasterOctoCanum extends Subsystem {
       {
         m_angleSetPoint = currentHeading; 
       }
-      m_mecanumDrive.driveCartesian(-x, y, rotation, currentHeading);
-    }
-    else {
       m_differentialDrive.arcadeDrive(-x, y);
     }
   }

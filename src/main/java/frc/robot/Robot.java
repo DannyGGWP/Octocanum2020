@@ -41,6 +41,7 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
     */
+    //driveTrain.enableDriveStraight();
     CameraServer.getInstance().startAutomaticCapture();
   }
 
@@ -72,6 +73,8 @@ public class Robot extends TimedRobot {
    // m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     //System.out.println("Auto selected: " + m_autoSelected);
+    //driveTrain.enableDropDrive();
+    driveTrain.enableDriveStraight();
   }
 
   /**
@@ -98,7 +101,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() 
   {
-    driveTrain.drive(OI.driveJoystick.getX(),OI.driveJoystick.getY(),OI.driveJoystick.getRawAxis(2));
+    driveTrain.drive(OI.driveJoystick.getX()*0.5,OI.driveJoystick.getY()*0.5,OI.driveJoystick.getRawAxis(2)*0.5);
   }
 
   /**
