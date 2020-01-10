@@ -74,7 +74,7 @@ public class FasterOctoCanum extends Subsystem
     m_differentialDrive = new DifferentialDrive(m_leftSideDifferentialGroup, m_rightSideDifferentialGroup);
     m_mecanumDrive.setDeadband(RobotMap.c_deadBand);
     m_differentialDrive.setDeadband(RobotMap.c_deadBand);
-    m_driveState = fieldMechanum;
+    m_driveState = DriveMode.fieldMechanum;
   }
 
   public void enableDropDrive()
@@ -111,16 +111,16 @@ public class FasterOctoCanum extends Subsystem
 
   public void enableFieldOriented()
   {
-    m_driveState = fieldMechanum;
+    m_driveState = DriveMode.fieldMechanum;
   }
   public void disableFieldOriented()
   {
-    m_driveState = robotMechanum;
+    m_driveState = DriveMode.robotMechanum;
   }
   public void enableTank()
   {
     m_previousMode = m_driveState; 
-    m_driveState = tank;
+    m_driveState = DriveMode.tank;
   }
   public void disableTank()
   {
@@ -156,15 +156,15 @@ public class FasterOctoCanum extends Subsystem
   switch(m_driveState)
     {
       case fieldMechanum:
-          m_driveState= m_mecanumDrive.driveCartesian(-x, y, rotation, -m_gyro.getAngle());
-          m_driveState = state;
+          m_mecanumDrive.driveCartesian(-x, y, rotation, -m_gyro.getAngle());
+          
           break;
       case robotMechanum:
-          currentDrive = m_mecanumDrive.driveCartesian(-x, y, rotation); 
-          m_driveState = state;
+          m_mecanumDrive.driveCartesian(-x, y, rotation); 
+          
           break;
       case tank:
-          currentDrive = m_differentialDrive.arcadeDrive(-x, y);
+          m_differentialDrive.arcadeDrive(-x, y);
         if (m_driveStraight && Math.abs(rotation) < RobotMap.c_deadBand)
         {
           rotation = error*c_kPcorrection;
@@ -174,11 +174,10 @@ public class FasterOctoCanum extends Subsystem
         {
           m_angleSetPoint = currentHeading; 
         }
-          m_driveState = state;
         break;
       default:
-      m_differentialDrive.arcadeDrive(0, 0);
-      m_mecanumDrive.driveCartesian(0, 0, 0);
+        m_differentialDrive.arcadeDrive(0, 0);
+        m_mecanumDrive.driveCartesian(0, 0, 0);
       break;
     }
   }

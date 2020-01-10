@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.FasterOctoCanum.DriveMode;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.RobotDrive;
 /**
@@ -108,19 +109,19 @@ public class Robot extends TimedRobot {
       if(driveTrain.getMode() == DriveMode.fieldMechanum)
       {
           //driveTrain.setMode(DriveMode.robotMechanum);
-        driveTrain.disableFieldOrientated();
+        driveTrain.disableFieldOriented();
       }
       else if(driveTrain.getMode() == DriveMode.robotMechanum)
       {
           //driveTrain.setMode(DriveMode.fieldMechanum);
-        driveTrain.enableFieldOrientated();
+        driveTrain.disableFieldOriented();
       }
     }
     else
     {
       backFlag = false;
     }
-    if(OI.dropTank.get())
+    if(OI.tankDrop.get())
     {
       //driveTrain.setMode(DriveMode.tank);
       driveTrain.enableTank();

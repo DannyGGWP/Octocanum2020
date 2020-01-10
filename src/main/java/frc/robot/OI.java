@@ -8,8 +8,11 @@
 package frc.robot;
 
 
+import com.ctre.phoenix.ButtonMonitor;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.*;
+import edu.wpi.first.wpilibj2.command.button.Button;
 
 /**
  * Add your docs here.
@@ -17,7 +20,7 @@ import edu.wpi.first.wpilibj.buttons.*;
 public class OI 
 {
     public static Joystick driveJoystick = new Joystick(1);
-    public static Button mechanumSwitch = new Joystick(RobotMap.back);
-    public static Button tankDrop = new Joystick(RobotMap.leftTrigger);
+    public static JoystickButton mechanumSwitch = new JoystickButton(driveJoystick,RobotMap.back);
+    public static JoystickButton tankDrop = new JoystickButton(driveJoystick,RobotMap.leftTrigger);
 
 }
