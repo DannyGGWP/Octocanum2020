@@ -29,6 +29,7 @@ public class Robot extends TimedRobot {
   
   public static OI m_oi;
   public static FasterOctoCanum driveTrain = new FasterOctoCanum();
+  private boolean backFlag = false;
   
   /**
    * This function is run when the robot is first started up and should be
@@ -101,6 +102,33 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() 
   {
+    if(OI.mechanumSwitch.get() && !backFlag)
+    {
+      backFlag = true;
+      if(driveTrain.getMode() == DriveMode.fieldMechanum)
+      {
+          //driveTrain.setMode(DriveMode.robotMechanum);
+        driveTrain.disableFieldOrientated();
+      }
+      else if(driveTrain.getMode() == DriveMode.robotMechanum)
+      {
+          //driveTrain.setMode(DriveMode.fieldMechanum);
+        driveTrain.enableFieldOrientated();
+      }
+    }
+    else
+    {
+      backFlag = false;
+    }
+    if(OI.dropTank.get())
+    {
+      //driveTrain.setMode(DriveMode.tank);
+      driveTrain.enableTank();
+    }
+    else
+    {
+      driveTrain.disableTank();
+    }
     driveTrain.drive(OI.driveJoystick.getX()*0.5,OI.driveJoystick.getY()*0.5,OI.driveJoystick.getRawAxis(2)*0.5);
   }
 

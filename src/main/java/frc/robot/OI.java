@@ -9,7 +9,6 @@ package frc.robot;
 
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.*;
 
 /**
@@ -18,7 +17,7 @@ import edu.wpi.first.wpilibj.buttons.*;
 public class OI 
 {
     public static Joystick driveJoystick = new Joystick(1);
-    public static XboxController driveController = new XboxController(0);
-    public static Button switchDrives = new JoystickButton(driveJoystick, 7);
+    public static Button mechanumSwitch = new Joystick(RobotMap.back);
+    public static Button tankDrop = new Joystick(RobotMap.leftTrigger);
 
 }

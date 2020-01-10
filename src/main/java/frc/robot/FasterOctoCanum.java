@@ -43,6 +43,16 @@ public class FasterOctoCanum extends Subsystem
   private Boolean m_driveStraight = false;
   private double m_angleSetPoint = 0.0; 
   private static final double c_kPcorrection = 0.05; 
+
+  private DriveMode m_previousMode;
+  public DriveMode m_driveState;
+  public enum DriveMode
+	{
+    fieldMechanum,
+    robotMechanum,
+    tank
+  };
+
   @Override
 
   public void initDefaultCommand() 
@@ -64,6 +74,7 @@ public class FasterOctoCanum extends Subsystem
     m_differentialDrive = new DifferentialDrive(m_leftSideDifferentialGroup, m_rightSideDifferentialGroup);
     m_mecanumDrive.setDeadband(RobotMap.c_deadBand);
     m_differentialDrive.setDeadband(RobotMap.c_deadBand);
+    m_driveState = fieldMechanum;
   }
 
   public void enableDropDrive()
@@ -83,7 +94,44 @@ public class FasterOctoCanum extends Subsystem
   {
     m_driveStraight = false; 
   }
-  
+
+  private void setMode(DriveMode mode)
+  {
+   /* if(mode != m_driveState)
+    {
+      m_previousMode = m_driveState;
+      m_driveState = mode;
+      if(m_driveState = tank)
+      {
+
+      }
+    }*/
+    m_driveState = mode;
+  }
+
+  public void enableFieldOriented()
+  {
+    m_driveState = fieldMechanum;
+  }
+  public void disableFieldOriented()
+  {
+    m_driveState = robotMechanum;
+  }
+  public void enableTank()
+  {
+    m_previousMode = m_driveState; 
+    m_driveState = tank;
+  }
+  public void disableTank()
+  {
+    m_driveState = m_previousMode;
+  } 
+
+  public DriveMode getMode()
+  {
+     return m_driveState;
+  }
+
   public void drive(double x, double y, double rotation)
   {
     double error = 0.0; 
@@ -104,15 +152,6 @@ public class FasterOctoCanum extends Subsystem
     else
     {
     */
-  public enum driveMode
-	{
-    fieldMechanum,
-    robotMechanum,
-    tank
-  };
-
-  private driveMode m_driveState;
-  void setMode(m_driveState);
 
   switch(m_driveState)
     {
@@ -143,4 +182,5 @@ public class FasterOctoCanum extends Subsystem
       break;
     }
   }
+  
 }
