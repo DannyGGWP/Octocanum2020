@@ -7,12 +7,14 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.FasterOctoCanum.DriveMode;
+import com.revrobotics.ColorMatch;
+import com.revrobotics.ColorMatchResult;
+
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
+import frc.robot.FasterOctoCanum.DriveMode;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -31,6 +33,13 @@ public class Robot extends TimedRobot {
   public static OI m_oi;
   public static FasterOctoCanum driveTrain = new FasterOctoCanum();
   private boolean backFlag = false;
+  public static SpinSpin colorWheel = new SpinSpin();
+  private ColorMatch m_colorMatcher = new ColorMatch();
+
+  private Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
+  private Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
+  private Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
+  private Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
   
   /**
    * This function is run when the robot is first started up and should be
@@ -38,6 +47,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    m_colorMatcher.addColorMatch(kBlueTarget);
+    m_colorMatcher.addColorMatch(kGreenTarget);
+    m_colorMatcher.addColorMatch(kRedTarget);
+    m_colorMatcher.addColorMatch(kYellowTarget);
+
     /** 
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
@@ -56,9 +70,36 @@ public class Robot extends TimedRobot {
    * LiveWindow and SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {
-  }
+  public void robotPeriodic() 
+  {
+    Color detectedColor = colorWheel.getColor();
 
+    String colorString;
+    ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
+
+    if (match.color == kBlueTarget) 
+    {
+      colorString = "Blue";
+    }
+    else if (match.color == kRedTarget)
+    {
+      colorString = "Red";
+    }
+    else if (match.color ==kGreenTarget)
+    {
+      colorString = "Green";
+    }
+    else if (match.color == kYellowTarget) 
+    {
+      colorString = "Yellow";
+    } 
+    else 
+    {
+      colorString = "Unknown"; 
+    }
+
+    SmartDashboard.putString("Detected Color", colorString);
+  }
   /**
    * This autonomous (along with the chooser code above) shows how to select
    * between different autonomous modes using the dashboard. The sendable
