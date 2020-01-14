@@ -33,6 +33,7 @@ public class Robot extends TimedRobot {
   public static OI m_oi;
   public static FasterOctoCanum driveTrain = new FasterOctoCanum();
   private boolean backFlag = false;
+  private boolean tankFlag = false;
   public static SpinSpin colorWheel = new SpinSpin();
   private ColorMatch m_colorMatcher = new ColorMatch();
 
@@ -162,14 +163,22 @@ public class Robot extends TimedRobot {
     {
       backFlag = false;
     }
-    if(OI.tankDrop.get())
+    if(OI.tankDrop.get() && !tankFlag)
     {
       //driveTrain.setMode(DriveMode.tank);
-      driveTrain.enableTank();
+      tankFlag = true;
+      if(driveTrain.getMode() == DriveMode.tank)
+      {
+        driveTrain.disableTank();
+      }
+      else
+      {
+        driveTrain.enableTank();
+      }
     }
     else
     {
-      driveTrain.disableTank();
+      tankFlag = false;
     }
     driveTrain.drive(OI.driveJoystick.getX()*0.5,OI.driveJoystick.getY()*0.5,OI.driveJoystick.getRawAxis(2)*0.5);
   }
