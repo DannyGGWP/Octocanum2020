@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ShootShoot extends Subsystem 
 {
   // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+  // here. Call these from Commands
 
   private final CANSparkMax pewPewMotor;
   public ShootShoot()
