@@ -18,6 +18,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 /**
@@ -48,6 +49,10 @@ public class FasterOctoCanum extends Subsystem
 
   private DriveMode m_previousMode;
   public DriveMode m_driveState;
+
+  public static Solenoid solenoid = new Solenoid(51, RobotMap.driveSol);
+
+
   public enum DriveMode
 	{
     fieldMechanum,

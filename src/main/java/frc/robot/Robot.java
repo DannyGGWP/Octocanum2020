@@ -11,6 +11,7 @@ import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
@@ -41,6 +42,8 @@ public class Robot extends TimedRobot {
   private Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
   private Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
   private Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+
+  public static Compressor compressor = new Compressor(51);
   
   /**
    * This function is run when the robot is first started up and should be
