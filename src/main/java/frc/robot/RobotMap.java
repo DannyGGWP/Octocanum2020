@@ -16,6 +16,7 @@ public class RobotMap
 	public static int driveTalonBL = 2;
 	public static int driveTalonFR = 5;
 	public static int driveTalonBR = 6;
+	public static int shooterSpark = 7; 
 	public static double c_deadBand = 0.1; 
 
 	public static int back = 9;

@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -28,10 +30,10 @@ public class FasterOctoCanum extends Subsystem
   private MecanumDrive m_mecanumDrive;
   private DifferentialDrive m_differentialDrive; 
   private AHRS m_gyro; 
-  private WPI_TalonSRX m_frontLeft; 
-  private WPI_TalonSRX m_frontRight; 
-  private WPI_TalonSRX m_backLeft; 
-  private WPI_TalonSRX m_backRight; 
+  private WPI_TalonFX m_frontLeft; 
+  private WPI_TalonFX m_frontRight; 
+  private WPI_TalonFX m_backLeft; 
+  private WPI_TalonFX m_backRight; 
   private SpeedControllerGroup m_leftSideDifferentialGroup; 
   private SpeedControllerGroup m_rightSideDifferentialGroup; 
   private Boolean m_inMecanumDrive = true; 
@@ -63,10 +65,12 @@ public class FasterOctoCanum extends Subsystem
 
   public FasterOctoCanum()
   {
-    m_frontLeft = new WPI_TalonSRX(5);
-    m_frontRight = new WPI_TalonSRX(2);
-    m_backLeft = new WPI_TalonSRX(3); 
-    m_backRight = new WPI_TalonSRX(1); 
+    m_frontLeft = new WPI_TalonFX(RobotMap.driveTalonFL);
+    m_frontRight = new WPI_TalonFX(RobotMap.driveTalonFR);
+    m_backLeft = new WPI_TalonFX(RobotMap.driveTalonBL); 
+    m_backRight = new WPI_TalonFX(RobotMap.driveTalonBR); 
+    //m_backLeft.setInverted(InvertType.InvertMotorOutput);
+    //m_frontRight.setInverted(InvertType.InvertMotorOutput);
     m_leftSideDifferentialGroup = new SpeedControllerGroup(m_frontLeft, m_backLeft);
     m_rightSideDifferentialGroup = new SpeedControllerGroup(m_frontRight, m_backRight);
     m_gyro = new AHRS(Port.kMXP);
@@ -77,7 +81,7 @@ public class FasterOctoCanum extends Subsystem
     m_driveState = DriveMode.fieldMechanum;
   }
 
-  public void enableDropDrive()
+  public void enableDropDrive() 
   {
     m_inMecanumDrive = false; 
   }
