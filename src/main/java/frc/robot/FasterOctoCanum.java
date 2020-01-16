@@ -130,10 +130,12 @@ public class FasterOctoCanum extends Subsystem
   {
     m_previousMode = m_driveState; 
     m_driveState = DriveMode.tank;
+    solenoid.set(true);
   }
   public void disableTank()
   {
     m_driveState = m_previousMode;
+    solenoid.set(false);
   } 
 
   public DriveMode getMode()
