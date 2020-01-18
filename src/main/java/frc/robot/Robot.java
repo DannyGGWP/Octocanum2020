@@ -43,7 +43,7 @@ public class Robot extends TimedRobot {
   private Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
   private Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
 
-  public static Compressor compressor = new Compressor(51);
+  public static Compressor compressor = new Compressor(52);
   
   /**
    * This function is run when the robot is first started up and should be
@@ -55,7 +55,7 @@ public class Robot extends TimedRobot {
     m_colorMatcher.addColorMatch(kGreenTarget);
     m_colorMatcher.addColorMatch(kRedTarget);
     m_colorMatcher.addColorMatch(kYellowTarget);
-
+    compressor.start();
     /** 
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
@@ -121,7 +121,8 @@ public class Robot extends TimedRobot {
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     //System.out.println("Auto selected: " + m_autoSelected);
     //driveTrain.enableDropDrive();
-    driveTrain.enableDriveStraight();
+    //driveTrain.enableDriveStraight();
+    driveTrain.enableFieldOriented();
   }
 
   /**
@@ -162,7 +163,7 @@ public class Robot extends TimedRobot {
         driveTrain.disableFieldOriented();
       }
     }
-    else
+    else if (!OI.mechanumSwitch.get())
     {
       backFlag = false;
     }
@@ -179,11 +180,11 @@ public class Robot extends TimedRobot {
         driveTrain.enableTank();
       }
     }
-    else
+    else if (!OI.tankDrop.get())
     {
       tankFlag = false;
     }
-    driveTrain.drive(OI.driveJoystick.getX()*0.5,OI.driveJoystick.getY()*0.5,OI.driveJoystick.getRawAxis(2)*0.5);
+    driveTrain.drive(OI.driveJoystick.getX(),OI.driveJoystick.getY(),OI.driveJoystick.getRawAxis(2));
   }
 
   /**

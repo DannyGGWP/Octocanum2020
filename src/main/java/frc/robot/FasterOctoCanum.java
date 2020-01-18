@@ -50,7 +50,7 @@ public class FasterOctoCanum extends Subsystem
   private DriveMode m_previousMode;
   public DriveMode m_driveState;
 
-  public static Solenoid solenoid = new Solenoid(51, RobotMap.driveSol);
+  public static Solenoid solenoid = new Solenoid(52, RobotMap.driveSol);
 
 
   public enum DriveMode
@@ -134,7 +134,7 @@ public class FasterOctoCanum extends Subsystem
   }
   public void disableTank()
   {
-    m_driveState = m_previousMode;
+    m_driveState = DriveMode.robotMechanum;
     solenoid.set(false);
   } 
 
@@ -167,15 +167,16 @@ public class FasterOctoCanum extends Subsystem
   switch(m_driveState)
     {
       case fieldMechanum:
-          m_mecanumDrive.driveCartesian(-x, y, rotation, -m_gyro.getAngle());
+          m_mecanumDrive.driveCartesian(-x, y, -rotation, -m_gyro.getAngle());
           
           break;
       case robotMechanum:
-          m_mecanumDrive.driveCartesian(-x, y, rotation); 
+          m_mecanumDrive.driveCartesian(-x, y, -rotation); 
           
           break;
       case tank:
-          m_differentialDrive.arcadeDrive(-x, y);
+      // Y and X are flipped intentionally 
+          m_differentialDrive.arcadeDrive(y, -x);
         if (m_driveStraight && Math.abs(rotation) < RobotMap.c_deadBand)
         {
           rotation = error*c_kPcorrection;

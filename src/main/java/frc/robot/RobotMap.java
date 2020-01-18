@@ -22,5 +22,5 @@ public class RobotMap
 	public static int back = 9;
 	public static int leftTrigger = 7;
 
-	public static int driveSol = 1;
+	public static int driveSol = 0;
 }
