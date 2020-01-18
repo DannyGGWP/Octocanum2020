@@ -23,4 +23,6 @@ public class RobotMap
 	public static int leftTrigger = 7;
 
 	public static int driveSol = 0;
+
+	public static int dropSol = 1;
 }

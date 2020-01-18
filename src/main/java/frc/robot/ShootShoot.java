@@ -10,6 +10,7 @@ package frc.robot;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -21,9 +22,32 @@ public class ShootShoot extends Subsystem
   // here. Call these from Commands
 
   private final CANSparkMax pewPewMotor;
+  private static Solenoid gateSolenoid = new Solenoid(51,RobotMap.dropSol);
+
   public ShootShoot()
   {
-    pewPewMotor = new CANSparkMax(7, MotorType.kBrushless);
+    pewPewMotor = new CANSparkMax(RobotMap.shooterSpark, MotorType.kBrushless);
+    gateSolenoid.set(false);
+  }
+
+  public void onWheel()
+  {
+    pewPewMotor.set(1.0);
+  }
+  
+  public void offWheel()
+  {
+    pewPewMotor.set(0.0);
+  }
+
+  public void openGate()
+  {
+    gateSolenoid.set(true);
+  }
+
+  public void closeGate()
+  {
+    gateSolenoid.set(false);
   }
 
   @Override
