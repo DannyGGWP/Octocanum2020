@@ -36,6 +36,7 @@ public class Robot extends TimedRobot {
   private boolean backFlag = false;
   private boolean tankFlag = false;
   public static SpinSpin colorWheel = new SpinSpin();
+  public static ShootShoot ballShooter = new ShootShoot();
   private ColorMatch m_colorMatcher = new ColorMatch();
 
   private Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
