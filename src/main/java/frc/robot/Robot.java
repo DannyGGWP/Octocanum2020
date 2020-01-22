@@ -33,10 +33,13 @@ public class Robot extends TimedRobot {
   
   public static OI m_oi;
   public static FasterOctoCanum driveTrain = new FasterOctoCanum();
-  private boolean backFlag = false;
-  private boolean tankFlag = false;
   public static SpinSpin colorWheel = new SpinSpin();
   public static ShootShoot ballShooter = new ShootShoot();
+  public static Cannon cannonCommand = new Cannon();
+
+  private boolean backFlag = false;
+  private boolean tankFlag = false;
+ 
   private ColorMatch m_colorMatcher = new ColorMatch();
 
   private Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
@@ -57,6 +60,8 @@ public class Robot extends TimedRobot {
     m_colorMatcher.addColorMatch(kRedTarget);
     m_colorMatcher.addColorMatch(kYellowTarget);
     compressor.start();
+    driveTrain.disableFieldOriented();
+
     /** 
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
@@ -123,7 +128,7 @@ public class Robot extends TimedRobot {
     //System.out.println("Auto selected: " + m_autoSelected);
     //driveTrain.enableDropDrive();
     //driveTrain.enableDriveStraight();
-    driveTrain.enableFieldOriented();
+    //driveTrain.enableFieldOriented();
   }
 
   /**
@@ -185,9 +190,21 @@ public class Robot extends TimedRobot {
     {
       tankFlag = false;
     }
-    driveTrain.drive(OI.driveJoystick.getX(),OI.driveJoystick.getY(),OI.driveJoystick.getRawAxis(2));
-  }
+    driveTrain.drive(OI.driveJoystick.getX(),OI.driveJoystick.getY()*.5,OI.driveJoystick.getRawAxis(2)*.5);
 
+    if(OI.cannonButton.get() && !cannonCommand.isRunning())
+    {
+      //cannonCommand.start();
+    }
+    if (OI.cannonButton.get())
+    {
+      ballShooter.onWheel();
+    }
+    else {
+      ballShooter.offWheel();
+    }
+  }
+ 
   /**
    * This function is called periodically during test mode.
    */
