@@ -28,13 +28,13 @@ public class ShootShoot extends Subsystem
   private CANPIDController pIDController;
   private CANEncoder canEncoder;
   public double kP,kI,kD,kIZ, kFF,kMaxOutput, kMinOutput, kMaxRPM;
-  private static Solenoid gateSolenoid = new Solenoid(51,RobotMap.dropSol);
+  //private static Solenoid gateSolenoid = new Solenoid(51,RobotMap.dropSol);
 
   public ShootShoot()
   {
     pewPewMotor = new CANSparkMax(RobotMap.shooterSpark, MotorType.kBrushless);
-    gateSolenoid.set(false);
-    pewPewMotor.setInverted(true);
+    //gateSolenoid.set(false);
+    pewPewMotor.setInverted(false);
     pIDController = pewPewMotor.getPIDController();
     canEncoder = pewPewMotor.getEncoder();
     kP = 5e-5;
@@ -64,16 +64,17 @@ public class ShootShoot extends Subsystem
   public void offWheel()
   {
     pIDController.setReference(0, ControlType.kVelocity);
+    pewPewMotor.stopMotor();
   }
 
   public void openGate()
   {
-    gateSolenoid.set(true);
+    //gateSolenoid.set(true);
   }
 
   public void closeGate()
   {
-    gateSolenoid.set(false);
+    //gateSolenoid.set(false);
   }
 
   @Override

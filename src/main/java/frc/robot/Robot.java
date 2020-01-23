@@ -12,6 +12,7 @@ import com.revrobotics.ColorMatchResult;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
@@ -36,7 +37,7 @@ public class Robot extends TimedRobot {
   public static SpinSpin colorWheel = new SpinSpin();
   public static ShootShoot ballShooter = new ShootShoot();
   public static Cannon cannonCommand = new Cannon();
-
+  public static PowerDistributionPanel m_pdp = new PowerDistributionPanel(51);
   private boolean backFlag = false;
   private boolean tankFlag = false;
  
