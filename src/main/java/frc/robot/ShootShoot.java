@@ -24,6 +24,7 @@ public class ShootShoot extends Subsystem
   public ShootShoot()
   {
     pewPewMotor = new CANSparkMax(7, MotorType.kBrushless);
+    
   }
 
   @Override

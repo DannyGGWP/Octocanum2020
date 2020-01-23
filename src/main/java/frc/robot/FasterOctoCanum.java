@@ -165,7 +165,7 @@ public class FasterOctoCanum extends Subsystem
     */
 
   switch(m_driveState)
-    {
+  {
       case fieldMechanum:
           m_mecanumDrive.driveCartesian(-x, y, -rotation, -m_gyro.getAngle());
           
@@ -188,8 +188,8 @@ public class FasterOctoCanum extends Subsystem
         }
         break;
       default:
-        m_differentialDrive.arcadeDrive(0, 0);
-        m_mecanumDrive.driveCartesian(0, 0, 0);
+        //m_differentialDrive.arcadeDrive(0, 0);
+        //m_mecanumDrive.driveCartesian(0, 0, 0);
       break;
     }
   }
