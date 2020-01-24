@@ -34,7 +34,7 @@ public class ShootShoot extends Subsystem
   {
     pewPewMotor = new CANSparkMax(RobotMap.shooterSpark, MotorType.kBrushless);
     //gateSolenoid.set(false);
-    pewPewMotor.setInverted(false);
+    pewPewMotor.setInverted(true);
     pIDController = pewPewMotor.getPIDController();
     canEncoder = pewPewMotor.getEncoder();
     kP = 5e-5;
