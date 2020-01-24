@@ -84,6 +84,7 @@ public class FasterOctoCanum extends Subsystem
     m_mecanumDrive.setDeadband(RobotMap.c_deadBand);
     m_differentialDrive.setDeadband(RobotMap.c_deadBand);
     m_driveState = DriveMode.fieldMechanum;
+    
   }
 
   public void enableDropDrive() 
