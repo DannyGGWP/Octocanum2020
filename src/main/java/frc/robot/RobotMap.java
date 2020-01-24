@@ -26,4 +26,6 @@ public class RobotMap
 	public static int driveSol = 0;
 
 	public static int dropSol = 1;
+
+	public static int wheelMotor = 8;
 }
