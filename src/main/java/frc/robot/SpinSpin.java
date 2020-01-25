@@ -94,10 +94,10 @@ public class SpinSpin extends Subsystem {
   }
   public void resetCount()
   {
-    m_redCount=0;
-    m_greenCount=0;
-    m_yellowCount=0;
-    m_blueCount=0;
+    m_redCount = 0;
+    m_greenCount = 0;
+    m_yellowCount = 0;
+    m_blueCount = 0;
   }
 
   public int getCount(String color)
