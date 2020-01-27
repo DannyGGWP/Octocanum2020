@@ -22,8 +22,11 @@ public class RobotMap
 	public static int back = 9;
 	public static int leftTrigger = 7;
 	public static int buttonA = 2;
+	public static int buttonB = 3;
 
 	public static int driveSol = 0;
 
 	public static int dropSol = 1;
+
+	public static int wheelMotor = 8;
 }

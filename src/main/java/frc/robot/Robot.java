@@ -82,7 +82,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() 
-  {
+  {/** 
     Color detectedColor = colorWheel.getColor();
 
     String colorString;
@@ -108,8 +108,9 @@ public class Robot extends TimedRobot {
     {
       colorString = "Unknown"; 
     }
+    */
 
-    SmartDashboard.putString("Detected Color", colorString);
+    //SmartDashboard.putString("Detected Color", colorString);
   }
   /**
    * This autonomous (along with the chooser code above) shows how to select
@@ -201,8 +202,14 @@ public class Robot extends TimedRobot {
     {
       ballShooter.onWheel();
     }
-    else {
+    else 
+    {
       ballShooter.offWheel();
+    }
+
+    if(OI.spinnerButton.get())
+    {
+      colorWheel.stringColor();
     }
   }
  
