@@ -32,13 +32,13 @@ public class SpinSpin extends Subsystem {
   private int m_greenCount, m_redCount, m_yellowCount, m_blueCount; 
   private String previousColor;
   private String currentColor;
-  
+  private final I2C.Port i2cport = I2C.Port.kOnboard;
 
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   public SpinSpin()
   {
-    m_colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
+    m_colorSensor = new ColorSensorV3(i2cport);
     spinnyMotor.set(ControlMode.PercentOutput, 0);
     m_colorMatcher.addColorMatch(kBlueTarget);
     m_colorMatcher.addColorMatch(kGreenTarget);
@@ -123,10 +123,10 @@ public class SpinSpin extends Subsystem {
 
   public String stringColor()
   {
-    final Color detectedColor = getColor();
+    Color detectedColor = getColor();
 
     String colorString;
-    final ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
+    ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
 
     if (match.color == kBlueTarget) 
     {
@@ -149,6 +149,10 @@ public class SpinSpin extends Subsystem {
       colorString = "Unknown"; 
     }
     SmartDashboard.putString("Detected Color", colorString);
+    SmartDashboard.putNumber("Red", detectedColor.red);
+    SmartDashboard.putNumber("Green", detectedColor.green);
+    SmartDashboard.putNumber("Blue", detectedColor.blue);
+    SmartDashboard.putNumber("Confidence", match.confidence);
     return colorString;
 
   }
