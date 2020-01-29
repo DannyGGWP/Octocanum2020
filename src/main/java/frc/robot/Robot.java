@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.FasterOctoCanum.DriveMode;
@@ -24,7 +25,8 @@ import frc.robot.FasterOctoCanum.DriveMode;
  * creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public class Robot extends TimedRobot 
+{
   /** 
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
@@ -37,6 +39,7 @@ public class Robot extends TimedRobot {
   public static SpinSpin colorWheel = new SpinSpin();
   public static ShootShoot ballShooter = new ShootShoot();
   public static Cannon cannonCommand = new Cannon();
+  public static ActivateSpinSpin spinnerCommand = new ActivateSpinSpin();
   public static PowerDistributionPanel m_pdp = new PowerDistributionPanel(51);
   private boolean backFlag = false;
   private boolean tankFlag = false;
@@ -55,7 +58,8 @@ public class Robot extends TimedRobot {
    * used for any initialization code.
    */
   @Override
-  public void robotInit() {
+  public void robotInit() 
+  {
     m_colorMatcher.addColorMatch(kBlueTarget);
     m_colorMatcher.addColorMatch(kGreenTarget);
     m_colorMatcher.addColorMatch(kRedTarget);
@@ -124,7 +128,8 @@ public class Robot extends TimedRobot {
    * SendableChooser make sure to add them to the chooser code above as well.
    */
   @Override
-  public void autonomousInit() {
+  public void autonomousInit() 
+  {
    // m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     //System.out.println("Auto selected: " + m_autoSelected);
@@ -137,7 +142,8 @@ public class Robot extends TimedRobot {
    * This function is called periodically during autonomous.
    */
   @Override
-  public void autonomousPeriodic() {
+  public void autonomousPeriodic() 
+  {
     /*
     switch (m_autoSelected) {
       case kCustomAuto:
@@ -211,12 +217,30 @@ public class Robot extends TimedRobot {
     {
       colorWheel.stringColor();
     }
+
+    if(OI.gateButton.get())
+    {
+      ballShooter.openGate();
+    }
+    else
+    {
+      ballShooter.closeGate();
+    }
+
+    if(OI.wheelCountButton.get() && !spinnerCommand.isRunning())
+    {
+      spinnerCommand.start();
+      System.out.println("push the button bitch");
+    }
+  Scheduler.getInstance().run();
   }
  
   /**
    * This function is called periodically during test mode.
    */
   @Override
-  public void testPeriodic() {
+  public void testPeriodic() 
+  {
+
   }
 }
