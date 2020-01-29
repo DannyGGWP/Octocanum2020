@@ -14,6 +14,8 @@ import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
@@ -21,10 +23,11 @@ import edu.wpi.first.wpilibj.util.Color;
 /**
  * Add your docs here.
  */
-public class SpinSpin extends Subsystem {
+public class SpinSpin extends Subsystem 
+{
   private ColorSensorV3 m_colorSensor;
   private ColorMatch m_colorMatcher = new ColorMatch();
-  private WPI_TalonFX spinnyMotor = new WPI_TalonFX(RobotMap.wheelMotor);
+  private VictorSP spinnyMotor = new VictorSP(RobotMap.wheelMotor);
   private Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
   private Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
   private Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
@@ -39,15 +42,14 @@ public class SpinSpin extends Subsystem {
   public SpinSpin()
   {
     m_colorSensor = new ColorSensorV3(i2cport);
-    spinnyMotor.set(ControlMode.PercentOutput, 0);
     m_colorMatcher.addColorMatch(kBlueTarget);
     m_colorMatcher.addColorMatch(kGreenTarget);
     m_colorMatcher.addColorMatch(kRedTarget);
     m_colorMatcher.addColorMatch(kYellowTarget);
-    m_blueCount=0;
-    m_greenCount=0;
-    m_redCount=0;
-    m_yellowCount=0;
+    m_blueCount = 0;
+    m_greenCount = 0;
+    m_redCount = 0;
+    m_yellowCount = 0;
   }
 
   public Color getColor()
@@ -158,7 +160,8 @@ public class SpinSpin extends Subsystem {
   }
 
   @Override
-  public void initDefaultCommand() {
+  public void initDefaultCommand() 
+  {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
   }

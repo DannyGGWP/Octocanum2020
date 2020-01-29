@@ -24,6 +24,8 @@ public class OI
     public static JoystickButton tankDrop = new JoystickButton(driveJoystick,RobotMap.leftTrigger);
     public static JoystickButton cannonButton = new JoystickButton(driveJoystick,RobotMap.buttonA);
     public static JoystickButton spinnerButton = new JoystickButton(driveJoystick, RobotMap.buttonB);
+    public static JoystickButton gateButton = new JoystickButton(driveJoystick, RobotMap.rightBumper);
+    public static JoystickButton wheelCountButton = new JoystickButton(driveJoystick, RobotMap.buttonX);
     /**
      *
      */
