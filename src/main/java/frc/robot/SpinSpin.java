@@ -36,6 +36,7 @@ public class SpinSpin extends Subsystem
   private String previousColor;
   private String currentColor;
   private final I2C.Port i2cport = I2C.Port.kOnboard;
+  private int countCurrentColor;
 
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
@@ -50,6 +51,7 @@ public class SpinSpin extends Subsystem
     m_greenCount = 0;
     m_redCount = 0;
     m_yellowCount = 0;
+    countCurrentColor = 0;
   }
 
   public Color getColor()
@@ -158,6 +160,25 @@ public class SpinSpin extends Subsystem
     return colorString;
 
   }
+
+public void moveToColor(String color)
+{
+  String sampleColor = stringColor();
+
+  if(sampleColor == currentColor)
+  {
+    countCurrentColor++;
+  }
+
+  if(countCurrentColor > 5)
+  {
+    currentColor = stringColor();
+    countCurrentColor = 0;
+  }
+
+  countCurrentColor = 0;
+}
+
 
   @Override
   public void initDefaultCommand() 
