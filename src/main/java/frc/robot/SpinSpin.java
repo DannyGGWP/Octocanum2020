@@ -77,6 +77,12 @@ public class SpinSpin extends Subsystem
   {
     spinnyMotor.set(0.0);
   }
+  /** 
+  public void slowWheel()
+  {
+    spinnyMotor.set()
+  }
+  */
 
   /**
    * counts each instance of each color seen
@@ -198,6 +204,7 @@ public void moveToColor(String color)
 
   countCurrentColor = 0;
 }
+
 
 
   @Override

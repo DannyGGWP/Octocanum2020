@@ -39,6 +39,7 @@ public class Robot extends TimedRobot
   public static SpinSpin colorWheel = new SpinSpin();
   public static ShootShoot ballShooter = new ShootShoot();
   public static Cannon cannonCommand = new Cannon();
+  public static SpinToColor goToColorCommand = new SpinToColor();
   public static ActivateSpinSpin spinnerCommand = new ActivateSpinSpin();
   public static PowerDistributionPanel m_pdp = new PowerDistributionPanel(51);
   private boolean backFlag = false;
@@ -227,9 +228,9 @@ public class Robot extends TimedRobot
       ballShooter.closeGate();
     }
 
-    if(OI.wheelCountButton.get() && !spinnerCommand.isRunning())
+    if(OI.wheelCountButton.get() && !goToColorCommand.isRunning())
     {
-      spinnerCommand.start();
+      goToColorCommand.start();
       System.out.println("push the button bitch");
     }
   Scheduler.getInstance().run();

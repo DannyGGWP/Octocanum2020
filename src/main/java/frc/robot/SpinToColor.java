@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SpinToColor extends Command 
 {
@@ -27,7 +28,7 @@ public class SpinToColor extends Command
   @Override
   protected void initialize() 
   {
-    bufferMax = 3;
+    bufferMax = 0;
     buffer = bufferMax;
     Robot.colorWheel.onWheel();
     Robot.colorWheel.countColors();
@@ -54,6 +55,7 @@ public class SpinToColor extends Command
           break;
       }
     }
+    SmartDashboard.putString("Target Color", targetColor);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -68,6 +70,7 @@ public class SpinToColor extends Command
     {
       buffer = bufferMax;
     }
+    SmartDashboard.putString("Seen Color", Robot.colorWheel.stringColor());
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -85,6 +88,8 @@ public class SpinToColor extends Command
   @Override
   protected void end() 
   {
+    Robot.colorWheel.offWheel();
+    Robot.colorWheel.resetCount();
   
   }
 
@@ -93,6 +98,8 @@ public class SpinToColor extends Command
   @Override
   protected void interrupted() 
   {
+    Robot.colorWheel.offWheel();
+    Robot.colorWheel.resetCount();
   
   }
 }

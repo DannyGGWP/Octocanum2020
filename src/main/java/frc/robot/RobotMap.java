@@ -11,6 +11,7 @@ package frc.robot;
  * Add your docs here.
  */
 public class RobotMap 
+//we're at 9 bitches
 {
     public static int driveTalonFL = 3;
 	public static int driveTalonBL = 2;
@@ -30,6 +31,7 @@ public class RobotMap
 	public static int dropSol = 1;
 
 	public static int wheelMotor = 9;
+	public static int elevatorMotor = 9;
 
 	
 }
