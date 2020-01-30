@@ -26,7 +26,7 @@ public class OI
     public static JoystickButton spinnerButton = new JoystickButton(driveJoystick, RobotMap.buttonB);
     public static JoystickButton gateButton = new JoystickButton(driveJoystick, RobotMap.rightBumper);
     public static JoystickButton wheelCountButton = new JoystickButton(driveJoystick, RobotMap.buttonX);
-    public static JoystickButton elevatorButton = new JoystickButton(driveJoystick, RobotMap.buttonY)
+    public static JoystickButton elevatorButton = new JoystickButton(driveJoystick, RobotMap.buttonY);
     /**
      *
      */

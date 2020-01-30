@@ -235,7 +235,15 @@ public class Robot extends TimedRobot
       System.out.println("push the button bitch");
     }
 
-   // if(OI.elevatorButton.get())
+   if(OI.elevatorButton.get())
+   {
+     elevatorSubsystem.elevatorUp();
+   }
+   else
+   {
+     elevatorSubsystem.elevatorOff();
+   }
+   
   Scheduler.getInstance().run();
   }
  
