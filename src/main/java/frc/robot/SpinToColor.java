@@ -7,40 +7,74 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class ActivateSpinSpin extends Command 
+public class SpinToColor extends Command 
 {
-  public ActivateSpinSpin() 
+  private String targetColor;
+  private int buffer;
+  private int bufferMax;
+
+  public SpinToColor() 
   {
-    requires(Robot.colorWheel);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    requires(Robot.colorWheel);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() 
   {
+    bufferMax = 3;
+    buffer = bufferMax;
     Robot.colorWheel.onWheel();
-    Robot.colorWheel.resetCount();
-    System.out.println("bitch it works");
+    Robot.colorWheel.countColors();
+    String gameData = DriverStation.getInstance().getGameSpecificMessage();
+
+    if(gameData.length() > 0)
+    {
+      switch(gameData.charAt(0))
+      {
+        case 'B':
+          targetColor = "Blue";
+          break;
+        case 'R':
+          targetColor = "Red";
+          break;
+        case 'G':
+          targetColor = "Green";
+          break;
+        case 'Y':
+          targetColor = "Yellow";
+          break;
+        default:
+          targetColor = Robot.colorWheel.stringColor();
+          break;
+      }
+    }
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() 
   {
-    Robot.colorWheel.countColors();
-    SmartDashboard.putNumber("Rotations", Robot.colorWheel.getCount("Red"));
+    if(targetColor == Robot.colorWheel.stringColor())
+    {
+      buffer--;
+    }
+    else
+    {
+      buffer = bufferMax;
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() 
   {
-    if(Robot.colorWheel.getCount("Red") > 6 )
+    if(buffer < 0)
     {
       return true;
     }
@@ -49,10 +83,9 @@ public class ActivateSpinSpin extends Command
 
   // Called once after isFinished returns true
   @Override
-  protected void end()
+  protected void end() 
   {
-    Robot.colorWheel.offWheel();
-    
+  
   }
 
   // Called when another command which requires one or more of the same
@@ -60,6 +93,6 @@ public class ActivateSpinSpin extends Command
   @Override
   protected void interrupted() 
   {
-    Robot.colorWheel.offWheel();
+  
   }
 }

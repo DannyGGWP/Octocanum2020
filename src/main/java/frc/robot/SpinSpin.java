@@ -54,21 +54,33 @@ public class SpinSpin extends Subsystem
     countCurrentColor = 0;
   }
 
+  /**
+   * @return field color
+   */
   public Color getColor()
   {
     return m_colorSensor.getColor();
   }
 
-  public void spinWheel()
+  /** 
+   * turns on motor
+  */
+  public void onWheel()
   {
     spinnyMotor.set(0.25);
   }
 
+  /**
+   * turns off motor
+   */
   public void offWheel()
   {
     spinnyMotor.set(0.0);
   }
 
+  /**
+   * counts each instance of each color seen
+   */
   public void countColors()
   {
     currentColor = stringColor();
@@ -96,6 +108,8 @@ public class SpinSpin extends Subsystem
       }
     }
   }
+
+
   public void resetCount()
   {
     m_redCount = 0;
@@ -103,7 +117,10 @@ public class SpinSpin extends Subsystem
     m_yellowCount = 0;
     m_blueCount = 0;
   }
-
+  /**
+   * @param color look for this color
+   * @return count of target color
+   */
   public int getCount(String color)
   {
     if(color == "Red")
@@ -125,6 +142,9 @@ public class SpinSpin extends Subsystem
     return 0;
   }
 
+  /**
+   * @return String of color seen currently
+   */
   public String stringColor()
   {
     Color detectedColor = getColor();
