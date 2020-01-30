@@ -26,6 +26,7 @@ public class RobotMap
 	public static int buttonB = 3;
 	public static int rightBumper = 6;
 	public static int buttonX = 1;
+	public static int buttonY = 4;
 
 	public static int driveSol = 0;
 	public static int dropSol = 1;

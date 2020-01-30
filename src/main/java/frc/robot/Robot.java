@@ -38,6 +38,7 @@ public class Robot extends TimedRobot
   public static FasterOctoCanum driveTrain = new FasterOctoCanum();
   public static SpinSpin colorWheel = new SpinSpin();
   public static ShootShoot ballShooter = new ShootShoot();
+  public static LiftLift elevatorSubsystem = new LiftLift();
   public static Cannon cannonCommand = new Cannon();
   public static SpinToColor goToColorCommand = new SpinToColor();
   public static ActivateSpinSpin spinnerCommand = new ActivateSpinSpin();
@@ -233,6 +234,8 @@ public class Robot extends TimedRobot
       goToColorCommand.start();
       System.out.println("push the button bitch");
     }
+
+   // if(OI.elevatorButton.get())
   Scheduler.getInstance().run();
   }
  
