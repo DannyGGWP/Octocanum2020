@@ -61,7 +61,7 @@ public class SpinSpin extends Subsystem
 
   public void spinWheel()
   {
-    spinnyMotor.set(1.0);
+    spinnyMotor.set(0.25);
   }
 
   public void offWheel()

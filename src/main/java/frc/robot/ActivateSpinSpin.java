@@ -40,7 +40,7 @@ public class ActivateSpinSpin extends Command
   @Override
   protected boolean isFinished() 
   {
-    if(Robot.colorWheel.getCount("Red") > 7 )
+    if(Robot.colorWheel.getCount("Red") > 6 )
     {
       return true;
     }
