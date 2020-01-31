@@ -22,9 +22,10 @@ public class OI
     public static Joystick driveJoystick = new Joystick(1);
     public static JoystickButton mechanumSwitch = new JoystickButton(driveJoystick,RobotMap.back);
     public static JoystickButton tankDrop = new JoystickButton(driveJoystick,RobotMap.leftTrigger);
-    public static JoystickButton cannonButton = new JoystickButton(driveJoystick,RobotMap.buttonA);
+    public static JoystickButton cannonButton = new JoystickButton(driveJoystick,RobotMap.rightTrigger);
+  //public static JoystickButton shooterButton = new JoystickButton(driveJoystick, RobotMap.buttonA);
     public static JoystickButton spinnerButton = new JoystickButton(driveJoystick, RobotMap.buttonB);
-    public static JoystickButton gateButton = new JoystickButton(driveJoystick, RobotMap.rightBumper);
+  //public static JoystickButton gateButton = new JoystickButton(driveJoystick, RobotMap.rightBumper);
     public static JoystickButton wheelCountButton = new JoystickButton(driveJoystick, RobotMap.buttonX);
     public static JoystickButton elevatorButton = new JoystickButton(driveJoystick, RobotMap.buttonY);
     /**

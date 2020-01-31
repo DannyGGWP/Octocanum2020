@@ -8,14 +8,12 @@
 package frc.robot;
 
 import com.revrobotics.ColorMatch;
-import com.revrobotics.ColorMatchResult;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.FasterOctoCanum.DriveMode;
 /**
@@ -204,9 +202,10 @@ public class Robot extends TimedRobot
 
     if(OI.cannonButton.get() && !cannonCommand.isRunning())
     {
-      //cannonCommand.start();
+      cannonCommand.start();
     }
-    if (OI.cannonButton.get())
+    /*
+    if (OI.shooterButton.get())
     {
       ballShooter.onWheel();
     }
@@ -214,21 +213,23 @@ public class Robot extends TimedRobot
     {
       ballShooter.offWheel();
     }
-
+*/
     if(OI.spinnerButton.get())
     {
       colorWheel.stringColor();
     }
-
-    if(OI.gateButton.get())
+/*
+    if(OI.gateButton.get() && !cannonCommand.isRunning())
     {
+      elevatorSubsystem.elevatorUp();
       ballShooter.openGate();
     }
     else
     {
+      elevatorSubsystem.elevatorOff();
       ballShooter.closeGate();
     }
-
+*/
     if(OI.wheelCountButton.get() && !goToColorCommand.isRunning())
     {
       goToColorCommand.start();
@@ -239,7 +240,7 @@ public class Robot extends TimedRobot
    {
      elevatorSubsystem.elevatorUp();
    }
-   else
+   else if(!cannonCommand.isRunning())
    {
      elevatorSubsystem.elevatorOff();
    }

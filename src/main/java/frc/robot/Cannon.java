@@ -15,59 +15,62 @@ public class Cannon extends Command {
   private boolean m_finished;
   private double time;
 
-  public Cannon() {
+  public Cannon() 
+  {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.ballShooter);
-
-    time = Timer.getFPGATimestamp();
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
-    m_finished = false;
-    Robot.ballShooter.offWheel();
+  protected void initialize() 
+  {
+    time = Timer.getFPGATimestamp();
+    Robot.ballShooter.onWheel();
     Robot.ballShooter.closeGate();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
+  protected void execute() 
+  {
     //order 66
-    Robot.ballShooter.onWheel();
-
-    if(Timer.getFPGATimestamp() > time + 1) {
+    if(Timer.getFPGATimestamp() > time + 1) 
+    {
       Robot.ballShooter.openGate();
+      Robot.elevatorSubsystem.elevatorUp();
       time = Timer.getFPGATimestamp();
-    }
-
-    if(Timer.getFPGATimestamp() > time + 1) {
-      Robot.ballShooter.offWheel();
-      Robot.ballShooter.closeGate();
-      time = Timer.getFPGATimestamp();
-      m_finished = true;
     }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
-    return m_finished;
+  protected boolean isFinished() 
+  {
+    if(!OI.cannonButton.get())
+    {
+      return true;
+    }
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
-  protected void end() {
+  protected void end() 
+  {
     Robot.ballShooter.offWheel();
+    Robot.elevatorSubsystem.elevatorOff();
     Robot.ballShooter.closeGate();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
-  protected void interrupted() {
+  protected void interrupted() 
+  {
     Robot.ballShooter.offWheel();
+    Robot.elevatorSubsystem.elevatorOff();
     Robot.ballShooter.closeGate();
   }
 }

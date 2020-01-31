@@ -27,12 +27,12 @@ public class LiftLift extends Subsystem
 
   public void elevatorUp()
   {
-    liftyMotor.set(1.0);
+    liftyMotor.set(-1.0);
   }
 
   public void elevatorDown()
   {
-    liftyMotor.set(-1.0);
+    liftyMotor.set(1.0);
   }
   public void elevatorOff()
   {
