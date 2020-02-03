@@ -87,17 +87,6 @@ public class FasterOctoCanum extends Subsystem
     
   }
 
-  public double getEncPos()
-  {
-    int frontLeftEnc = m_frontLeft.getSelectedSensorPosition(0);
-    int frontRightEnc = m_frontRight.getSelectedSensorPosition(0);
-    int backLeftEnc = m_backLeft.getSelectedSensorPosition(0);
-    int backRightEnc = m_backRight.getSelectedSensorPosition(0);
-    double position = ((frontLeftEnc + frontRightEnc + backLeftEnc + backRightEnc) / 4);
-
-    return position;
-  }
-
   public void enableDropDrive() 
   {
     m_inMecanumDrive = false; 
