@@ -155,6 +155,11 @@ public class FasterOctoCanum extends SubsystemBase
      return m_driveState;
   }
 
+  /**
+   * @param x left drive speed
+   * @param y right drive speed
+   * @param rotation used in mechanam to pivot a speed
+   */
   public void drive(double x, double y, double rotation)
   {
     double error = 0.0; 

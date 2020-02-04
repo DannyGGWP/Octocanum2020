@@ -7,10 +7,12 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class AutoCenter extends Command 
 {
+  private double time;
   private State currentState;
   private enum State
   {
@@ -18,16 +20,18 @@ public class AutoCenter extends Command
     moveToGoal,
     shoot,
     finished
-
+    
   };
     
 
-  public AutoCenter() {
+  public AutoCenter() 
+  {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.ballShooter);
     requires(Robot.driveTrain);
     requires(Robot.elevatorSubsystem);
+    
   }
 
   // Called just before this Command runs the first time
@@ -35,6 +39,7 @@ public class AutoCenter extends Command
   protected void initialize() 
   {
     currentState = State.start;
+    time = 0;
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -48,25 +53,64 @@ public class AutoCenter extends Command
         break;
       case moveToGoal:
         Robot.driveTrain.enableTank();
-        Robot.driveTrain.drive(x, y, rotation);
-        if()
+        Robot.driveTrain.drive(.2, .2, 0);
+        if(Robot.driveTrain.getEncPos() > 10000)
+        {
+          Robot.driveTrain.drive(0, 0, 0);
+          currentState = State.shoot;
+        }
+        break;
+      case shoot:
+        Robot.ballShooter.onWheel();
+        if() 
+        {
+          Robot.ballShooter.openGate();
+          Robot.elevatorSubsystem.elevatorUp();
+          time = Timer.getFPGATimestamp();
+          if(Timer.getFPGATimestamp() > time + 5)
+          {
+            Robot.ballShooter.offWheel();
+            Robot.elevatorSubsystem.elevatorOff();
+            Robot.ballShooter.closeGate();
+            currentState = State.finished;
+          }
+        }
+        break;
+       default:
+        break;
     }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
+  protected boolean isFinished() 
+  {
+    if(currentState == State.finished) 
+    {
+      return true;
+    }
     return false;
+
   }
 
   // Called once after isFinished returns true
   @Override
-  protected void end() {
+  protected void end() 
+  {
+    Robot.ballShooter.offWheel();
+    Robot.elevatorSubsystem.elevatorOff();
+    Robot.ballShooter.closeGate();
+    Robot.driveTrain.drive(0, 0, 0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
-  protected void interrupted() {
+  protected void interrupted() 
+  {
+    Robot.ballShooter.offWheel();
+    Robot.elevatorSubsystem.elevatorOff();
+    Robot.ballShooter.closeGate();
+    Robot.driveTrain.drive(0, 0, 0);
   }
 }
