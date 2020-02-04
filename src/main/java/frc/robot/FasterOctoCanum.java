@@ -97,7 +97,6 @@ public class FasterOctoCanum extends Subsystem
 
     return position;
   }
-
   public void enableDropDrive() 
   {
     m_inMecanumDrive = false; 
@@ -134,19 +133,16 @@ public class FasterOctoCanum extends Subsystem
   {
     m_driveState = DriveMode.fieldMechanum;
   }
-
   public void disableFieldOriented()
   {
     m_driveState = DriveMode.robotMechanum;
   }
-
   public void enableTank()
   {
     m_previousMode = m_driveState; 
     m_driveState = DriveMode.tank;
     solenoid.set(true);
   }
-
   public void disableTank()
   {
     m_driveState = DriveMode.robotMechanum;
