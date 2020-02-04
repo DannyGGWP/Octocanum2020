@@ -53,16 +53,16 @@ public class AutoCenter extends Command
         break;
       case moveToGoal:
         Robot.driveTrain.enableTank();
-        Robot.driveTrain.drive(.2, .2, 0);
+        Robot.driveTrain.drive(.2, .2, 0, 0);
         if(Robot.driveTrain.getEncPos() > 10000)
         {
-          Robot.driveTrain.drive(0, 0, 0);
+          Robot.driveTrain.drive(0, 0, 0, 0);
           currentState = State.shoot;
         }
         break;
       case shoot:
         Robot.ballShooter.onWheel();
-        if() 
+        if(Robot.ballShooter.wheelSpeed() > RobotMap.setPoint - 100) 
         {
           Robot.ballShooter.openGate();
           Robot.elevatorSubsystem.elevatorUp();
