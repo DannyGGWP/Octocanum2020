@@ -198,7 +198,7 @@ public class Robot extends TimedRobot
     {
       tankFlag = false;
     }
-    driveTrain.drive(OI.driveJoystick.getX(),OI.driveJoystick.getY()*.5,OI.driveJoystick.getRawAxis(2)*.5);
+    driveTrain.drive(OI.driveJoystick.getX(),OI.driveJoystick.getY(),OI.driveJoystick.getRawAxis(2), OI.driveJoystick.getRawAxis(3));
 
     if(OI.cannonButton.get() && !cannonCommand.isRunning())
     {

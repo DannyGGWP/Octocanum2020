@@ -144,7 +144,7 @@ public class FasterOctoCanum extends Subsystem
      return m_driveState;
   }
 
-  public void drive(double x, double y, double rotation)
+  public void drive(double x, double y, double rotation, double tankY)
   {
     double error = 0.0; 
     double currentHeading = m_gyro.getYaw(); 
@@ -177,7 +177,7 @@ public class FasterOctoCanum extends Subsystem
           break;
       case tank:
       // Y and X are flipped intentionally 
-          m_differentialDrive.arcadeDrive(y, -x);
+          m_differentialDrive.tankDrive(y, tankY);
         if (m_driveStraight && Math.abs(rotation) < RobotMap.c_deadBand)
         {
           rotation = error*c_kPcorrection;
