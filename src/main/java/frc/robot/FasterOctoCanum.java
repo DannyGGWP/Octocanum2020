@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -24,13 +25,13 @@ import edu.wpi.first.wpilibj.SerialPort.Port;
 /**
  * Add your docs here.
  */
-public class FasterOctoCanum extends Subsystem 
+public class FasterOctoCanum extends SubsystemBase 
 {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private MecanumDrive m_mecanumDrive;
   private DifferentialDrive m_differentialDrive; 
-  private AHRS m_gyro; 
+  public AHRS m_gyro; 
   private WPI_TalonFX m_frontLeft; 
   private WPI_TalonFX m_frontRight; 
   private WPI_TalonFX m_backLeft; 
@@ -60,13 +61,6 @@ public class FasterOctoCanum extends Subsystem
     tank
   };
 
-  @Override
-
-  public void initDefaultCommand() 
-  {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
 
   public FasterOctoCanum()
   {
@@ -87,6 +81,20 @@ public class FasterOctoCanum extends Subsystem
     
   }
 
+  public double getEncPos()
+  {
+    int frontLeftEnc = m_frontLeft.getSelectedSensorPosition(0);
+    int frontRightEnc = m_frontRight.getSelectedSensorPosition(0);
+    int backLeftEnc = m_backLeft.getSelectedSensorPosition(0);
+    int backRightEnc = m_backRight.getSelectedSensorPosition(0);
+    double position = ((frontLeftEnc + frontRightEnc + backLeftEnc + backRightEnc) / 4);
+
+    return position;
+  }
+  public double getHeading()
+  {
+    return Math.IEEEremainder(m_gyro.getAngle(), 360);
+  }
   public void enableDropDrive() 
   {
     m_inMecanumDrive = false; 
@@ -123,16 +131,19 @@ public class FasterOctoCanum extends Subsystem
   {
     m_driveState = DriveMode.fieldMechanum;
   }
+
   public void disableFieldOriented()
   {
     m_driveState = DriveMode.robotMechanum;
   }
+
   public void enableTank()
   {
     m_previousMode = m_driveState; 
     m_driveState = DriveMode.tank;
     solenoid.set(true);
   }
+
   public void disableTank()
   {
     m_driveState = DriveMode.robotMechanum;
