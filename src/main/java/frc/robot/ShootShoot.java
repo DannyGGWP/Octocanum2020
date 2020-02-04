@@ -53,11 +53,9 @@ public class ShootShoot extends Subsystem
 
   }
 
-
   public void onWheel()
   {
-    double setPoint = 4800;
-    pIDController.setReference(setPoint, ControlType.kVelocity);
+    pIDController.setReference(RobotMap.setPoint, ControlType.kVelocity);
   }
   
   public void offWheel()
@@ -74,6 +72,11 @@ public class ShootShoot extends Subsystem
   public void closeGate()
   {
     gateSolenoid.set(false);
+  }
+
+  public double wheelSpeed()
+  {
+    return canEncoder.getVelocity();
   }
 
   @Override

@@ -10,9 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Cannon extends Command {
-
-  private boolean m_finished;
+public class Cannon extends Command 
+{
   private double time;
 
   public Cannon() 
@@ -36,11 +35,11 @@ public class Cannon extends Command {
   protected void execute() 
   {
     //order 66
-    if(Timer.getFPGATimestamp() > time + 1) 
+    if(Robot.ballShooter.wheelSpeed() > RobotMap.setPoint - 100) 
     {
       Robot.ballShooter.openGate();
       Robot.elevatorSubsystem.elevatorUp();
-      time = Timer.getFPGATimestamp();
+  //    time = Timer.getFPGATimestamp();
     }
   }
 

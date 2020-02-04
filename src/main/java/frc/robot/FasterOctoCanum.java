@@ -160,7 +160,7 @@ public class FasterOctoCanum extends SubsystemBase
    * @param y right drive speed
    * @param rotation used in mechanam to pivot a speed
    */
-  public void drive(double x, double y, double rotation)
+  public void drive(double x, double y, double rotation, double tankY)
   {
     double error = 0.0; 
     double currentHeading = m_gyro.getYaw(); 
@@ -193,7 +193,7 @@ public class FasterOctoCanum extends SubsystemBase
           break;
       case tank:
       // Y and X are flipped intentionally 
-          m_differentialDrive.arcadeDrive(y, -x);
+          m_differentialDrive.tankDrive(y, tankY);
         if (m_driveStraight && Math.abs(rotation) < RobotMap.c_deadBand)
         {
           rotation = error*c_kPcorrection;
