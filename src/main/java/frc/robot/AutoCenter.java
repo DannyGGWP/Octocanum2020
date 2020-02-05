@@ -100,7 +100,7 @@ public class AutoCenter extends Command
     Robot.ballShooter.offWheel();
     Robot.elevatorSubsystem.elevatorOff();
     Robot.ballShooter.closeGate();
-    Robot.driveTrain.drive(0, 0, 0);
+    Robot.driveTrain.drive(0, 0, 0, 0);
   }
 
   // Called when another command which requires one or more of the same
@@ -111,6 +111,6 @@ public class AutoCenter extends Command
     Robot.ballShooter.offWheel();
     Robot.elevatorSubsystem.elevatorOff();
     Robot.ballShooter.closeGate();
-    Robot.driveTrain.drive(0, 0, 0);
+    Robot.driveTrain.drive(0, 0, 0, 0);
   }
 }
