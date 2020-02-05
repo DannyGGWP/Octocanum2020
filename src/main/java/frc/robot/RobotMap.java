@@ -32,9 +32,10 @@ public class RobotMap
 
 	public static int driveSol = 0;
 	public static int dropSol = 1;
+	public static int succSol = 3;
 
 	public static int wheelMotor = 9;
 	public static int elevatorMotor = 9;
-
+	public static int succMotor = 12;
 	
 }
