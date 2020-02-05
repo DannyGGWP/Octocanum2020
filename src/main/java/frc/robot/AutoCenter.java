@@ -29,7 +29,7 @@ public class AutoCenter extends Command
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.ballShooter);
-    requires(Robot.driveTrain);
+    //requires(Robot.driveTrain);
     requires(Robot.elevatorSubsystem);
     
   }
