@@ -26,7 +26,7 @@ public class TurnToAngle extends PIDCommand {
         // This should return the setpoint (can also be a constant)
         targetAngle,
         // This uses the output
-        output -> drive.drive(0, 0, output),
+        output -> drive.drive(0, 0, output, 0),
         // require the drive 
         drive
         );
