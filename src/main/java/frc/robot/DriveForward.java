@@ -13,12 +13,12 @@ public class DriveForward extends CommandBase {
   /**
    * Creates a new DriveForward.
    */
-  
-  public DriveForward() 
+  private FasterOctoCanum driveTrain; 
+  public DriveForward(FasterOctoCanum drive) 
   {
     // Use addRequirements() here to declare subsystem dependencies.
-
-    addRequirements(Robot.driveTrain);
+    driveTrain = drive; 
+    addRequirements(driveTrain);
   }
 
   // Called when the command is initially scheduled.

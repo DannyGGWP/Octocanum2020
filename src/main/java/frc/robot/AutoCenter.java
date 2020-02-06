@@ -14,6 +14,9 @@ public class AutoCenter extends CommandBase
 {
   private double time;
   private State currentState;
+  private ShootShoot ballShooter;
+  private FasterOctoCanum driveTrain;
+  private LiftLift elevatorSubsystem;
   private enum State
   {
     start,
@@ -24,13 +27,16 @@ public class AutoCenter extends CommandBase
   };
     
 
-  public AutoCenter() 
+  public AutoCenter(ShootShoot shooter, FasterOctoCanum drive, LiftLift elevator) 
   {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    addRequirements(Robot.ballShooter);
-    addRequirements(Robot.driveTrain);
-    addRequirements(Robot.elevatorSubsystem);
+    ballShooter = shooter; 
+    driveTrain = drive; 
+    elevatorSubsystem = elevator; 
+    addRequirements(ballShooter);
+    addRequirements(driveTrain);
+    addRequirements(elevatorSubsystem);
     
   }
 
@@ -52,26 +58,26 @@ public class AutoCenter extends CommandBase
         currentState = State.moveToGoal;
         break;
       case moveToGoal:
-        Robot.driveTrain.enableTank();
-        Robot.driveTrain.drive(.2, .2, 0, 0);
-        if(Robot.driveTrain.getEncPos() > 10000)
+        driveTrain.enableTank();
+        driveTrain.drive(.2, .2, 0, 0);
+        if(driveTrain.getEncPos() > 10000)
         {
-          Robot.driveTrain.drive(0, 0, 0, 0);
+          driveTrain.drive(0, 0, 0, 0);
           currentState = State.shoot;
         }
         break;
       case shoot:
-        Robot.ballShooter.onWheel();
-        if(Robot.ballShooter.wheelSpeed() > RobotMap.setPoint - 100) 
+        ballShooter.onWheel();
+        if(ballShooter.wheelSpeed() > RobotMap.setPoint - 100) 
         {
-          Robot.ballShooter.openGate();
-          Robot.elevatorSubsystem.elevatorUp();
+          ballShooter.openGate();
+          elevatorSubsystem.elevatorUp();
           time = Timer.getFPGATimestamp();
           if(Timer.getFPGATimestamp() > time + 5)
           {
-            Robot.ballShooter.offWheel();
-            Robot.elevatorSubsystem.elevatorOff();
-            Robot.ballShooter.closeGate();
+            ballShooter.offWheel();
+            elevatorSubsystem.elevatorOff();
+            ballShooter.closeGate();
             currentState = State.finished;
           }
         }
@@ -97,10 +103,10 @@ public class AutoCenter extends CommandBase
   @Override
   public void end(boolean interrupted) 
   {
-    Robot.ballShooter.offWheel();
-    Robot.elevatorSubsystem.elevatorOff();
-    Robot.ballShooter.closeGate();
-    Robot.driveTrain.drive(0, 0, 0, 0);
+    ballShooter.offWheel();
+    elevatorSubsystem.elevatorOff();
+    ballShooter.closeGate();
+    driveTrain.drive(0, 0, 0, 0);
   }
 
 }

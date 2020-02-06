@@ -13,9 +13,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ActivateSpinSpin extends CommandBase
 {
-  public ActivateSpinSpin() 
+  private SpinSpin colorWheel; 
+  public ActivateSpinSpin(SpinSpin wheel) 
   {
-    addRequirements(Robot.colorWheel);
+    colorWheel = wheel; 
+    addRequirements(colorWheel);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -24,8 +26,8 @@ public class ActivateSpinSpin extends CommandBase
   @Override
   public void initialize() 
   {
-    Robot.colorWheel.onWheel();
-    Robot.colorWheel.resetCount();
+    colorWheel.onWheel();
+    colorWheel.resetCount();
     System.out.println("bitch it works");
   }
 
@@ -33,15 +35,15 @@ public class ActivateSpinSpin extends CommandBase
   @Override
   public void execute() 
   {
-    Robot.colorWheel.countColors();
-    SmartDashboard.putNumber("Rotations", Robot.colorWheel.getCount("Red"));
+    colorWheel.countColors();
+    SmartDashboard.putNumber("Rotations", colorWheel.getCount("Red"));
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   public boolean isFinished() 
   {
-    if(Robot.colorWheel.getCount("Red") > 6 )
+    if(colorWheel.getCount("Red") > 6 )
     {
       return true;
     }
@@ -52,7 +54,7 @@ public class ActivateSpinSpin extends CommandBase
   @Override
   public void end(boolean interrupted)
   {
-    Robot.colorWheel.offWheel();
+    colorWheel.offWheel();
     
   }
 }

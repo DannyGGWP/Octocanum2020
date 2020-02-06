@@ -27,9 +27,8 @@ public class CloseWallAuto extends SequentialCommandGroup
     //Requires(Robot::ballShooter);
 
     addCommands(
-      new AutoCenter(),
-      new TurnToAngle(90, Robot.driveTrain),
-      
+      new TurnToAngle(90, driveTrain),
+      new AutoCenter(shooter,driveTrain,elevator)
     );
 
 

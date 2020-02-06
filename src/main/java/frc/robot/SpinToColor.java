@@ -17,12 +17,13 @@ public class SpinToColor extends CommandBase
   private String targetColor;
   private int buffer;
   private int bufferMax;
-
-  public SpinToColor() 
+  private SpinSpin colorWheel; 
+  public SpinToColor(SpinSpin wheel) 
   {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    addRequirements(Robot.colorWheel);
+    colorWheel = wheel; 
+    addRequirements(colorWheel);
   }
 
   // Called just before this Command runs the first time
@@ -31,8 +32,8 @@ public class SpinToColor extends CommandBase
   {
     bufferMax = 0;
     buffer = bufferMax;
-    Robot.colorWheel.onWheel();
-    Robot.colorWheel.countColors();
+    colorWheel.onWheel();
+    colorWheel.countColors();
     String gameData = DriverStation.getInstance().getGameSpecificMessage();
 
     if(gameData.length() > 0)
@@ -52,7 +53,7 @@ public class SpinToColor extends CommandBase
           targetColor = "Yellow";
           break;
         default:
-          targetColor = Robot.colorWheel.stringColor();
+          targetColor = colorWheel.stringColor();
           break;
       }
     }
@@ -63,7 +64,7 @@ public class SpinToColor extends CommandBase
   @Override
   public void execute() 
   {
-    if(targetColor == Robot.colorWheel.stringColor())
+    if(targetColor == colorWheel.stringColor())
     {
       buffer--;
     }
@@ -71,7 +72,7 @@ public class SpinToColor extends CommandBase
     {
       buffer = bufferMax;
     }
-    SmartDashboard.putString("Seen Color", Robot.colorWheel.stringColor());
+    SmartDashboard.putString("Seen Color", colorWheel.stringColor());
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -89,8 +90,8 @@ public class SpinToColor extends CommandBase
   @Override
   public void end(boolean interrupted) 
   {
-    Robot.colorWheel.offWheel();
-    Robot.colorWheel.resetCount();
+    colorWheel.offWheel();
+    colorWheel.resetCount();
   
   }
 }

@@ -14,12 +14,15 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class Cannon extends CommandBase
 {
   private double time;
-
-  public Cannon() 
+  private ShootShoot ballShooter;
+  private LiftLift elevatorSubsystem;  
+  public Cannon(ShootShoot shooter, LiftLift elevator) 
   {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    addRequirements(Robot.ballShooter);
+    ballShooter = shooter;
+    elevatorSubsystem = elevator; 
+    addRequirements(ballShooter);
   }
 
   // Called just before this Command runs the first time
@@ -27,8 +30,8 @@ public class Cannon extends CommandBase
   public void initialize() 
   {
     time = Timer.getFPGATimestamp();
-    Robot.ballShooter.onWheel();
-    Robot.ballShooter.closeGate();
+    ballShooter.onWheel();
+    ballShooter.closeGate();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -36,10 +39,10 @@ public class Cannon extends CommandBase
   public void execute() 
   {
     //order 66
-    if(Robot.ballShooter.wheelSpeed() > RobotMap.setPoint - 100) 
+    if(ballShooter.wheelSpeed() > RobotMap.setPoint - 100) 
     {
-      Robot.ballShooter.openGate();
-      Robot.elevatorSubsystem.elevatorUp();
+      ballShooter.openGate();
+      elevatorSubsystem.elevatorUp();
   //    time = Timer.getFPGATimestamp();
     }
   }
@@ -59,8 +62,8 @@ public class Cannon extends CommandBase
   @Override
   public void end(boolean interrupted) 
   {
-    Robot.ballShooter.offWheel();
-    Robot.elevatorSubsystem.elevatorOff();
-    Robot.ballShooter.closeGate();
+    ballShooter.offWheel();
+    elevatorSubsystem.elevatorOff();
+    ballShooter.closeGate();
   }
 }
