@@ -136,7 +136,17 @@ public class FasterOctoCanum extends SubsystemBase
   {
     m_driveState = DriveMode.robotMechanum;
   }
-
+  public void toggleTank()
+  {
+    if (m_driveState == DriveMode.tank)
+    {
+      disableTank();
+    }
+    else 
+    {
+      enableTank();
+    }
+  }
   public void enableTank()
   {
     m_previousMode = m_driveState; 

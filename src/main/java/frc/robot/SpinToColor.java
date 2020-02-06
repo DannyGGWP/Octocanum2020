@@ -10,8 +10,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class SpinToColor extends Command 
+public class SpinToColor extends CommandBase
 {
   private String targetColor;
   private int buffer;
@@ -21,12 +22,12 @@ public class SpinToColor extends Command
   {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.colorWheel);
+    addRequirements(Robot.colorWheel);
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() 
+  public void initialize() 
   {
     bufferMax = 0;
     buffer = bufferMax;
@@ -60,7 +61,7 @@ public class SpinToColor extends Command
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() 
+  public void execute() 
   {
     if(targetColor == Robot.colorWheel.stringColor())
     {
@@ -75,7 +76,7 @@ public class SpinToColor extends Command
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() 
+  public boolean isFinished() 
   {
     if(buffer < 0)
     {
@@ -86,17 +87,7 @@ public class SpinToColor extends Command
 
   // Called once after isFinished returns true
   @Override
-  protected void end() 
-  {
-    Robot.colorWheel.offWheel();
-    Robot.colorWheel.resetCount();
-  
-  }
-
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() 
+  public void end(boolean interrupted) 
   {
     Robot.colorWheel.offWheel();
     Robot.colorWheel.resetCount();

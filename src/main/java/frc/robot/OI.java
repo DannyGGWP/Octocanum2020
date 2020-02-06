@@ -7,19 +7,30 @@
 
 package frc.robot;
 
-
 import com.ctre.phoenix.ButtonMonitor;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.*;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
+
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * Add your docs here.
  */
 public class OI 
 {
-    public static Joystick driveJoystick = new Joystick(1);
+  public final FasterOctoCanum driveTrain = new FasterOctoCanum();
+  public final SpinSpin colorWheel = new SpinSpin();
+  public final ShootShoot ballShooter = new ShootShoot();
+  public final LiftLift elevatorSubsystem = new LiftLift();
+  public final Cannon cannonCommand = new Cannon();
+  public final SpinToColor goToColorCommand = new SpinToColor();
+  public final ActivateSpinSpin spinnerCommand = new ActivateSpinSpin();
+  public final PowerDistributionPanel m_pdp = new PowerDistributionPanel(51);
+  public static Joystick driveJoystick = new Joystick(1);
+  /*
     public static JoystickButton mechanumSwitch = new JoystickButton(driveJoystick,RobotMap.back);
     public static JoystickButton tankDrop = new JoystickButton(driveJoystick,RobotMap.leftTrigger);
     public static JoystickButton cannonButton = new JoystickButton(driveJoystick,RobotMap.rightTrigger);
@@ -31,6 +42,16 @@ public class OI
     /**
      *
      */
-    
+
+     public OI()
+     {
+       configureButtonBindings();
+     }
+    private void configureButtonBindings()
+    {
+      new JoystickButton(driveJoystick,RobotMap.leftTrigger)
+      .whenPressed(new InstantCommand(driveTrain::toggleTank,driveTrain));
+      new JoystickButton(joystick, buttonNumber)
+    }
 
 }

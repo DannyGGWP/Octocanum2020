@@ -11,11 +11,12 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
  * Add your docs here.
  */
-public class LiftLift extends Subsystem 
+public class LiftLift extends SubsystemBase
 {
   private WPI_TalonSRX liftyMotor = new WPI_TalonSRX(RobotMap.elevatorMotor);
   private WPI_TalonSRX succMotor = new WPI_TalonSRX(RobotMap.succMotor);
@@ -48,27 +49,26 @@ public class LiftLift extends Subsystem
   {
     succMotor.set(1.0);
   }
+
   public void SuccSuccOuttake()
   {
     succMotor.set(-1.0);
   }
+  
   public void SuccSuccOff()
   {
     succMotor.set(0.0);
   }
+  /*
   public void SuccSuccExtend()
   {
     succSol.set(true);
   }
+  
   public void SuccSuccRetract()
   {
     succSol.set(false);
   }
-
-  @Override
-  public void initDefaultCommand() 
-  {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
+*/
+  
 }

@@ -8,9 +8,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class AutoCenter extends Command 
+public class AutoCenter extends CommandBase
 {
   private double time;
   private State currentState;
@@ -28,15 +28,15 @@ public class AutoCenter extends Command
   {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.ballShooter);
-    //requires(Robot.driveTrain);
-    requires(Robot.elevatorSubsystem);
+    addRequirements(Robot.ballShooter);
+    addRequirements(Robot.driveTrain);
+    addRequirements(Robot.elevatorSubsystem);
     
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() 
+  public void initialize() 
   {
     currentState = State.start;
     time = 0;
@@ -44,7 +44,7 @@ public class AutoCenter extends Command
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() 
+  public void execute() 
   {
     switch(currentState)
     {
@@ -83,7 +83,7 @@ public class AutoCenter extends Command
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() 
+  public boolean isFinished() 
   {
     if(currentState == State.finished) 
     {
@@ -95,7 +95,7 @@ public class AutoCenter extends Command
 
   // Called once after isFinished returns true
   @Override
-  protected void end() 
+  public void end(boolean interrupted) 
   {
     Robot.ballShooter.offWheel();
     Robot.elevatorSubsystem.elevatorOff();
@@ -103,14 +103,4 @@ public class AutoCenter extends Command
     Robot.driveTrain.drive(0, 0, 0, 0);
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() 
-  {
-    Robot.ballShooter.offWheel();
-    Robot.elevatorSubsystem.elevatorOff();
-    Robot.ballShooter.closeGate();
-    Robot.driveTrain.drive(0, 0, 0, 0);
-  }
 }

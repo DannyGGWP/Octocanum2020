@@ -19,11 +19,12 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
  * Add your docs here.
  */
-public class SpinSpin extends Subsystem 
+public class SpinSpin extends SubsystemBase
 {
   private ColorSensorV3 m_colorSensor;
   private ColorMatch m_colorMatcher = new ColorMatch();
@@ -204,13 +205,4 @@ public void moveToColor(String color)
 
   countCurrentColor = 0;
 }
-
-
-
-  @Override
-  public void initDefaultCommand() 
-  {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
 }
