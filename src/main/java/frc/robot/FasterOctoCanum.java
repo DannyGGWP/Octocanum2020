@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix.motorcontrol.InvertType;
@@ -191,6 +192,9 @@ public class FasterOctoCanum extends SubsystemBase
   public void drive(double x, double y, double rotation, double tankY)
   {
     double error = 0.0; 
+    
+    SmartDashboard.putNumber("Heading", Math.IEEEremainder(m_gyro.getAngle(), 360));
+    
     double currentHeading = m_gyro.getYaw(); 
     if (m_driveStraight)
     {

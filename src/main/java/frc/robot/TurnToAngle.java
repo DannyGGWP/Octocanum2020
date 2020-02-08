@@ -20,7 +20,7 @@ public class TurnToAngle extends PIDCommand {
   public TurnToAngle(double targetAngle, FasterOctoCanum drive) {
     super(
         // The controller that the command will use
-        new PIDController(0.1, 0, 0.1),
+        new PIDController(0.02, 0.004, 0.0),
         // This should return the measurement
         drive::getHeading,
         // This should return the setpoint (can also be a constant)
@@ -33,7 +33,7 @@ public class TurnToAngle extends PIDCommand {
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
     getController().enableContinuousInput(-180, 180);
-    getController().setTolerance(5,10);
+    getController().setTolerance(2,10);
   }
 
   // Returns true when the command should end.
