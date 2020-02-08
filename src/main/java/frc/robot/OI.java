@@ -50,7 +50,7 @@ public class OI
      }
     private void configureButtonBindings()
     {
-      new JoystickButton(driveJoystick,RobotMap.leftTrigger)
+      new JoystickButton(driveJoystick,RobotMap.leftBumper)
         .whenPressed(new InstantCommand(driveTrain::toggleTank, driveTrain));
         cannonButton.whenPressed(new Cannon(ballShooter, elevatorSubsystem));
         turnButton.whenPressed(new TurnToAngle(90,driveTrain));
@@ -58,8 +58,8 @@ public class OI
         .whenPressed(new InstantCommand(elevatorSubsystem::elevatorUp, elevatorSubsystem));
       new JoystickButton(driveJoystick, RobotMap.buttonY)
        .whenReleased(elevatorSubsystem::elevatorOff, elevatorSubsystem);
-      new JoystickButton(driveJoystick, RobotMap.rightBumper)
-        .whenPressed(elevatorSubsystem::succSuccIntake, elevatorSubsystem);
+      new JoystickButton(driveJoystick, RobotMap.leftTrigger)
+        .whenPressed(elevatorSubsystem::intake, elevatorSubsystem);
 //        new JoystickButton(driveJoystick, RobotMap.leftBumper)
 //        .whenHeld(
 //          new InstantCommand(elevatorSubsystem::elevatorDown, elevatorSubsystem).alongWith(
