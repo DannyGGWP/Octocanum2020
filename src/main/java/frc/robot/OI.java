@@ -7,14 +7,10 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.ButtonMonitor;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
-
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -54,12 +50,25 @@ public class OI
     private void configureButtonBindings()
     {
       new JoystickButton(driveJoystick,RobotMap.leftTrigger)
-      .whenPressed(new InstantCommand(driveTrain::toggleTank,driveTrain));
-      cannonButton.whenPressed(new Cannon(ballShooter, elevatorSubsystem));
+        .whenPressed(new InstantCommand(driveTrain::toggleTank, driveTrain));
+        cannonButton.whenPressed(new Cannon(ballShooter, elevatorSubsystem));
       new JoystickButton(driveJoystick, RobotMap.buttonY)
-      .whenPressed(new InstantCommand(elevatorSubsystem::elevatorUp,elevatorSubsystem));
+        .whenPressed(new InstantCommand(elevatorSubsystem::elevatorUp, elevatorSubsystem));
       new JoystickButton(driveJoystick, RobotMap.buttonY)
-      .whenReleased(elevatorSubsystem::elevatorOff,elevatorSubsystem);
+       .whenReleased(elevatorSubsystem::elevatorOff, elevatorSubsystem);
+      new JoystickButton(driveJoystick, RobotMap.rightBumper)
+        .whenPressed(elevatorSubsystem::succSuccIntake, elevatorSubsystem);
+      new JoystickButton(driveJoystick, RobotMap.leftBumper)
+        .whenPressed(elevatorSubsystem::succSuccOuttake, elevatorSubsystem);
+      new JoystickButton(driveJoystick, RobotMap.leftBumper)
+        .whenReleased(elevatorSubsystem::succSuccOff, elevatorSubsystem);
+      new JoystickButton(driveJoystick, RobotMap.leftBumper)
+        .whenReleased(elevatorSubsystem::succSuccOff, elevatorSubsystem);
+      new JoystickButton(driveJoystick, RobotMap.buttonA)
+        .whenPressed(elevatorSubsystem::succSolExtend, elevatorSubsystem);
+      new JoystickButton(driveJoystick, RobotMap.buttonA)
+        .whenReleased(elevatorSubsystem::succSolRetract, elevatorSubsystem);        
+
     }
 
 }
