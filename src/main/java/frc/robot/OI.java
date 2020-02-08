@@ -58,11 +58,16 @@ public class OI
        .whenReleased(elevatorSubsystem::elevatorOff, elevatorSubsystem);
       new JoystickButton(driveJoystick, RobotMap.rightBumper)
         .whenPressed(elevatorSubsystem::succSuccIntake, elevatorSubsystem);
-      new JoystickButton(driveJoystick, RobotMap.leftBumper)
-        .whenPressed(elevatorSubsystem::succSuccOuttake, elevatorSubsystem);
-      new JoystickButton(driveJoystick, RobotMap.leftBumper)
-        .whenReleased(elevatorSubsystem::succSuccOff, elevatorSubsystem);
-      new JoystickButton(driveJoystick, RobotMap.leftBumper)
+
+//        new JoystickButton(driveJoystick, RobotMap.leftBumper)
+//        .whenHeld(
+//          new InstantCommand(elevatorSubsystem::elevatorDown, elevatorSubsystem).alongWith(
+//            new InstantCommand(elevatorSubsystem::succSuccOuttake,elevatorSubsystem).withInterrupt(condition)
+//            )
+//          );
+      //new JoystickButton(driveJoystick, RobotMap.leftBumper)
+      //  .whenReleased(elevatorSubsystem::succSuccOff, elevatorSubsystem);
+      new JoystickButton(driveJoystick, RobotMap.rightBumper)
         .whenReleased(elevatorSubsystem::succSuccOff, elevatorSubsystem);
       new JoystickButton(driveJoystick, RobotMap.buttonA)
         .whenPressed(elevatorSubsystem::succSolExtend, elevatorSubsystem);

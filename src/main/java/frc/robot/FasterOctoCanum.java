@@ -75,10 +75,13 @@ public class FasterOctoCanum extends SubsystemBase
     m_gyro = new AHRS(Port.kMXP);
     
     //m_differentialDrive = new DifferentialDrive(m_leftSideDifferentialGroup, m_rightSideDifferentialGroup);
-    m_mecanumDrive.setDeadband(RobotMap.c_deadBand);
+    //m_mecanumDrive.setDeadband(RobotMap.c_deadBand);
     //m_differentialDrive.setDeadband(RobotMap.c_deadBand);
     m_driveState = DriveMode.fieldMechanum;
-    
+    initMechanum();
+    initTank();
+    disableTank();
+
   }
   public void initMechanum()
   {
@@ -160,16 +163,18 @@ public class FasterOctoCanum extends SubsystemBase
   {
     m_previousMode = m_driveState; 
     m_driveState = DriveMode.tank;
-    m_mecanumDrive = null; 
-    initTank();
+    m_mecanumDrive.setSafetyEnabled(false);
+    m_differentialDrive.setSafetyEnabled(true); 
+    //m_mecanumDrive = new MecanumDrive(null, null, null, null); 
     solenoid.set(true);
   }
 
   public void disableTank()
   {
     m_driveState = DriveMode.robotMechanum;
-    m_differentialDrive = null; 
-    initMechanum();
+    //m_differentialDrive = new DifferentialDrive(null, null); 
+    m_differentialDrive.setSafetyEnabled(false);
+    m_mecanumDrive.setSafetyEnabled(true);
     solenoid.set(false);
   } 
 
@@ -207,16 +212,23 @@ public class FasterOctoCanum extends SubsystemBase
   switch(m_driveState)
   {
       case fieldMechanum:
-          m_mecanumDrive.driveCartesian(-x, y, -rotation, -m_gyro.getAngle());
+          if (m_mecanumDrive != null){
+            m_mecanumDrive.driveCartesian(-x, y, -rotation, -m_gyro.getAngle());
+          }
           
           break;
       case robotMechanum:
-          m_mecanumDrive.driveCartesian(-x, y, -rotation); 
-          
+
+          if (m_mecanumDrive != null){
+            m_mecanumDrive.driveCartesian(-x, y, -rotation);
+          }
           break;
       case tank:
       // Y and X are flipped intentionally 
-          //m_differentialDrive.tankDrive(y, tankY);
+      if (m_differentialDrive != null)
+      {
+        m_differentialDrive.tankDrive(y, tankY);
+      }
         if (m_driveStraight && Math.abs(rotation) < RobotMap.c_deadBand)
         {
           rotation = error*c_kPcorrection;
