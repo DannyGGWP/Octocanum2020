@@ -15,11 +15,12 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
  * Add your docs here.
  */
-public class ShootShoot extends Subsystem 
+public class ShootShoot extends SubsystemBase
 {
   // Put methods for controlling this subsystem
   // here. Call these from Commands
@@ -79,10 +80,4 @@ public class ShootShoot extends Subsystem
     return canEncoder.getVelocity();
   }
 
-  @Override
-  public void initDefaultCommand() 
-  {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
 }

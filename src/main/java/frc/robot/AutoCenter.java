@@ -8,12 +8,15 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class AutoCenter extends Command 
+public class AutoCenter extends CommandBase
 {
   private double time;
   private State currentState;
+  private ShootShoot ballShooter;
+  private FasterOctoCanum driveTrain;
+  private LiftLift elevatorSubsystem;
   private enum State
   {
     start,
@@ -24,19 +27,22 @@ public class AutoCenter extends Command
   };
     
 
-  public AutoCenter() 
+  public AutoCenter(ShootShoot shooter, FasterOctoCanum drive, LiftLift elevator) 
   {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.ballShooter);
-    //requires(Robot.driveTrain);
-    requires(Robot.elevatorSubsystem);
+    ballShooter = shooter; 
+    driveTrain = drive; 
+    elevatorSubsystem = elevator; 
+    addRequirements(ballShooter);
+    addRequirements(driveTrain);
+    addRequirements(elevatorSubsystem);
     
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() 
+  public void initialize() 
   {
     currentState = State.start;
     time = 0;
@@ -44,7 +50,7 @@ public class AutoCenter extends Command
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() 
+  public void execute() 
   {
     switch(currentState)
     {
@@ -52,26 +58,26 @@ public class AutoCenter extends Command
         currentState = State.moveToGoal;
         break;
       case moveToGoal:
-        Robot.driveTrain.enableTank();
-        Robot.driveTrain.drive(.2, .2, 0, 0);
-        if(Robot.driveTrain.getEncPos() > 10000)
+        driveTrain.enableTank();
+        driveTrain.drive(.2, .2, 0, 0);
+        if(driveTrain.getEncPos() > 10000)
         {
-          Robot.driveTrain.drive(0, 0, 0, 0);
+          driveTrain.drive(0, 0, 0, 0);
           currentState = State.shoot;
         }
         break;
       case shoot:
-        Robot.ballShooter.onWheel();
-        if(Robot.ballShooter.wheelSpeed() > RobotMap.setPoint - 100) 
+        ballShooter.onWheel();
+        if(ballShooter.wheelSpeed() > RobotMap.setPoint - 100) 
         {
-          Robot.ballShooter.openGate();
-          Robot.elevatorSubsystem.elevatorUp();
+          ballShooter.openGate();
+          elevatorSubsystem.elevatorUp();
           time = Timer.getFPGATimestamp();
           if(Timer.getFPGATimestamp() > time + 5)
           {
-            Robot.ballShooter.offWheel();
-            Robot.elevatorSubsystem.elevatorOff();
-            Robot.ballShooter.closeGate();
+            ballShooter.offWheel();
+            elevatorSubsystem.elevatorOff();
+            ballShooter.closeGate();
             currentState = State.finished;
           }
         }
@@ -83,7 +89,7 @@ public class AutoCenter extends Command
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() 
+  public boolean isFinished() 
   {
     if(currentState == State.finished) 
     {
@@ -95,22 +101,12 @@ public class AutoCenter extends Command
 
   // Called once after isFinished returns true
   @Override
-  protected void end() 
+  public void end(boolean interrupted) 
   {
-    Robot.ballShooter.offWheel();
-    Robot.elevatorSubsystem.elevatorOff();
-    Robot.ballShooter.closeGate();
-    Robot.driveTrain.drive(0, 0, 0, 0);
+    ballShooter.offWheel();
+    elevatorSubsystem.elevatorOff();
+    ballShooter.closeGate();
+    driveTrain.drive(0, 0, 0, 0);
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() 
-  {
-    Robot.ballShooter.offWheel();
-    Robot.elevatorSubsystem.elevatorOff();
-    Robot.ballShooter.closeGate();
-    Robot.driveTrain.drive(0, 0, 0, 0);
-  }
 }

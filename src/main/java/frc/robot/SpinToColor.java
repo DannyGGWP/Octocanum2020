@@ -10,28 +10,30 @@ package frc.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class SpinToColor extends Command 
+public class SpinToColor extends CommandBase
 {
   private String targetColor;
   private int buffer;
   private int bufferMax;
-
-  public SpinToColor() 
+  private SpinSpin colorWheel; 
+  public SpinToColor(SpinSpin wheel) 
   {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.colorWheel);
+    colorWheel = wheel; 
+    addRequirements(colorWheel);
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() 
+  public void initialize() 
   {
     bufferMax = 0;
     buffer = bufferMax;
-    Robot.colorWheel.onWheel();
-    Robot.colorWheel.countColors();
+    colorWheel.onWheel();
+    colorWheel.countColors();
     String gameData = DriverStation.getInstance().getGameSpecificMessage();
 
     if(gameData.length() > 0)
@@ -51,7 +53,7 @@ public class SpinToColor extends Command
           targetColor = "Yellow";
           break;
         default:
-          targetColor = Robot.colorWheel.stringColor();
+          targetColor = colorWheel.stringColor();
           break;
       }
     }
@@ -60,9 +62,9 @@ public class SpinToColor extends Command
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() 
+  public void execute() 
   {
-    if(targetColor == Robot.colorWheel.stringColor())
+    if(targetColor == colorWheel.stringColor())
     {
       buffer--;
     }
@@ -70,12 +72,12 @@ public class SpinToColor extends Command
     {
       buffer = bufferMax;
     }
-    SmartDashboard.putString("Seen Color", Robot.colorWheel.stringColor());
+    SmartDashboard.putString("Seen Color", colorWheel.stringColor());
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() 
+  public boolean isFinished() 
   {
     if(buffer < 0)
     {
@@ -86,20 +88,10 @@ public class SpinToColor extends Command
 
   // Called once after isFinished returns true
   @Override
-  protected void end() 
+  public void end(boolean interrupted) 
   {
-    Robot.colorWheel.offWheel();
-    Robot.colorWheel.resetCount();
-  
-  }
-
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() 
-  {
-    Robot.colorWheel.offWheel();
-    Robot.colorWheel.resetCount();
+    colorWheel.offWheel();
+    colorWheel.resetCount();
   
   }
 }

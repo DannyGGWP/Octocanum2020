@@ -10,16 +10,18 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
  * Add your docs here.
  */
-public class LiftLift extends Subsystem 
+public class LiftLift extends SubsystemBase
 {
   private WPI_TalonSRX liftyMotor = new WPI_TalonSRX(RobotMap.elevatorMotor);
   private WPI_TalonSRX succMotor = new WPI_TalonSRX(RobotMap.succMotor);
- //private static Solenoid succSolenoid = new Solenoid(52,RobotMap.succSol);
+  private static Solenoid succSolenoid = new Solenoid(52,RobotMap.succSol);
 
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
@@ -44,31 +46,29 @@ public class LiftLift extends Subsystem
   
 //Start SuccSucc
 
-  public void SuccSuccIntake()
+  public void succSuccIntake()
   {
-    succMotor.set(1.0);
+    succMotor.set(-0.6);
   }
-  public void SuccSuccOuttake()
+
+  public void succSuccOuttake()
   {
-    succMotor.set(-1.0);
+    succMotor.set(0.6);
   }
-  public void SuccSuccOff()
+  
+  public void succSuccOff()
   {
     succMotor.set(0.0);
   }
-  public void SuccSuccExtend()
+  
+  public void succSolExtend()
   {
-    succSol.set(true);
+    succSolenoid.set(true);
   }
-  public void SuccSuccRetract()
+  
+  public void succSolRetract()
   {
-    succSol.set(false);
+    succSolenoid.set(false);
   }
-
-  @Override
-  public void initDefaultCommand() 
-  {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
+  
 }

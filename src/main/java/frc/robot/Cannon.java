@@ -9,43 +9,47 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class Cannon extends Command 
+public class Cannon extends CommandBase
 {
   private double time;
-
-  public Cannon() 
+  private ShootShoot ballShooter;
+  private LiftLift elevatorSubsystem;  
+  public Cannon(ShootShoot shooter, LiftLift elevator) 
   {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.ballShooter);
+    ballShooter = shooter;
+    elevatorSubsystem = elevator; 
+    addRequirements(ballShooter);
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() 
+  public void initialize() 
   {
     time = Timer.getFPGATimestamp();
-    Robot.ballShooter.onWheel();
-    Robot.ballShooter.closeGate();
+    ballShooter.onWheel();
+    ballShooter.closeGate();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() 
+  public void execute() 
   {
     //order 66
-    if(Robot.ballShooter.wheelSpeed() > RobotMap.setPoint - 100) 
+    if(ballShooter.wheelSpeed() > RobotMap.setPoint - 100) 
     {
-      Robot.ballShooter.openGate();
-      Robot.elevatorSubsystem.elevatorUp();
+      ballShooter.openGate();
+      elevatorSubsystem.elevatorUp();
   //    time = Timer.getFPGATimestamp();
     }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() 
+  public boolean isFinished() 
   {
     if(!OI.cannonButton.get())
     {
@@ -56,20 +60,10 @@ public class Cannon extends Command
 
   // Called once after isFinished returns true
   @Override
-  protected void end() 
+  public void end(boolean interrupted) 
   {
-    Robot.ballShooter.offWheel();
-    Robot.elevatorSubsystem.elevatorOff();
-    Robot.ballShooter.closeGate();
-  }
-
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() 
-  {
-    Robot.ballShooter.offWheel();
-    Robot.elevatorSubsystem.elevatorOff();
-    Robot.ballShooter.closeGate();
+    ballShooter.offWheel();
+    elevatorSubsystem.elevatorOff();
+    ballShooter.closeGate();
   }
 }

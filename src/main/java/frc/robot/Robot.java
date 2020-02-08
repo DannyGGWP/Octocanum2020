@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.FasterOctoCanum.DriveMode;
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -33,23 +34,6 @@ public class Robot extends TimedRobot
   */
   
   public static OI m_oi;
-  public static FasterOctoCanum driveTrain = new FasterOctoCanum();
-  public static SpinSpin colorWheel = new SpinSpin();
-  public static ShootShoot ballShooter = new ShootShoot();
-  public static LiftLift elevatorSubsystem = new LiftLift();
-  public static Cannon cannonCommand = new Cannon();
-  public static SpinToColor goToColorCommand = new SpinToColor();
-  public static ActivateSpinSpin spinnerCommand = new ActivateSpinSpin();
-  public static PowerDistributionPanel m_pdp = new PowerDistributionPanel(51);
-  private boolean backFlag = false;
-  private boolean tankFlag = false;
- 
-  private ColorMatch m_colorMatcher = new ColorMatch();
-
-  private Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
-  private Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
-  private Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
-  private Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
 
   public static Compressor compressor = new Compressor(52);
   
@@ -60,13 +44,10 @@ public class Robot extends TimedRobot
   @Override
   public void robotInit() 
   {
-    m_colorMatcher.addColorMatch(kBlueTarget);
-    m_colorMatcher.addColorMatch(kGreenTarget);
-    m_colorMatcher.addColorMatch(kRedTarget);
-    m_colorMatcher.addColorMatch(kYellowTarget);
-    compressor.start();
-    driveTrain.disableFieldOriented();
 
+    m_oi = new OI(); 
+    compressor.start();
+    m_oi.driveTrain.disableFieldOriented();
     /** 
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
@@ -86,35 +67,8 @@ public class Robot extends TimedRobot
    */
   @Override
   public void robotPeriodic() 
-  {/** 
-    Color detectedColor = colorWheel.getColor();
-
-    String colorString;
-    ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
-
-    if (match.color == kBlueTarget) 
-    {
-      colorString = "Blue";
-    }
-    else if (match.color == kRedTarget)
-    {
-      colorString = "Red";
-    }
-    else if (match.color ==kGreenTarget)
-    {
-      colorString = "Green";
-    }
-    else if (match.color == kYellowTarget) 
-    {
-      colorString = "Yellow";
-    } 
-    else 
-    {
-      colorString = "Unknown"; 
-    }
-    */
-
-    //SmartDashboard.putString("Detected Color", colorString);
+  {
+    CommandScheduler.getInstance().run();
   }
   /**
    * This autonomous (along with the chooser code above) shows how to select
@@ -163,89 +117,7 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic() 
   {
-    if(OI.mechanumSwitch.get() && !backFlag)
-    {
-      backFlag = true;
-      if(driveTrain.getMode() == DriveMode.fieldMechanum)
-      {
-          //driveTrain.setMode(DriveMode.robotMechanum);
-        driveTrain.disableFieldOriented();
-      }
-      else if(driveTrain.getMode() == DriveMode.robotMechanum)
-      {
-          //driveTrain.setMode(DriveMode.fieldMechanum);
-        driveTrain.disableFieldOriented();
-      }
-    }
-    else if (!OI.mechanumSwitch.get())
-    {
-      backFlag = false;
-    }
-    if(OI.tankDrop.get() && !tankFlag)
-    {
-      //driveTrain.setMode(DriveMode.tank);
-      tankFlag = true;
-      if(driveTrain.getMode() == DriveMode.tank)
-      {
-        driveTrain.disableTank();
-      }
-      else
-      {
-        driveTrain.enableTank();
-      }
-    }
-    else if (!OI.tankDrop.get())
-    {
-      tankFlag = false;
-    }
-    driveTrain.drive(OI.driveJoystick.getX(),OI.driveJoystick.getY(),OI.driveJoystick.getRawAxis(2), OI.driveJoystick.getRawAxis(3));
-
-    if(OI.cannonButton.get() && !cannonCommand.isRunning())
-    {
-      cannonCommand.start();
-    }
-    /*
-    if (OI.shooterButton.get())
-    {
-      ballShooter.onWheel();
-    }
-    else 
-    {
-      ballShooter.offWheel();
-    }
-*/
-    if(OI.spinnerButton.get())
-    {
-      colorWheel.stringColor();
-    }
-/*
-    if(OI.gateButton.get() && !cannonCommand.isRunning())
-    {
-      elevatorSubsystem.elevatorUp();
-      ballShooter.openGate();
-    }
-    else
-    {
-      elevatorSubsystem.elevatorOff();
-      ballShooter.closeGate();
-    }
-*/
-    if(OI.wheelCountButton.get() && !goToColorCommand.isRunning())
-    {
-      goToColorCommand.start();
-      System.out.println("push the button bitch");
-    }
-
-   if(OI.elevatorButton.get())
-   {
-     elevatorSubsystem.elevatorUp();
-   }
-   else if(!cannonCommand.isRunning())
-   {
-     elevatorSubsystem.elevatorOff();
-   }
-   
-  Scheduler.getInstance().run();
+    
   }
  
   /**

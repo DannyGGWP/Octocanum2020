@@ -73,14 +73,26 @@ public class FasterOctoCanum extends SubsystemBase
     m_leftSideDifferentialGroup = new SpeedControllerGroup(m_frontLeft, m_backLeft);
     m_rightSideDifferentialGroup = new SpeedControllerGroup(m_frontRight, m_backRight);
     m_gyro = new AHRS(Port.kMXP);
-    m_mecanumDrive = new MecanumDrive(m_frontLeft, m_backLeft, m_frontRight, m_backRight);
-    m_differentialDrive = new DifferentialDrive(m_leftSideDifferentialGroup, m_rightSideDifferentialGroup);
-    m_mecanumDrive.setDeadband(RobotMap.c_deadBand);
-    m_differentialDrive.setDeadband(RobotMap.c_deadBand);
-    m_driveState = DriveMode.fieldMechanum;
     
-  }
+    //m_differentialDrive = new DifferentialDrive(m_leftSideDifferentialGroup, m_rightSideDifferentialGroup);
+    //m_mecanumDrive.setDeadband(RobotMap.c_deadBand);
+    //m_differentialDrive.setDeadband(RobotMap.c_deadBand);
+    m_driveState = DriveMode.fieldMechanum;
+    initMechanum();
+    initTank();
+    disableTank();
 
+  }
+  public void initMechanum()
+  {
+    m_mecanumDrive = new MecanumDrive(m_frontLeft, m_backLeft, m_frontRight, m_backRight);
+    m_mecanumDrive.setDeadband(RobotMap.c_deadBand);
+  }
+  public void initTank()
+  {
+    m_differentialDrive = new DifferentialDrive(m_leftSideDifferentialGroup, m_rightSideDifferentialGroup);
+    m_differentialDrive.setDeadband(RobotMap.c_deadBand);
+  }
   public double getEncPos()
   {
     int frontLeftEnc = m_frontLeft.getSelectedSensorPosition(0);
@@ -136,17 +148,33 @@ public class FasterOctoCanum extends SubsystemBase
   {
     m_driveState = DriveMode.robotMechanum;
   }
-
+  public void toggleTank()
+  {
+    if (m_driveState == DriveMode.tank)
+    {
+      disableTank();
+    }
+    else 
+    {
+      enableTank();
+    }
+  }
   public void enableTank()
   {
     m_previousMode = m_driveState; 
     m_driveState = DriveMode.tank;
+    m_mecanumDrive.setSafetyEnabled(false);
+    m_differentialDrive.setSafetyEnabled(true); 
+    //m_mecanumDrive = new MecanumDrive(null, null, null, null); 
     solenoid.set(true);
   }
 
   public void disableTank()
   {
     m_driveState = DriveMode.robotMechanum;
+    //m_differentialDrive = new DifferentialDrive(null, null); 
+    m_differentialDrive.setSafetyEnabled(false);
+    m_mecanumDrive.setSafetyEnabled(true);
     solenoid.set(false);
   } 
 
@@ -184,16 +212,23 @@ public class FasterOctoCanum extends SubsystemBase
   switch(m_driveState)
   {
       case fieldMechanum:
-          m_mecanumDrive.driveCartesian(-x, y, -rotation, -m_gyro.getAngle());
+          if (m_mecanumDrive != null){
+            m_mecanumDrive.driveCartesian(-x, y, -rotation, -m_gyro.getAngle());
+          }
           
           break;
       case robotMechanum:
-          m_mecanumDrive.driveCartesian(-x, y, -rotation); 
-          
+
+          if (m_mecanumDrive != null){
+            m_mecanumDrive.driveCartesian(-x, y, -rotation);
+          }
           break;
       case tank:
       // Y and X are flipped intentionally 
-          m_differentialDrive.tankDrive(y, tankY);
+      if (m_differentialDrive != null)
+      {
+        m_differentialDrive.tankDrive(y, tankY);
+      }
         if (m_driveStraight && Math.abs(rotation) < RobotMap.c_deadBand)
         {
           rotation = error*c_kPcorrection;
