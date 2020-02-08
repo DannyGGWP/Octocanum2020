@@ -30,7 +30,7 @@ public class FasterOctoCanum extends SubsystemBase
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private MecanumDrive m_mecanumDrive;
-  private DifferentialDrive m_differentialDrive; 
+  //private DifferentialDrive m_differentialDrive; 
   public AHRS m_gyro; 
   private WPI_TalonFX m_frontLeft; 
   private WPI_TalonFX m_frontRight; 
@@ -74,9 +74,9 @@ public class FasterOctoCanum extends SubsystemBase
     m_rightSideDifferentialGroup = new SpeedControllerGroup(m_frontRight, m_backRight);
     m_gyro = new AHRS(Port.kMXP);
     m_mecanumDrive = new MecanumDrive(m_frontLeft, m_backLeft, m_frontRight, m_backRight);
-    m_differentialDrive = new DifferentialDrive(m_leftSideDifferentialGroup, m_rightSideDifferentialGroup);
+    //m_differentialDrive = new DifferentialDrive(m_leftSideDifferentialGroup, m_rightSideDifferentialGroup);
     m_mecanumDrive.setDeadband(RobotMap.c_deadBand);
-    m_differentialDrive.setDeadband(RobotMap.c_deadBand);
+    //m_differentialDrive.setDeadband(RobotMap.c_deadBand);
     m_driveState = DriveMode.fieldMechanum;
     
   }
@@ -203,7 +203,7 @@ public class FasterOctoCanum extends SubsystemBase
           break;
       case tank:
       // Y and X are flipped intentionally 
-          m_differentialDrive.tankDrive(y, tankY);
+          //m_differentialDrive.tankDrive(y, tankY);
         if (m_driveStraight && Math.abs(rotation) < RobotMap.c_deadBand)
         {
           rotation = error*c_kPcorrection;
