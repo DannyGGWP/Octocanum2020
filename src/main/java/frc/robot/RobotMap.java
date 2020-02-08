@@ -10,15 +10,15 @@ package frc.robot;
 /**
  * Add your docs here.
  */
-public class RobotMap 
-//we're at 9 bitches
+public class RobotMap
+// we're at 9 bitches
 {
-    public static int driveTalonFL = 3;
+	public static int driveTalonFL = 3;
 	public static int driveTalonBL = 2;
 	public static int driveTalonFR = 5;
 	public static int driveTalonBR = 6;
-	public static int shooterSpark = 7; 
-	public static double c_deadBand = 0.1; 
+	public static int shooterSpark = 7;
+	public static double c_deadBand = 0.1;
 	public static double setPoint = 4800;
 
 	public static int back = 9;
@@ -27,15 +27,19 @@ public class RobotMap
 	public static int buttonA = 2;
 	public static int buttonB = 3;
 	public static int rightBumper = 6;
+	public static int leftBumper = 5;
 	public static int buttonX = 1;
 	public static int buttonY = 4;
+	public static int l3 = 11;
+	public static int r3 = 12;
+	public static int start = 10;
 
 	public static int driveSol = 0;
 	public static int dropSol = 1;
-	public static int succSol = 3;
+	public static int succSol = 2;
 
 	public static int wheelMotor = 9;
 	public static int elevatorMotor = 9;
-	public static int succMotor = 12;
-	
+	public static int succMotor = 4;
+
 }
