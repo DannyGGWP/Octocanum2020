@@ -22,6 +22,8 @@ public class LiftLift extends SubsystemBase
   private WPI_TalonSRX liftyMotor = new WPI_TalonSRX(RobotMap.elevatorMotor);
   private WPI_TalonSRX succMotor = new WPI_TalonSRX(RobotMap.succMotor);
   private static Solenoid succSolenoid = new Solenoid(52,RobotMap.succSol);
+  public boolean succIntakeState = false;
+  public boolean succOuttakeState = false;
 
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
@@ -49,16 +51,32 @@ public class LiftLift extends SubsystemBase
   public void succSuccIntake()
   {
     succMotor.set(-0.6);
+    succIntakeState = true;
+    succOuttakeState = false;
   }
 
   public void succSuccOuttake()
   {
     succMotor.set(0.6);
+    succIntakeState = false;
+    succOuttakeState = true;
   }
   
   public void succSuccOff()
   {
     succMotor.set(0.0);
+    succIntakeState = false;
+    succOuttakeState = false;
+  }
+
+  public boolean isSuccSuccIntake()
+  {
+    return succIntakeState;
+  }
+
+  public boolean isSuccSuccOuttake()
+  {
+    return succOuttakeState;
   }
   
   public void succSolExtend()
@@ -71,4 +89,17 @@ public class LiftLift extends SubsystemBase
     succSolenoid.set(false);
   }
   
+  public void intake()
+  {
+    succSolExtend();
+    succSuccIntake();
+    elevatorUp();
+  }
+
+  public void outtake()
+  {
+    succSolRetract();
+    succSuccOuttake();
+    elevatorDown();
+  }
 }
