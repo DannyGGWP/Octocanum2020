@@ -99,7 +99,7 @@ public class FasterOctoCanum extends SubsystemBase
     initMechanum();
     initTank();
     disableTank();
-   // m_mecanumDrive.setSafetyEnabled();
+    //m_mecanumDrive.setSafetyEnabled(false);
   }
 
   public void initMechanum()
