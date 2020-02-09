@@ -66,11 +66,14 @@ public class FasterOctoCanum extends SubsystemBase
     m_backLeft = new WPI_TalonFX(RobotMap.driveTalonBL); 
     m_backRight = new WPI_TalonFX(RobotMap.driveTalonBR); 
 
-    m_frontRight.setSensorPhase(true);
-    m_backRight.setInverted(true);
+    m_frontRight.setSensorPhase(false);
+    m_backRight.setSensorPhase(false);
     m_frontLeft.setSensorPhase(false);
-    m_backLeft.setInverted(false);
-
+    m_backLeft.setSensorPhase(false);
+    m_frontRight.setSelectedSensorPosition(0);
+    m_backRight.setSelectedSensorPosition(0);
+    m_frontLeft.setSelectedSensorPosition(0);
+    m_backLeft.setSelectedSensorPosition(0);
     /*
     m_frontLeft.setSensorPhase(true);
     m_backLeft.setInverted(true);
@@ -114,9 +117,9 @@ public class FasterOctoCanum extends SubsystemBase
   }
   public double getEncPos()
   {
-    int frontLeftEnc = m_frontLeft.getSelectedSensorPosition(0);
+    int frontLeftEnc = -m_frontLeft.getSelectedSensorPosition(0);
     int frontRightEnc = m_frontRight.getSelectedSensorPosition(0);
-    int backLeftEnc = m_backLeft.getSelectedSensorPosition(0);
+    int backLeftEnc = -m_backLeft.getSelectedSensorPosition(0);
     int backRightEnc = m_backRight.getSelectedSensorPosition(0);
     SmartDashboard.putNumber("Front Left Enc", frontLeftEnc);
     SmartDashboard.putNumber("Front Right Enc", frontRightEnc);
