@@ -69,6 +69,11 @@ public class FasterOctoCanum extends SubsystemBase
     m_frontRight = new WPI_TalonFX(RobotMap.driveTalonFR);
     m_backLeft = new WPI_TalonFX(RobotMap.driveTalonBL); 
     m_backRight = new WPI_TalonFX(RobotMap.driveTalonBR); 
+    m_frontRight.setSensorPhase(true);
+    m_frontLeft.setSensorPhase(true);
+    m_backLeft.setSensorPhase(true);
+    m_backRight.setSensorPhase(true);
+    
     //m_backLeft.setInverted(InvertType.InvertMotorOutput);
     //m_frontRight.setInverted(InvertType.InvertMotorOutput);
     m_leftSideDifferentialGroup = new SpeedControllerGroup(m_frontLeft, m_backLeft);
@@ -100,6 +105,10 @@ public class FasterOctoCanum extends SubsystemBase
     int frontRightEnc = m_frontRight.getSelectedSensorPosition(0);
     int backLeftEnc = m_backLeft.getSelectedSensorPosition(0);
     int backRightEnc = m_backRight.getSelectedSensorPosition(0);
+    SmartDashboard.putNumber("Front Left Enc", frontLeftEnc);
+    SmartDashboard.putNumber("Front Right Enc", frontRightEnc);
+    SmartDashboard.putNumber("Back Left Enc", backLeftEnc);
+    SmartDashboard.putNumber("Back Right Enc", backRightEnc);
     double position = ((frontLeftEnc + frontRightEnc + backLeftEnc + backRightEnc) / 4);
 
     return position;

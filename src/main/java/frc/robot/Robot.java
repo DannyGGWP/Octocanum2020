@@ -14,7 +14,9 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.FasterOctoCanum.DriveMode;
 /**
@@ -36,7 +38,7 @@ public class Robot extends TimedRobot
   public static OI m_oi;
 
   public static Compressor compressor = new Compressor(52);
-  
+  public Command m_autoCommand; 
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -68,7 +70,7 @@ public class Robot extends TimedRobot
   @Override
   public void robotPeriodic() 
   {
-    
+    SmartDashboard.putNumber("Enc Count", m_oi.driveTrain.getEncPos());
     CommandScheduler.getInstance().run();
   }
   /**
@@ -91,6 +93,10 @@ public class Robot extends TimedRobot
     //driveTrain.enableDropDrive();
     //driveTrain.enableDriveStraight();
     //driveTrain.enableFieldOriented();
+    m_autoCommand = m_oi.getAutonomousCommand(); 
+    if (m_autoCommand != null) {
+      m_autoCommand.schedule();
+    }
   }
 
   /**
@@ -111,7 +117,12 @@ public class Robot extends TimedRobot
     }
     */
   }
-
+  @Override
+  public void teleopInit() {
+    if (m_autoCommand != null) {
+      m_autoCommand.cancel();
+    }
+  }
   /**
    * This function is called periodically during operator control.
    */

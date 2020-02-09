@@ -17,6 +17,7 @@ public class AutoCenter extends CommandBase
   private ShootShoot ballShooter;
   private FasterOctoCanum driveTrain;
   private LiftLift elevatorSubsystem;
+  private double currentEncCount; 
   private enum State
   {
     start,
@@ -56,23 +57,23 @@ public class AutoCenter extends CommandBase
     {
       case start:
         currentState = State.moveToGoal;
+        currentEncCount = driveTrain.getEncPos();
         break;
       case moveToGoal:
         driveTrain.enableTank();
-        driveTrain.drive(.2, .2, 0, 0);
-        if(driveTrain.getEncPos() > 2000)
+        driveTrain.drive(.5, 0, 0, 0.5);
+        if(driveTrain.getEncPos() > currentEncCount+2000)
         {
           driveTrain.drive(0, 0, 0, 0);
           currentState = State.shoot;
         }
         break;
-      case shoot:
+        case shoot:
         ballShooter.onWheel();
         if(ballShooter.wheelSpeed() > RobotMap.setPoint - 100) 
         {
           ballShooter.openGate();
           elevatorSubsystem.elevatorUp();
-          time = Timer.getFPGATimestamp();
           if(Timer.getFPGATimestamp() > time + 5)
           {
             ballShooter.offWheel();
@@ -80,6 +81,10 @@ public class AutoCenter extends CommandBase
             ballShooter.closeGate();
             currentState = State.finished;
           }
+        }
+        else 
+        {
+          time = Timer.getFPGATimestamp();
         }
         break;
        default:
