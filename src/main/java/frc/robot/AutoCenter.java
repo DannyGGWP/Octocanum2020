@@ -61,7 +61,7 @@ public class AutoCenter extends CommandBase
         break;
       case moveToGoal:
         driveTrain.enableTank();
-        driveTrain.drive(.5, 0, 0, 0.5);
+        driveTrain.drive(.4, 0, 0, .4);
         if(driveTrain.getEncPos() > currentEncCount+2000)
         {
           driveTrain.drive(0, 0, 0, 0);
@@ -74,7 +74,7 @@ public class AutoCenter extends CommandBase
         {
           ballShooter.openGate();
           elevatorSubsystem.elevatorUp();
-          if(Timer.getFPGATimestamp() > time + 5)
+          if(Timer.getFPGATimestamp() > time + 2)
           {
             ballShooter.offWheel();
             elevatorSubsystem.elevatorOff();

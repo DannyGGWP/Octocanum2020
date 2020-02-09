@@ -50,14 +50,14 @@ public class LiftLift extends SubsystemBase
 
   public void succSuccIntake()
   {
-    succMotor.set(-0.6);
+    succMotor.set(-0.8);
     succIntakeState = true;
     succOuttakeState = false;
   }
 
   public void succSuccOuttake()
   {
-    succMotor.set(0.6);
+    succMotor.set(0.8);
     succIntakeState = false;
     succOuttakeState = true;
   }

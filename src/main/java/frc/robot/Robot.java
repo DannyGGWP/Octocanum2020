@@ -7,18 +7,14 @@
 
 package frc.robot;
 
-import com.revrobotics.ColorMatch;
+import com.ctre.phoenix.motorcontrol.Faults;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.FasterOctoCanum.DriveMode;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -36,6 +32,8 @@ public class Robot extends TimedRobot
   */
   
   public static OI m_oi;
+  public static FasterOctoCanum m_driveTrain;
+  Faults _faults = new Faults();
 
   public static Compressor compressor = new Compressor(52);
   public Command m_autoCommand; 
@@ -46,8 +44,9 @@ public class Robot extends TimedRobot
   @Override
   public void robotInit() 
   {
-
     m_oi = new OI(); 
+    m_driveTrain = new FasterOctoCanum();
+    _faults = new Faults();
     compressor.start();
     m_oi.driveTrain.disableFieldOriented();
     /** 
@@ -71,6 +70,21 @@ public class Robot extends TimedRobot
   public void robotPeriodic() 
   {
     SmartDashboard.putNumber("Enc Count", m_oi.driveTrain.getEncPos());
+    SmartDashboard.putBoolean("Out Of Phase:",_faults.SensorOutOfPhase);
+   // SmartDashboard.putNumber("Enc Direction", )
+   SmartDashboard.putNumber("Sensor Vel: Front Left", m_driveTrain.m_frontLeft.getSelectedSensorVelocity());
+   SmartDashboard.putNumber("Sensor Pos: Front Left", m_driveTrain.m_frontLeft.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Out %: Front Left", m_driveTrain.m_frontLeft.getMotorOutputPercent());
+    SmartDashboard.putNumber("Sensor Vel: Front Right", m_driveTrain.m_frontRight.getSelectedSensorVelocity());
+   SmartDashboard.putNumber("Sensor Pos: Front RIght", m_driveTrain.m_frontRight.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Out %: Front Right", m_driveTrain.m_frontRight.getMotorOutputPercent());
+    SmartDashboard.putNumber("Sensor Vel: Back Left", m_driveTrain.m_backLeft.getSelectedSensorVelocity());
+   SmartDashboard.putNumber("Sensor Pos: Back Left", m_driveTrain.m_backLeft.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Out %: Back Left", m_driveTrain.m_backLeft.getMotorOutputPercent());
+    SmartDashboard.putNumber("Sensor Vel:  Back Right", m_driveTrain.m_backRight.getSelectedSensorVelocity());
+   SmartDashboard.putNumber("Sensor Pos:  Back Right", m_driveTrain.m_backRight.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Out %: Back Right", m_driveTrain.m_backRight.getMotorOutputPercent());
+    SmartDashboard.putBoolean("Out Of Phase: Front Left", _faults.SensorOutOfPhase);
     CommandScheduler.getInstance().run();
   }
   /**
@@ -116,6 +130,19 @@ public class Robot extends TimedRobot
         break;
     }
     */
+    SmartDashboard.putNumber("Sensor Vel: Front Left", m_driveTrain.m_frontLeft.getSelectedSensorVelocity());
+   SmartDashboard.putNumber("Sensor Pos: Front Left", m_driveTrain.m_frontLeft.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Out %: Front Left", m_driveTrain.m_frontLeft.getMotorOutputPercent());
+    SmartDashboard.putNumber("Sensor Vel: Front Right", m_driveTrain.m_frontRight.getSelectedSensorVelocity());
+   SmartDashboard.putNumber("Sensor Pos: Front RIght", m_driveTrain.m_frontRight.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Out %: Front Right", m_driveTrain.m_frontRight.getMotorOutputPercent());
+    SmartDashboard.putNumber("Sensor Vel: Back Left", m_driveTrain.m_backLeft.getSelectedSensorVelocity());
+   SmartDashboard.putNumber("Sensor Pos: Back Left", m_driveTrain.m_backLeft.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Out %: Back Left", m_driveTrain.m_backLeft.getMotorOutputPercent());
+    SmartDashboard.putNumber("Sensor Vel:  Back Right", m_driveTrain.m_backRight.getSelectedSensorVelocity());
+   SmartDashboard.putNumber("Sensor Pos:  Back Right", m_driveTrain.m_backRight.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Out %: Back Right", m_driveTrain.m_backRight.getMotorOutputPercent());
+    SmartDashboard.putBoolean("Out Of Phase: Front Left", _faults.SensorOutOfPhase);
   }
   @Override
   public void teleopInit() {

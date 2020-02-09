@@ -7,22 +7,17 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
+import com.ctre.phoenix.motorcontrol.Faults;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.SerialPort.Port;
+import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import com.ctre.phoenix.motorcontrol.InvertType;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.kauailabs.navx.frc.AHRS;
-
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.SerialPort.Port;
 /**
  * Add your docs here.
  */
@@ -33,10 +28,10 @@ public class FasterOctoCanum extends SubsystemBase
   private MecanumDrive m_mecanumDrive;
   private DifferentialDrive m_differentialDrive; 
   public AHRS m_gyro; 
-  private WPI_TalonFX m_frontLeft; 
-  private WPI_TalonFX m_frontRight; 
-  private WPI_TalonFX m_backLeft; 
-  private WPI_TalonFX m_backRight; 
+  public WPI_TalonFX m_frontLeft; 
+  public WPI_TalonFX m_frontRight; 
+  public WPI_TalonFX m_backLeft; 
+  public WPI_TalonFX m_backRight; 
   private SpeedControllerGroup m_leftSideDifferentialGroup; 
   private SpeedControllerGroup m_rightSideDifferentialGroup; 
   private Boolean m_inMecanumDrive = true; 
@@ -51,6 +46,7 @@ public class FasterOctoCanum extends SubsystemBase
 
   private DriveMode m_previousMode;
   public DriveMode m_driveState;
+  Faults _faults = new Faults();
 
   public static Solenoid solenoid = new Solenoid(52, RobotMap.driveSol);
 
@@ -69,10 +65,26 @@ public class FasterOctoCanum extends SubsystemBase
     m_frontRight = new WPI_TalonFX(RobotMap.driveTalonFR);
     m_backLeft = new WPI_TalonFX(RobotMap.driveTalonBL); 
     m_backRight = new WPI_TalonFX(RobotMap.driveTalonBR); 
+
     m_frontRight.setSensorPhase(true);
+    m_backRight.setInverted(true);
+    m_frontLeft.setSensorPhase(false);
+    m_backLeft.setInverted(false);
+    
+    /*
+    m_frontLeft.setSensorPhase(true);
+    m_backLeft.setInverted(true);
+    m_frontRight.setInverted(false);
+    m_backRight.setInverted(false);
+    */
+    /*
+    m_frontRight.setSensorPhase(false);
+    m_backRight.setSensorPhase(false);
     m_frontLeft.setSensorPhase(true);
     m_backLeft.setSensorPhase(true);
-    m_backRight.setSensorPhase(true);
+    */
+
+    System.out.println("Out Of Phase:" + _faults.SensorOutOfPhase);
     
     //m_backLeft.setInverted(InvertType.InvertMotorOutput);
     //m_frontRight.setInverted(InvertType.InvertMotorOutput);
@@ -87,8 +99,9 @@ public class FasterOctoCanum extends SubsystemBase
     initMechanum();
     initTank();
     disableTank();
-
+    m_mecanumDrive.setSafetyEnabled(false);
   }
+
   public void initMechanum()
   {
     m_mecanumDrive = new MecanumDrive(m_frontLeft, m_backLeft, m_frontRight, m_backRight);
@@ -173,7 +186,7 @@ public class FasterOctoCanum extends SubsystemBase
   {
     m_previousMode = m_driveState; 
     m_driveState = DriveMode.tank;
-    m_mecanumDrive.setSafetyEnabled(false);
+    //m_mecanumDrive.setSafetyEnabled(false);
     m_differentialDrive.setSafetyEnabled(true); 
     //m_mecanumDrive = new MecanumDrive(null, null, null, null); 
     solenoid.set(true);
@@ -184,7 +197,7 @@ public class FasterOctoCanum extends SubsystemBase
     m_driveState = DriveMode.robotMechanum;
     //m_differentialDrive = new DifferentialDrive(null, null); 
     m_differentialDrive.setSafetyEnabled(false);
-    m_mecanumDrive.setSafetyEnabled(true);
+    //m_mecanumDrive.setSafetyEnabled(true);
     solenoid.set(false);
   } 
 
@@ -240,7 +253,7 @@ public class FasterOctoCanum extends SubsystemBase
       // Y and X are flipped intentionally 
       if (m_differentialDrive != null)
       {
-        m_differentialDrive.tankDrive(y, tankY);
+        m_differentialDrive.arcadeDrive(y, x);
       }
         if (m_driveStraight && Math.abs(rotation) < RobotMap.c_deadBand)
         {
