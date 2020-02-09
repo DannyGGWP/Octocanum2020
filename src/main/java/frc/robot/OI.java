@@ -20,11 +20,11 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class OI 
 {
   public final FasterOctoCanum driveTrain = new FasterOctoCanum();
-  public final SpinSpin colorWheel = new SpinSpin();
+  //public final SpinSpin colorWheel = new SpinSpin();
   public final ShootShoot ballShooter = new ShootShoot();
   public final LiftLift elevatorSubsystem = new LiftLift();
 
-  public final ActivateSpinSpin spinnerCommand = new ActivateSpinSpin(colorWheel);
+ // public final ActivateSpinSpin spinnerCommand = new ActivateSpinSpin(colorWheel);
   public final PowerDistributionPanel m_pdp = new PowerDistributionPanel(51);
   public static Joystick driveJoystick = new Joystick(1);
   public static JoystickButton cannonButton = new JoystickButton(driveJoystick,RobotMap.rightTrigger);
