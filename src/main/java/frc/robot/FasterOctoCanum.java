@@ -99,7 +99,7 @@ public class FasterOctoCanum extends SubsystemBase
     initMechanum();
     initTank();
     disableTank();
-    m_mecanumDrive.setSafetyEnabled(false);
+    //m_mecanumDrive.setSafetyEnabled(false);
   }
 
   public void initMechanum()
@@ -186,7 +186,7 @@ public class FasterOctoCanum extends SubsystemBase
   {
     m_previousMode = m_driveState; 
     m_driveState = DriveMode.tank;
-    //m_mecanumDrive.setSafetyEnabled(false);
+    m_mecanumDrive.setSafetyEnabled(false);
     m_differentialDrive.setSafetyEnabled(true); 
     //m_mecanumDrive = new MecanumDrive(null, null, null, null); 
     solenoid.set(true);
@@ -197,7 +197,7 @@ public class FasterOctoCanum extends SubsystemBase
     m_driveState = DriveMode.robotMechanum;
     //m_differentialDrive = new DifferentialDrive(null, null); 
     m_differentialDrive.setSafetyEnabled(false);
-    //m_mecanumDrive.setSafetyEnabled(true);
+    m_mecanumDrive.setSafetyEnabled(true);
     solenoid.set(false);
   } 
 
