@@ -115,6 +115,18 @@ public class FasterOctoCanum extends SubsystemBase
     m_differentialDrive = new DifferentialDrive(m_leftSideDifferentialGroup, m_rightSideDifferentialGroup);
     m_differentialDrive.setDeadband(RobotMap.c_deadBand);
   }
+  public void resetGyro()
+  {
+    m_gyro.reset();
+  }
+  
+  public void resetEncoders()
+  {
+    m_frontRight.setSelectedSensorPosition(0);
+    m_backRight.setSelectedSensorPosition(0);
+    m_frontLeft.setSelectedSensorPosition(0);
+    m_backLeft.setSelectedSensorPosition(0);
+  }
   public double getEncPos()
   {
     int frontLeftEnc = -m_frontLeft.getSelectedSensorPosition(0);

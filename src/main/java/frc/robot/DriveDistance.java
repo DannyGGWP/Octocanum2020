@@ -41,18 +41,11 @@ public class DriveDistance extends CommandBase {
   @Override
   public void execute() 
   {
-    driveTrain.enableTank();
+    //driveTrain.enableTank();
     driveTrain.drive(0, -0.6, 0, 0);
     if(driveTrain.getEncPos() > currentEncCount + distance)
     {
       driveTrain.drive(0, 0, 0, 0);
-    }
-    else
-    {
-      time = Timer.getFPGATimestamp();
-    }
-    if(time > Timer.getFPGATimestamp() + 1)
-    {
       m_finished = true;
     }
   }

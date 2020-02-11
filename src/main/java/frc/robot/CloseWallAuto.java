@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -27,6 +28,8 @@ public class CloseWallAuto extends SequentialCommandGroup
     //Requires(Robot::ballShooter);
 
     addCommands(
+      new InstantCommand(driveTrain::resetGyro, driveTrain),
+      new InstantCommand(driveTrain::resetEncoders, driveTrain),
       new DriveDistance( 60000.0, driveTrain),
       new TurnToAngle(90, driveTrain),
       new AutoCenter(shooter,driveTrain, elevator)

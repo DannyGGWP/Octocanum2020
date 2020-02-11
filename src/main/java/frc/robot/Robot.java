@@ -142,7 +142,7 @@ public class Robot extends TimedRobot
     SmartDashboard.putNumber("Sensor Vel:  Back Right", m_oi.driveTrain.m_backRight.getSelectedSensorVelocity());
    SmartDashboard.putNumber("Sensor Pos:  Back Right", m_oi.driveTrain.m_backRight.getSelectedSensorPosition());
     SmartDashboard.putNumber("Out %: Back Right", m_oi.driveTrain.m_backRight.getMotorOutputPercent());
-    SmartDashboard.putBoolean("Out Of Phase: Front Left", _faults.SensorOutOfPhase);
+     SmartDashboard.putBoolean("Out Of Phase: Front Left", _faults.SensorOutOfPhase);
   }
   @Override
   public void teleopInit() {

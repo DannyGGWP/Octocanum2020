@@ -60,7 +60,7 @@ public class AutoCenter extends CommandBase
         currentEncCount = driveTrain.getEncPos();
         break;
       case moveToGoal:
-        driveTrain.enableTank();
+        //driveTrain.enableTank();
         driveTrain.drive(0, -0.6, 0, 0);
         if(driveTrain.getEncPos() > currentEncCount + 90000)
         {

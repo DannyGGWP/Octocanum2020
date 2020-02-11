@@ -50,7 +50,7 @@ public class OI
        );
      }
     public Command getAutonomousCommand() {
-      return new AutoCenter(ballShooter, driveTrain, elevatorSubsystem); 
+      return new CloseWallAuto(elevatorSubsystem, driveTrain, ballShooter);
     }
     private void configureButtonBindings()
     {
