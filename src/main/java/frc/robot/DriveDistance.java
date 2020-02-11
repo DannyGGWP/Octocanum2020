@@ -21,7 +21,7 @@ public class DriveDistance extends CommandBase {
   /**
    * Creates a new DriveDistance.
    */
-  public DriveDistance(Double distance, FasterOctoCanum driveTrain) 
+  public DriveDistance(double distance, FasterOctoCanum driveTrain) 
   {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(driveTrain);
