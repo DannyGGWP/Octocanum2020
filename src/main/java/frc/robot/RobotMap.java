@@ -42,4 +42,6 @@ public class RobotMap
 	public static int elevatorMotor = 9;
 	public static int succMotor = 4;
 
+	public static String autoChooser = "0";
+
 }

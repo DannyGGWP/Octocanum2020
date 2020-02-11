@@ -50,7 +50,19 @@ public class OI
        );
      }
     public Command getAutonomousCommand() {
-      return new CloseWallAuto(elevatorSubsystem, driveTrain, ballShooter);
+      if(RobotMap.autoChooser.equals("left"))
+      {
+        return new FarWallAuto(elevatorSubsystem, driveTrain, ballShooter);
+      }
+      if(RobotMap.autoChooser.equals("right"))
+      {
+        return new CloseWallAuto(elevatorSubsystem, driveTrain, ballShooter);
+      }
+      if(RobotMap.autoChooser.equals("center"))
+      {
+        return new AutoCenter(ballShooter, driveTrain, elevatorSubsystem); 
+      }
+      return new AutoCenter(ballShooter, driveTrain, elevatorSubsystem); 
     }
     private void configureButtonBindings()
     {
