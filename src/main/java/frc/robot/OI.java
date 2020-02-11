@@ -27,7 +27,8 @@ public class OI
  // public final ActivateSpinSpin spinnerCommand = new ActivateSpinSpin(colorWheel);
   public final PowerDistributionPanel m_pdp = new PowerDistributionPanel(51);
   public static Joystick driveJoystick = new Joystick(1);
-  public static JoystickButton cannonButton = new JoystickButton(driveJoystick,RobotMap.rightTrigger);
+  public static Joystick panel = new Joystick(0);
+  public static JoystickButton cannonButton = new JoystickButton(panel,RobotMap.shootButton);
   public static JoystickButton turnButton = new JoystickButton(driveJoystick,RobotMap.buttonB);
   //public static JoystickButton shooterButton = new JoystickButton(driveJoystick, RobotMap.buttonA);
   /*
@@ -62,7 +63,8 @@ public class OI
       {
         return new AutoCenter(ballShooter, driveTrain, elevatorSubsystem); 
       }
-      return new AutoCenter(ballShooter, driveTrain, elevatorSubsystem); 
+     // return new AutoCenter(ballShooter, driveTrain, elevatorSubsystem); 
+        return new Angle156Auto(elevatorSubsystem, driveTrain, ballShooter);
     }
     private void configureButtonBindings()
     {
@@ -71,12 +73,11 @@ public class OI
         cannonButton.whenPressed(new Cannon(ballShooter, elevatorSubsystem));
         turnButton.whenPressed(new TurnToAngle(90,driveTrain));
       new JoystickButton(driveJoystick, RobotMap.buttonY)
-        .whenPressed(new InstantCommand(elevatorSubsystem::elevatorUp, elevatorSubsystem));
-      new JoystickButton(driveJoystick, RobotMap.buttonY)
+        .whenPressed(new InstantCommand(elevatorSubsystem::elevatorUp, elevatorSubsystem))
        .whenReleased(elevatorSubsystem::elevatorOff, elevatorSubsystem);
-      new JoystickButton(driveJoystick, RobotMap.leftTrigger)
-        .whenPressed(new InstantCommand(elevatorSubsystem::intake, elevatorSubsystem))
-        .whenReleased(new InstantCommand(elevatorSubsystem::offTake,elevatorSubsystem));
+     // new JoystickButton(driveJoystick, RobotMap.leftTrigger)
+       // .whenPressed(new InstantCommand(elevatorSubsystem::intake, elevatorSubsystem))
+        //.whenReleased(new InstantCommand(elevatorSubsystem::offTake,elevatorSubsystem));
 //        new JoystickButton(driveJoystick, RobotMap.leftBumper)
 //        .whenHeld(
 //          new InstantCommand(elevatorSubsystem::elevatorDown, elevatorSubsystem).alongWith(
@@ -88,9 +89,20 @@ public class OI
       new JoystickButton(driveJoystick, RobotMap.rightBumper)
         .whenReleased(elevatorSubsystem::succSuccOff, elevatorSubsystem);
       new JoystickButton(driveJoystick, RobotMap.buttonA)
-        .whenPressed(elevatorSubsystem::succSolExtend, elevatorSubsystem);
-      new JoystickButton(driveJoystick, RobotMap.buttonA)
-        .whenReleased(elevatorSubsystem::succSolRetract, elevatorSubsystem);        
+        .whenPressed(elevatorSubsystem::succSolExtend, elevatorSubsystem)
+        .whenReleased(elevatorSubsystem::succSolRetract, elevatorSubsystem); 
+        
+      new JoystickButton(panel, RobotMap.outtakeButton)
+        .whenPressed(elevatorSubsystem::outtake, elevatorSubsystem)
+        .whenReleased(elevatorSubsystem::offTake, elevatorSubsystem);
+
+      new JoystickButton(panel, RobotMap.intakeButton)
+        .whenPressed(elevatorSubsystem::intake, elevatorSubsystem)
+        .whenReleased(elevatorSubsystem::offTake, elevatorSubsystem);
+      
+
+
+
 
     }
 

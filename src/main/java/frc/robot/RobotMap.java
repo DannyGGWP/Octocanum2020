@@ -44,4 +44,9 @@ public class RobotMap
 
 	public static String autoChooser = "0";
 
+	//control panel values
+	public static int outtakeButton = 9;
+	public static int intakeButton = 10;
+	public static int shootButton = 11;
+
 }

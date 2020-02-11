@@ -98,9 +98,8 @@ public class LiftLift extends SubsystemBase
 
   public void outtake()
   {
-    succSolRetract();
+    succSolExtend();
     succSuccOuttake();
-    elevatorDown();
   }
 
   public void offTake()
