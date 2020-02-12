@@ -71,7 +71,7 @@ public class OI
       new JoystickButton(driveJoystick,RobotMap.leftBumper)
         .whenPressed(new InstantCommand(driveTrain::toggleTank, driveTrain));
         cannonButton.whenPressed(new Cannon(ballShooter, elevatorSubsystem));
-        turnButton.whenPressed(new TurnToAngle(90,driveTrain));
+        turnButton.whenPressed(new Angle156Auto(elevatorSubsystem, driveTrain, ballShooter));
       new JoystickButton(driveJoystick, RobotMap.buttonY)
         .whenPressed(new InstantCommand(elevatorSubsystem::elevatorUp, elevatorSubsystem))
        .whenReleased(elevatorSubsystem::elevatorOff, elevatorSubsystem);
@@ -97,13 +97,7 @@ public class OI
         .whenReleased(elevatorSubsystem::offTake, elevatorSubsystem);
 
       new JoystickButton(panel, RobotMap.intakeButton)
-        .whenPressed(elevatorSubsystem::intake, elevatorSubsystem)
+        .whileHeld(new SensorIntake(elevatorSubsystem))
         .whenReleased(elevatorSubsystem::offTake, elevatorSubsystem);
-      
-
-
-
-
     }
-
 }

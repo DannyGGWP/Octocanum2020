@@ -49,4 +49,12 @@ public class RobotMap
 	public static int intakeButton = 10;
 	public static int shootButton = 11;
 
+	//DUMB AS FUCK PID BULLSHIT
+	public static int p = 0;
+	public static int i = 0;
+	public static int d = 0;
+
+	public static int elevatorSensor = 0;
+	public static int hopperSensor = 1;
+
 }

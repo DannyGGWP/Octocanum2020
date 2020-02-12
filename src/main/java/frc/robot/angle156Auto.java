@@ -21,12 +21,13 @@ public class Angle156Auto extends SequentialCommandGroup {
   {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-      addCommands(
+      addCommands
+      (
       new InstantCommand(driveTrain::resetGyro, driveTrain),
       new InstantCommand(driveTrain::resetEncoders, driveTrain),
-      new TurnToAngle(156, driveTrain),
-      new DriveDistance( 60000.0, driveTrain)
-    );
+      new TurnToAngle(156, driveTrain, 0.02, 0.006, 0.0),
+      new DriveDistance(80000.0, driveTrain)
+      );
     
   }
 }
