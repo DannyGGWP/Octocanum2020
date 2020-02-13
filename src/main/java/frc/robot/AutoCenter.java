@@ -62,7 +62,7 @@ public class AutoCenter extends CommandBase
       case moveToGoal:
         //driveTrain.enableTank();
         driveTrain.drive(0, -0.6, 0, 0);
-        if(driveTrain.getEncPos() > currentEncCount + 90000)
+        if(driveTrain.getEncPos() > currentEncCount + 63000)
         {
           driveTrain.drive(0, 0, 0, 0);
           currentState = State.shoot;

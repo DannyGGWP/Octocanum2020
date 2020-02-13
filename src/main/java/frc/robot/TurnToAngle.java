@@ -37,7 +37,7 @@ public class TurnToAngle extends PIDCommand {
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
     getController().enableContinuousInput(-180, 180);
-    getController().setTolerance(2,10);
+    getController().setTolerance(5,10);
   }
 
   // Returns true when the command should end.
