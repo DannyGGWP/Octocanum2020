@@ -31,7 +31,7 @@ public class CloseWallAuto extends SequentialCommandGroup
       new InstantCommand(driveTrain::resetGyro, driveTrain),
       new InstantCommand(driveTrain::resetEncoders, driveTrain),
       new DriveDistance( 60000.0, driveTrain),
-      new TurnToAngle(90, driveTrain, 0.02, 0.004, 0.0),
+      new TurnToAngle(90, driveTrain, 0.02, 0.004, 0.0, 5),
       new AutoCenter(shooter,driveTrain, elevator)
     );
 

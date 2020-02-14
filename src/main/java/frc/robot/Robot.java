@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.Faults;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PWM;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -37,6 +38,7 @@ public class Robot extends TimedRobot
 
   public static Compressor compressor = new Compressor(52);
   public Command m_autoCommand; 
+  public PWM m_pwm;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -47,9 +49,11 @@ public class Robot extends TimedRobot
     m_oi = new OI(); 
     //m_oi.driveTrain = new FasterOctoCanum();
     _faults = new Faults();
+    m_pwm = new PWM(0);
     compressor.start();
     m_oi.driveTrain.disableFieldOriented();
     SmartDashboard.putString("Auto Chooser", RobotMap.autoChooser);
+    
     /** 
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
@@ -157,7 +161,7 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic() 
   {
-    
+    m_pwm.setRaw(127);
   }
  
   /**
