@@ -74,7 +74,7 @@ public class AutoCenter extends CommandBase
         {
           ballShooter.openGate();
           //elevatorSubsystem.elevatorUp();
-          if(Timer.getFPGATimestamp() > time + 2)
+          if(Timer.getFPGATimestamp() > time + 1.2)
           {
             ballShooter.offWheel();
             //elevatorSubsystem.elevatorOff();
