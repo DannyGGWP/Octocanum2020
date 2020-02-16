@@ -22,7 +22,7 @@ public class FarWallAuto extends SequentialCommandGroup
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     addCommands(
-      new DriveDistance(100000, driveTrain),
+      new AutoDrive(-0.6, 0.0, 100000, driveTrain),
       new TurnToAngle(90, driveTrain, 0.02, 0.004, 0.0, 5),
       new AutoCenter(shooter, driveTrain, elevator)
     );

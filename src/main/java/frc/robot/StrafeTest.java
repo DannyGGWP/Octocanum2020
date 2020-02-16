@@ -7,43 +7,39 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class DriveDistance extends CommandBase {
-  
-  private double distance;
+public class StrafeTest extends CommandBase 
+{
   private FasterOctoCanum driveTrain;
-  private double currentEncCount;
+  private double frontEncCount;
+  private double distance;
   private boolean m_finished;
-  private double time;
-  
+
   /**
-   * Creates a new DriveDistance.
+   * Creates a new StrafeTest.
    */
-  public DriveDistance(double distance, FasterOctoCanum driveTrain) 
+  public StrafeTest(double distance, FasterOctoCanum driveTrain) 
   {
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(driveTrain);
-    this.distance = distance;
     this.driveTrain = driveTrain;
+    this.distance = distance;
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() 
   {
-    currentEncCount = driveTrain.getEncPos();
-    m_finished = false;
+    frontEncCount = driveTrain.getEncPosFront();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() 
   {
-    //driveTrain.enableTank();
-    driveTrain.drive(0, -0.6, 0, 0);
-    if(driveTrain.getEncPos() > currentEncCount + distance)
+    driveTrain.drive(0.5, 0, 0, 0);
+    if(driveTrain.getEncPosFront() > frontEncCount + distance)
     {
       driveTrain.drive(0, 0, 0, 0);
       m_finished = true;

@@ -42,7 +42,7 @@ public class FasterOctoCanum extends SubsystemBase
 
   private Boolean m_driveStraight = false;
   private double m_angleSetPoint = 0.0; 
-  private static final double c_kPcorrection = 0.05; 
+  private static final double c_kPcorrection = 0.1; 
 
   private DriveMode m_previousMode;
   public DriveMode m_driveState;
@@ -141,6 +141,20 @@ public class FasterOctoCanum extends SubsystemBase
 
     return position;
   }
+  public double getEncPosFront()
+  {
+    int frontLeftEnc = Math.abs(-m_frontLeft.getSelectedSensorPosition(0));
+    int frontRightEnc = Math.abs(m_frontRight.getSelectedSensorPosition(0));
+    double position = ((frontLeftEnc + frontRightEnc) / 2);
+    return position;
+  }
+  public double getEncPosBack()
+  {
+    int backLeftEnc = Math.abs(-m_backLeft.getSelectedSensorPosition(0));
+    int backRightEnc = Math.abs(m_backRight.getSelectedSensorPosition(0));
+    double position = ((backLeftEnc + backRightEnc) / 2);
+    return position;
+  }
   public double getHeading()
   {
     return Math.IEEEremainder(m_gyro.getAngle(), 360);
@@ -236,19 +250,11 @@ public class FasterOctoCanum extends SubsystemBase
     if (m_driveStraight)
     {
       error = m_angleSetPoint - currentHeading;
-      if (Math.abs(error) < 2.0)
+      if (Math.abs(error) < 0.5)
       {
         error = 0.0; 
       }
     }
-    /*if (m_inMecanumDrive)
-    {
-      // Only compensate for drift if NOT turning. 
-      m_mecanumDrive.driveCartesian(-x, y, rotation, -m_gyro.getAngle());
-    }
-    else
-    {
-    */
 
   switch(m_driveState)
   {
@@ -266,20 +272,18 @@ public class FasterOctoCanum extends SubsystemBase
           break;
       case tank:
       // Y and X are flipped intentionally 
-      if (m_differentialDrive != null)
+      if (m_driveStraight && Math.abs(rotation) < RobotMap.c_deadBand)
       {
-        m_differentialDrive.arcadeDrive(y, x);
+        rotation = error*c_kPcorrection;
+        x = rotation; 
       }
-        if (m_driveStraight && Math.abs(rotation) < RobotMap.c_deadBand)
-        {
-          rotation = error*c_kPcorrection;
-        }
-        // We are doing a Turn and want to keep updating the Angle Set Point 
-        else if (m_driveStraight)
-        {
-          m_angleSetPoint = currentHeading; 
-        }
-        break;
+      // We are doing a Turn and want to keep updating the Angle Set Point 
+      else if (m_driveStraight)
+      {
+        m_angleSetPoint = currentHeading; 
+      }
+      m_differentialDrive.arcadeDrive(y, -x);
+      break;
       default:
         //m_differentialDrive.arcadeDrive(0, 0);
         //m_mecanumDrive.driveCartesian(0, 0, 0);

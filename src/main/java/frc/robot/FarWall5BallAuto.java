@@ -13,28 +13,25 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class CloseWallAuto extends SequentialCommandGroup 
+public class FarWall5BallAuto extends SequentialCommandGroup 
 {
   /**
-   * Creates a new CloseWallAuto.
+   * Creates a new FarWall5BallAuto.
    */
-
-
-  public CloseWallAuto(LiftLift elevator, FasterOctoCanum driveTrain, ShootShoot shooter) 
+  public FarWall5BallAuto(LiftLift elevator, FasterOctoCanum driveTrain, ShootShoot shooter) 
   {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    //super(new AutoCenter(), new TurnToAngle(90, ));
-    //Requires(Robot::ballShooter);
-
-    addCommands(
+    super
+    (
       new InstantCommand(driveTrain::resetGyro, driveTrain),
       new InstantCommand(driveTrain::resetEncoders, driveTrain),
-      new AutoDrive(-0.6, 0.0, 60000, driveTrain),
-      new TurnToAngle(90, driveTrain, 0.02, 0.004, 0.0, 5),
-      new AutoCenter(shooter,driveTrain, elevator)
+     // new InstantCommand(driveTrain::enableDriveStraight,driveTrain),
+      new AutoDrive(0.0,0.5,100000.0, driveTrain),
+      new InstantCommand(elevator::intake,elevator),
+      new StrafeTest(50000, driveTrain),
+      new InstantCommand(elevator::offTake,elevator)
+   //   new InstantCommand(driveTrain::disableDriveStraight,driveTrain)
     );
-
-
   }
 }
