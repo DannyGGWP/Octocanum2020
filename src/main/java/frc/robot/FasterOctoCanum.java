@@ -42,7 +42,7 @@ public class FasterOctoCanum extends SubsystemBase
 
   private Boolean m_driveStraight = false;
   private double m_angleSetPoint = 0.0; 
-  private static final double c_kPcorrection = 0.05; 
+  private static final double c_kPcorrection = 0.1; 
 
   private DriveMode m_previousMode;
   public DriveMode m_driveState;
@@ -236,7 +236,7 @@ public class FasterOctoCanum extends SubsystemBase
     if (m_driveStraight)
     {
       error = m_angleSetPoint - currentHeading;
-      if (Math.abs(error) < 1.0)
+      if (Math.abs(error) < 0.5)
       {
         error = 0.0; 
       }
