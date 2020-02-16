@@ -38,7 +38,7 @@ public class Angle156Auto extends SequentialCommandGroup {
       //new WaitCommand(1),
       //new TurnToAngle(156, driveTrain, 0.01, 0.0001, 0.0001),
     //  new DriveDistance(150000.0, driveTrain),
-      new DriveDistance(182000.0, driveTrain),
+      new AutoDrive(-0.6, 0.0, 182000, driveTrain),
       new TurnToAngle(170, driveTrain, 0.02, 0.0001, 0.0001, 3),
       new InstantCommand(elevator::intake,elevator),
       //new AutoDrive(-0.4,0.0,26500.0, driveTrain),
