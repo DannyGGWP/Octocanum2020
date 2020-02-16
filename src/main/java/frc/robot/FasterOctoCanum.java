@@ -236,19 +236,11 @@ public class FasterOctoCanum extends SubsystemBase
     if (m_driveStraight)
     {
       error = m_angleSetPoint - currentHeading;
-      if (Math.abs(error) < 2.0)
+      if (Math.abs(error) < 1.0)
       {
         error = 0.0; 
       }
     }
-    /*if (m_inMecanumDrive)
-    {
-      // Only compensate for drift if NOT turning. 
-      m_mecanumDrive.driveCartesian(-x, y, rotation, -m_gyro.getAngle());
-    }
-    else
-    {
-    */
 
   switch(m_driveState)
   {
@@ -266,20 +258,18 @@ public class FasterOctoCanum extends SubsystemBase
           break;
       case tank:
       // Y and X are flipped intentionally 
-      if (m_differentialDrive != null)
+      if (m_driveStraight && Math.abs(rotation) < RobotMap.c_deadBand)
       {
-        m_differentialDrive.arcadeDrive(y, x);
+        rotation = error*c_kPcorrection;
+        x = rotation; 
       }
-        if (m_driveStraight && Math.abs(rotation) < RobotMap.c_deadBand)
-        {
-          rotation = error*c_kPcorrection;
-        }
-        // We are doing a Turn and want to keep updating the Angle Set Point 
-        else if (m_driveStraight)
-        {
-          m_angleSetPoint = currentHeading; 
-        }
-        break;
+      // We are doing a Turn and want to keep updating the Angle Set Point 
+      else if (m_driveStraight)
+      {
+        m_angleSetPoint = currentHeading; 
+      }
+      m_differentialDrive.arcadeDrive(y, -x);
+      break;
       default:
         //m_differentialDrive.arcadeDrive(0, 0);
         //m_mecanumDrive.driveCartesian(0, 0, 0);
