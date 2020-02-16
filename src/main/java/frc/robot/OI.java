@@ -23,6 +23,7 @@ public class OI
   //public final SpinSpin colorWheel = new SpinSpin();
   public final ShootShoot ballShooter = new ShootShoot();
   public final LiftLift elevatorSubsystem = new LiftLift();
+  public final UpUp hangBoi = new UpUp();
 
  // public final ActivateSpinSpin spinnerCommand = new ActivateSpinSpin(colorWheel);
   public final PowerDistributionPanel m_pdp = new PowerDistributionPanel(51);
@@ -92,13 +93,21 @@ public class OI
       new JoystickButton(driveJoystick, RobotMap.buttonA)
         .whenPressed(elevatorSubsystem::succSolExtend, elevatorSubsystem)
         .whenReleased(elevatorSubsystem::succSolRetract, elevatorSubsystem); 
-        
       new JoystickButton(panel, RobotMap.outtakeButton)
         .whenPressed(elevatorSubsystem::outtake, elevatorSubsystem)
         .whenReleased(elevatorSubsystem::offTake, elevatorSubsystem);
-
       new JoystickButton(panel, RobotMap.intakeButton)
         .whileHeld(new SensorIntake(elevatorSubsystem))
         .whenReleased(elevatorSubsystem::offTake, elevatorSubsystem);
+      new JoystickButton( panel, RobotMap.climbUp)
+        .whenPressed(hangBoi :: climbUp, hangBoi)
+        .whenReleased(hangBoi :: climbOff, hangBoi);
+      new JoystickButton(panel, RobotMap.climbDown)
+        .whenPressed(hangBoi :: climbDown,hangBoi)
+        .whenReleased(hangBoi :: climbOff,hangBoi);
+      new JoystickButton(panel,RobotMap.hangEnable)
+        .whileHeld(hangBoi :: climbOff, hangBoi);
+
+      
     }
 }

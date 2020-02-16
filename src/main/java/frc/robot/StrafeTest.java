@@ -13,15 +13,17 @@ public class StrafeTest extends CommandBase
 {
   private FasterOctoCanum driveTrain;
   private double frontEncCount;
+  private double distance;
   private boolean m_finished;
 
   /**
    * Creates a new StrafeTest.
    */
-  public StrafeTest(FasterOctoCanum driveTrain) 
+  public StrafeTest(double distance, FasterOctoCanum driveTrain) 
   {
     addRequirements(driveTrain);
     this.driveTrain = driveTrain;
+    this.distance = distance;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -36,8 +38,8 @@ public class StrafeTest extends CommandBase
   @Override
   public void execute() 
   {
-    driveTrain.drive(0.3, 0, 0, 0);
-    if(driveTrain.getEncPosFront() > frontEncCount + 100000)
+    driveTrain.drive(0.5, 0, 0, 0);
+    if(driveTrain.getEncPosFront() > frontEncCount + distance)
     {
       driveTrain.drive(0, 0, 0, 0);
       m_finished = true;

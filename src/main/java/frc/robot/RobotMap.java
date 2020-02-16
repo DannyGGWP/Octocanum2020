@@ -42,6 +42,7 @@ public class RobotMap
 	public static int wheelMotor = 9;
 	public static int elevatorMotor = 9;
 	public static int succMotor = 4;
+	public static int climberMotor = 12;
 
 	public static String autoChooser = "0";
 
@@ -49,6 +50,9 @@ public class RobotMap
 	public static int outtakeButton = 9;
 	public static int intakeButton = 10;
 	public static int shootButton = 11;
+	public static int hangEnable = 12;
+	public static int climbUp = 13;
+	public static int climbDown = 14;
 
 	//DUMB AS FUCK PID BULLSHIT
 	public static int p = 0;
