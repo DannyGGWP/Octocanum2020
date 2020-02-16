@@ -141,6 +141,20 @@ public class FasterOctoCanum extends SubsystemBase
 
     return position;
   }
+  public double getEncPosFront()
+  {
+    int frontLeftEnc = Math.abs(-m_frontLeft.getSelectedSensorPosition(0));
+    int frontRightEnc = Math.abs(m_frontRight.getSelectedSensorPosition(0));
+    double position = ((frontLeftEnc + frontRightEnc) / 2);
+    return position;
+  }
+  public double getEncPosBack()
+  {
+    int backLeftEnc = Math.abs(-m_backLeft.getSelectedSensorPosition(0));
+    int backRightEnc = Math.abs(m_backRight.getSelectedSensorPosition(0));
+    double position = ((backLeftEnc + backRightEnc) / 2);
+    return position;
+  }
   public double getHeading()
   {
     return Math.IEEEremainder(m_gyro.getAngle(), 360);
