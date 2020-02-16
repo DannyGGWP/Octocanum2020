@@ -1,4 +1,3 @@
-
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -7,57 +6,55 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.FasterOctoCanum;
 
-public class AutoDrive extends CommandBase {
-  /**
-   * Creates a new AutoDrive.
-   */
-  private double m_x; 
-  private double m_y; 
-  private double m_distance; 
-  private FasterOctoCanum m_drive; 
-  //private double currentEncCount;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+
+public class StrafeTest extends CommandBase 
+{
+  private FasterOctoCanum driveTrain;
   private double frontEncCount;
   private boolean m_finished;
-  public AutoDrive(double y, double x, double distance, FasterOctoCanum drive) {
+
+  /**
+   * Creates a new StrafeTest.
+   */
+  public StrafeTest(FasterOctoCanum driveTrain) 
+  {
+    addRequirements(driveTrain);
+    this.driveTrain = driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(drive);
-    m_x = x;
-    m_y = y; 
-    m_distance = distance; 
-    m_drive = drive; 
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    frontEncCount = m_drive.getEncPosFront();
-    m_finished = false;
+  public void initialize() 
+  {
+    frontEncCount = driveTrain.getEncPosFront();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    //driveTrain.enableTank();
-    m_drive.drive(m_x, m_y, 0, 0);
-    if(m_drive.getEncPosFront() > frontEncCount + m_distance)
+  public void execute() 
+  {
+    driveTrain.drive(0.3, 0, 0, 0);
+    if(driveTrain.getEncPosFront() > frontEncCount + 100000)
     {
-      m_drive.drive(0, 0, 0, 0);
+      driveTrain.drive(0, 0, 0, 0);
       m_finished = true;
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_drive.drive(0, 0, 0, 0);
+  public void end(boolean interrupted) 
+  {
+    driveTrain.drive(0, 0, 0, 0);
   }
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() {
+  public boolean isFinished() 
+  {
     return m_finished;
   }
 }
