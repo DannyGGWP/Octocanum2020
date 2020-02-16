@@ -42,7 +42,7 @@ public class FasterOctoCanum extends SubsystemBase
 
   private Boolean m_driveStraight = false;
   private double m_angleSetPoint = 0.0; 
-  private static final double c_kPcorrection = 0.1; 
+  private static final double c_kPcorrection = 0.05; 
 
   private DriveMode m_previousMode;
   public DriveMode m_driveState;
@@ -265,11 +265,14 @@ public class FasterOctoCanum extends SubsystemBase
           
           break;
       case robotMechanum:
-
-          if (m_mecanumDrive != null){
-            m_mecanumDrive.driveCartesian(-x, y, -rotation);
-          }
-          break;
+        if (m_driveStraight && Math.abs(rotation) < RobotMap.c_deadBand)
+        {
+          rotation = error*c_kPcorrection; 
+        }
+        if (m_mecanumDrive != null){
+          m_mecanumDrive.driveCartesian(-x, y, -rotation);
+        }
+        break;
       case tank:
       // Y and X are flipped intentionally 
       if (m_driveStraight && Math.abs(rotation) < RobotMap.c_deadBand)

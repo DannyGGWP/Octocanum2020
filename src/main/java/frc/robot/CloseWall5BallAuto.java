@@ -25,24 +25,25 @@ public class CloseWall5BallAuto extends SequentialCommandGroup {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     super(
-      new InstantCommand(driveTrain::toggleTank,driveTrain),
+      //new InstantCommand(driveTrain::toggleTank,driveTrain),
       new WaitCommand(0.5),
       new InstantCommand(driveTrain::resetGyro, driveTrain),
       new InstantCommand(driveTrain::resetEncoders, driveTrain),
       new InstantCommand(elevator::intake,elevator),
       new InstantCommand(driveTrain::enableDriveStraight,driveTrain),
-      new AutoDrive(-0.5,0.0,115000.0, driveTrain),
-      new InstantCommand(driveTrain::disableDriveStraight,driveTrain),
-      new InstantCommand(driveTrain::toggleTank,driveTrain),
-      new WaitCommand(1), 
+      new AutoDrive(-0.3,0.0,115000.0, driveTrain),
+      new WaitCommand(1),
       new InstantCommand(elevator::offTake,elevator),
-      new TurnToAngle(150, driveTrain, 0.02, 0.0001, 0.0001, 5),
+      //new AutoDrive(0.5,0.0,115000.0, driveTrain), 
+      new InstantCommand(driveTrain::disableDriveStraight,driveTrain)//,
+      //new InstantCommand(driveTrain::toggleTank,driveTrain)/*,
+      /*new TurnToAngle(150, driveTrain, 0.02, 0.0001, 0.0001, 5)/*,
       new AutoDrive(-0.6,0.0,200000,driveTrain),
       new TurnToAngle(179,driveTrain,0.02, 0.0001, 0.0001, 3),
       new AutoDrive(-0.6,0.0,80000,driveTrain),
       new InstantCommand(shooter::onWheel,shooter), 
       new WaitCommand(1),
-      new InstantCommand(shooter::openGate,shooter)
+      new InstantCommand(shooter::openGate,shooter)*/
     );
   }
 }
