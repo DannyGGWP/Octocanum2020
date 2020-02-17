@@ -18,6 +18,7 @@ public class UpUp extends SubsystemBase
    * Creates a new UpUp.
    */
   private WPI_TalonSRX climberMotor = new WPI_TalonSRX(RobotMap.climberMotor);
+  private Solenoid flipSol = new Solenoid(52, RobotMap.climberSol);
   public UpUp() 
   {
     climberMotor.set(ControlMode.PercentOutput, 0);
@@ -37,6 +38,14 @@ public class UpUp extends SubsystemBase
   public void climbDown()
   {
     climberMotor.set(-1.0);
+  }
+  public void climberExtend()
+  {
+    flipSol.set(true);
+  }
+  public void climberRetract()
+  {
+    flipSol.set(false);
   }
 
   @Override
