@@ -19,6 +19,7 @@ public class LightLight extends SubsystemBase
    * Creates a new LightLight.
    */
   public LightDriveCAN ld_can = new LightDriveCAN();
+
   int counter = 0;
 
 //  public Servo servo1 = new Servo(0);
@@ -26,15 +27,15 @@ public class LightLight extends SubsystemBase
 
   public LightLight() 
   {
-
+	ld_can.Update();
   }
   public void setLights()
   {
     //Set colors on CAN LightDrive, also set brightness (optional)
-    ld_can.SetColor(1, Color.BLUE, (float) 0.8);
-		ld_can.SetColor(2, Color.GREEN, (float) 0.8);
-		ld_can.SetColor(3, Color.RED, (float) 0.8);
-    ld_can.SetColor(4, Color.YELLOW, (float) 0.8);
+    ld_can.SetColor(1, Color.BLUE);
+	ld_can.SetColor(2, Color.GREEN);
+	ld_can.SetColor(3, Color.RED);
+    ld_can.SetColor(4, Color.YELLOW);
     //Send these colors to CAN LightDrive
     ld_can.Update();
     
