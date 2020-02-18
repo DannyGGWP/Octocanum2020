@@ -48,7 +48,7 @@ public class CloseWall5BallAuto extends SequentialCommandGroup
       new AutoDrive(-0.6,0.0,50000,driveTrain),
       new InstantCommand(driveTrain::disableDriveStraight,driveTrain),
       //new InstantCommand(driveTrain::resetGyro, driveTrain),
-      new TurnToAngle(179, driveTrain, 0.02, 0.0001, 0.0001, 4),
+      new TurnToAngle(180, driveTrain, 0.02, 0.0001, 0.0001, 2),
       new WaitCommand(0.5),
       new InstantCommand(driveTrain::resetEncoders, driveTrain),
       new InstantCommand(driveTrain::enableDriveStraight,driveTrain),
