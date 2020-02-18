@@ -20,7 +20,7 @@ public class UpUp extends SubsystemBase
    */
   private WPI_TalonSRX climberMotor = new WPI_TalonSRX(RobotMap.climberMotor);
   private Solenoid lockSol = new Solenoid(52, RobotMap.climberSol);
-  
+
   public UpUp() 
   {
     climberMotor.set(ControlMode.PercentOutput, 0);
@@ -29,7 +29,7 @@ public class UpUp extends SubsystemBase
   public void armUp()
   {
     climberMotor.set(0.6);
-    lockEngage();
+   // lockEngage();
   }
   public void armOff()
   {
