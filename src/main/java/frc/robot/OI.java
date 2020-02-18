@@ -101,15 +101,15 @@ public class OI
         .whileHeld(new SensorIntake(elevatorSubsystem))
         .whenReleased(elevatorSubsystem::offTake, elevatorSubsystem);
       new JoystickButton( panel, RobotMap.climbUp)
-        .whenPressed(hangBoi::climbUp, hangBoi)
-        .whenReleased(hangBoi::climbOff, hangBoi);
+        .whenPressed(hangBoi::armUp, hangBoi)
+        .whenReleased(hangBoi::armOff, hangBoi);
       new JoystickButton(panel, RobotMap.climbDown)
-        .whenPressed(hangBoi::climbDown,hangBoi)
-        .whenReleased(hangBoi::climbOff,hangBoi);
+        .whenPressed(hangBoi::armDown,hangBoi)
+        .whenReleased(hangBoi::armOff,hangBoi);
       new JoystickButton(panel,RobotMap.hangEnable)
-        .whileHeld(hangBoi :: climbOff, hangBoi);
+        .whileHeld(hangBoi::armOff, hangBoi);
       new JoystickButton(driveJoystick, RobotMap.back)
-        .whenPressed(driveTrain :: disableDriveStraight, driveTrain);
+        .whenPressed(driveTrain::disableDriveStraight, driveTrain);
       
     }
 }
