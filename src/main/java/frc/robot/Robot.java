@@ -55,8 +55,9 @@ public class Robot extends TimedRobot
     _faults = new Faults();
    // m_pwm = new PWM(0);
   //  m_pwmSpeed = new PWMTalonSRX(0);
-    compressor.start();
+    compressor.start();    
     m_oi.driveTrain.disableFieldOriented();
+    m_oi.lightStrips.setLights();
     SmartDashboard.putString("Auto Chooser", RobotMap.autoChooser);
     
     /** 
@@ -168,6 +169,7 @@ public class Robot extends TimedRobot
   {
    // m_pwm.setRaw(8);
  //  m_pwmSpeed.setSpeed(-0.5);
+ 
   }
  
   /**
