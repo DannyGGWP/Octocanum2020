@@ -106,8 +106,9 @@ public class OI
         .whenPressed(hangBoi::climbDown,hangBoi)
         .whenReleased(hangBoi::climbOff,hangBoi);
       new JoystickButton(panel,RobotMap.hangEnable)
-        .whileHeld(hangBoi::climbOff, hangBoi);
-
+        .whileHeld(hangBoi :: climbOff, hangBoi);
+      new JoystickButton(driveJoystick, RobotMap.back)
+        .whenPressed(driveTrain :: disableDriveStraight, driveTrain);
       
     }
 }
