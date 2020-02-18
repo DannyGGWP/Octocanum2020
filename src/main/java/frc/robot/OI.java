@@ -24,6 +24,7 @@ public class OI
   public final ShootShoot ballShooter = new ShootShoot();
   public final LiftLift elevatorSubsystem = new LiftLift();
   public final UpUp hangBoi = new UpUp();
+  public final LightLight lightStrips = new LightLight();
 
  // public final ActivateSpinSpin spinnerCommand = new ActivateSpinSpin(colorWheel);
   public final PowerDistributionPanel m_pdp = new PowerDistributionPanel(51);
