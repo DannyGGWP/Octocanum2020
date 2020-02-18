@@ -145,8 +145,8 @@ public class FasterOctoCanum extends SubsystemBase
   {
     int frontLeftEnc = Math.abs(-m_frontLeft.getSelectedSensorPosition(0));
     int frontRightEnc = Math.abs(m_frontRight.getSelectedSensorPosition(0));
-    double position = ((frontLeftEnc + frontRightEnc) / 2);
-    return position;
+    //double position = ((frontLeftEnc + frontRightEnc) / 2);
+    return (frontLeftEnc > frontRightEnc) ? frontLeftEnc : frontRightEnc; 
   }
   public double getEncPosBack()
   {

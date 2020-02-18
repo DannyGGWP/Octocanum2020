@@ -26,7 +26,7 @@ public class UpUp extends SubsystemBase
 
   public void climbUp()
   {
-    climberMotor.set(1.0);
+    climberMotor.set(0.6);
   }
 
   public void climbOff()
@@ -36,7 +36,7 @@ public class UpUp extends SubsystemBase
 
   public void climbDown()
   {
-    climberMotor.set(-1.0);
+    climberMotor.set(-0.6);
   }
 
   @Override

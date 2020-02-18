@@ -100,13 +100,13 @@ public class OI
         .whileHeld(new SensorIntake(elevatorSubsystem))
         .whenReleased(elevatorSubsystem::offTake, elevatorSubsystem);
       new JoystickButton( panel, RobotMap.climbUp)
-        .whenPressed(hangBoi :: climbUp, hangBoi)
-        .whenReleased(hangBoi :: climbOff, hangBoi);
+        .whenPressed(hangBoi::climbUp, hangBoi)
+        .whenReleased(hangBoi::climbOff, hangBoi);
       new JoystickButton(panel, RobotMap.climbDown)
-        .whenPressed(hangBoi :: climbDown,hangBoi)
-        .whenReleased(hangBoi :: climbOff,hangBoi);
+        .whenPressed(hangBoi::climbDown,hangBoi)
+        .whenReleased(hangBoi::climbOff,hangBoi);
       new JoystickButton(panel,RobotMap.hangEnable)
-        .whileHeld(hangBoi :: climbOff, hangBoi);
+        .whileHeld(hangBoi::climbOff, hangBoi);
 
       
     }
