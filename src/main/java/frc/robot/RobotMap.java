@@ -18,7 +18,7 @@ public class RobotMap
 	public static int driveTalonFR = 5;
 	public static int driveTalonBR = 6;
 	public static int shooterSpark = 7;
-	public static double c_deadBand = 0.1;
+	public static double c_deadBand = 0.02;
 	public static double setPoint = 4800;
 	public static double deadband = 0;
 
@@ -46,7 +46,7 @@ public class RobotMap
 	public static int climberMotor = 12;
 
 	public static String autoChooser = "0";
-
+//29-32 for picker
 	//control panel values
 	public static int outtakeButton = 9;
 	public static int intakeButton = 10;

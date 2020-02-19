@@ -8,6 +8,7 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.Faults;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -234,7 +235,20 @@ public class FasterOctoCanum extends SubsystemBase
   {
      return m_driveState;
   }
-
+  public void enableBrake()
+  {
+    m_frontLeft.setNeutralMode(NeutralMode.Brake);
+    m_frontRight.setNeutralMode(NeutralMode.Brake);
+    m_backLeft.setNeutralMode(NeutralMode.Brake);
+    m_backRight.setNeutralMode(NeutralMode.Brake);
+  }
+  public void disableBrake()
+  {
+    m_frontLeft.setNeutralMode(NeutralMode.Coast);
+    m_frontRight.setNeutralMode(NeutralMode.Coast);
+    m_backLeft.setNeutralMode(NeutralMode.Coast);
+    m_backRight.setNeutralMode(NeutralMode.Coast);
+  }
   /**
    * @param x left drive speed
    * @param y right drive speed
@@ -255,7 +269,6 @@ public class FasterOctoCanum extends SubsystemBase
         error = 0.0; 
       }
     }
-
   switch(m_driveState)
   {
       case fieldMechanum:

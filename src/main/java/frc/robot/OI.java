@@ -32,6 +32,7 @@ public class OI
   public static Joystick panel = new Joystick(0);
   public static JoystickButton cannonButton = new JoystickButton(panel,RobotMap.shootButton);
   public static JoystickButton turnButton = new JoystickButton(driveJoystick,RobotMap.buttonB);
+//  public static JoystickButton climbButton = new JoystickButton(driveJoystick,RobotMap.climbUp);
   //public static JoystickButton shooterButton = new JoystickButton(driveJoystick, RobotMap.buttonA);
   /*
     public static JoystickButton mechanumSwitch = new JoystickButton(driveJoystick,RobotMap.back);
@@ -67,7 +68,7 @@ public class OI
       }
      // return new AutoCenter(ballShooter, driveTrain, elevatorSubsystem); 
         //return new Angle156Auto(elevatorSubsystem, driveTrain, ballShooter);
-        return new CloseWall5BallAuto(elevatorSubsystem, driveTrain, ballShooter);
+        return new FarWall5BallAuto(elevatorSubsystem, driveTrain, ballShooter);
     }
     private void configureButtonBindings()
     {
@@ -100,8 +101,8 @@ public class OI
       new JoystickButton(panel, RobotMap.intakeButton)
         .whileHeld(new SensorIntake(elevatorSubsystem))
         .whenReleased(elevatorSubsystem::offTake, elevatorSubsystem);
-      new JoystickButton( panel, RobotMap.climbUp)
-        .whenPressed(hangBoi::armUp, hangBoi)
+      new JoystickButton(panel, RobotMap.climbUp)
+        .whenPressed(new Climbing(hangBoi))
         .whenReleased(hangBoi::armOff, hangBoi);
       new JoystickButton(panel, RobotMap.climbDown)
         .whenPressed(hangBoi::armDown,hangBoi)

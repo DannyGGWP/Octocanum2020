@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
@@ -22,16 +23,20 @@ public class FarWall5BallAuto extends SequentialCommandGroup
   {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super
-    (
+    super(
       new InstantCommand(driveTrain::resetGyro, driveTrain),
       new InstantCommand(driveTrain::resetEncoders, driveTrain),
-     // new InstantCommand(driveTrain::enableDriveStraight,driveTrain),
-      new AutoDrive(0.0,0.5,100000.0, driveTrain),
+      new InstantCommand(driveTrain::enableDriveStraight,driveTrain),
       new InstantCommand(elevator::intake,elevator),
-      new StrafeTest(50000, driveTrain),
-      new InstantCommand(elevator::offTake,elevator)
-   //   new InstantCommand(driveTrain::disableDriveStraight,driveTrain)
+      new AutoDrive(-0.5,0.0,95000.0, driveTrain),
+      new InstantCommand(driveTrain::enableBrake, driveTrain),
+      new WaitCommand(1),
+      new InstantCommand(driveTrain::disableBrake, driveTrain),
+      new WaitCommand(1),
+      new InstantCommand(driveTrain::resetEncoders, driveTrain),
+      new AutoDrive(0,0.5, 75000, driveTrain),
+     // new InstantCommand(elevator::offTake,elevator)
+      new InstantCommand(driveTrain::disableDriveStraight,driveTrain)
     );
   }
 }
