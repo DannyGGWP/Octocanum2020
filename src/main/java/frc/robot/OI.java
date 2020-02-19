@@ -24,6 +24,7 @@ public class OI
   public final ShootShoot ballShooter = new ShootShoot();
   public final LiftLift elevatorSubsystem = new LiftLift();
   public final UpUp hangBoi = new UpUp();
+  public final SpinSpin wheel = new SpinSpin();
   //public final LightLight lightStrips = new LightLight();
 
  // public final ActivateSpinSpin spinnerCommand = new ActivateSpinSpin(colorWheel);
@@ -104,6 +105,12 @@ public class OI
       new JoystickButton(panel, RobotMap.climbUp)
         .whenPressed(new Climbing(hangBoi))
         .whenReleased(hangBoi::armOff, hangBoi);
+        
+      new JoystickButton(panel, RobotMap.findColor)
+        .whenPressed(new SpinToColor(wheel));
+      new JoystickButton(panel, RobotMap.rotateColor)
+        .whenPressed(new ActivateSpinSpin(wheel));
+
       new JoystickButton(panel, RobotMap.climbDown)
         .whenPressed(hangBoi::armDown,hangBoi)
         .whenReleased(hangBoi::armOff,hangBoi);

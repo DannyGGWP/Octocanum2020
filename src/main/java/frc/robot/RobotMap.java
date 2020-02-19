@@ -40,7 +40,7 @@ public class RobotMap
 	public static int succSol = 2;
 	public static int climberSol = 3;
 
-	public static int wheelMotor = 9;
+	public static int wheelMotor = 8;
 	public static int elevatorMotor = 9;
 	public static int succMotor = 4;
 	public static int climberMotor = 12;
@@ -54,6 +54,8 @@ public class RobotMap
 	public static int hangEnable = 12;
 	public static int climbUp = 13;
 	public static int climbDown = 14;
+	public static int rotateColor = 15;
+	public static int findColor = 16;
 
 	//DUMB AS FUCK PID BULLSHIT
 	public static int p = 0;
