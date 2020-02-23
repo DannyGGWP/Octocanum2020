@@ -8,6 +8,7 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.Faults;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -42,7 +43,7 @@ public class FasterOctoCanum extends SubsystemBase
 
   private Boolean m_driveStraight = false;
   private double m_angleSetPoint = 0.0; 
-  private static final double c_kPcorrection = 0.1; 
+  private static final double c_kPcorrection = 0.05; 
 
   private DriveMode m_previousMode;
   public DriveMode m_driveState;
@@ -145,8 +146,8 @@ public class FasterOctoCanum extends SubsystemBase
   {
     int frontLeftEnc = Math.abs(-m_frontLeft.getSelectedSensorPosition(0));
     int frontRightEnc = Math.abs(m_frontRight.getSelectedSensorPosition(0));
-    double position = ((frontLeftEnc + frontRightEnc) / 2);
-    return position;
+    //double position = ((frontLeftEnc + frontRightEnc) / 2);
+    return (frontLeftEnc > frontRightEnc) ? frontLeftEnc : frontRightEnc; 
   }
   public double getEncPosBack()
   {
@@ -234,7 +235,20 @@ public class FasterOctoCanum extends SubsystemBase
   {
      return m_driveState;
   }
-
+  public void enableBrake()
+  {
+    m_frontLeft.setNeutralMode(NeutralMode.Brake);
+    m_frontRight.setNeutralMode(NeutralMode.Brake);
+    m_backLeft.setNeutralMode(NeutralMode.Brake);
+    m_backRight.setNeutralMode(NeutralMode.Brake);
+  }
+  public void disableBrake()
+  {
+    m_frontLeft.setNeutralMode(NeutralMode.Coast);
+    m_frontRight.setNeutralMode(NeutralMode.Coast);
+    m_backLeft.setNeutralMode(NeutralMode.Coast);
+    m_backRight.setNeutralMode(NeutralMode.Coast);
+  }
   /**
    * @param x left drive speed
    * @param y right drive speed
@@ -255,7 +269,6 @@ public class FasterOctoCanum extends SubsystemBase
         error = 0.0; 
       }
     }
-
   switch(m_driveState)
   {
       case fieldMechanum:
@@ -265,11 +278,14 @@ public class FasterOctoCanum extends SubsystemBase
           
           break;
       case robotMechanum:
-
-          if (m_mecanumDrive != null){
-            m_mecanumDrive.driveCartesian(-x, y, -rotation);
-          }
-          break;
+        if (m_driveStraight && Math.abs(rotation) < RobotMap.c_deadBand)
+        {
+          rotation = error*c_kPcorrection; 
+        }
+        if (m_mecanumDrive != null){
+          m_mecanumDrive.driveCartesian(-x, y, -rotation);
+        }
+        break;
       case tank:
       // Y and X are flipped intentionally 
       if (m_driveStraight && Math.abs(rotation) < RobotMap.c_deadBand)

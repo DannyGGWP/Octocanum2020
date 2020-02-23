@@ -8,7 +8,9 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
@@ -28,7 +30,7 @@ public class SpinSpin extends SubsystemBase
 {
   private ColorSensorV3 m_colorSensor;
   private ColorMatch m_colorMatcher = new ColorMatch();
-  private VictorSP spinnyMotor = new VictorSP(RobotMap.wheelMotor);
+  private WPI_TalonSRX spinnyMotor = new WPI_TalonSRX(RobotMap.wheelMotor);
   private Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
   private Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
   private Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);

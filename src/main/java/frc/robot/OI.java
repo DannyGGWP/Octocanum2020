@@ -24,6 +24,8 @@ public class OI
   public final ShootShoot ballShooter = new ShootShoot();
   public final LiftLift elevatorSubsystem = new LiftLift();
   public final UpUp hangBoi = new UpUp();
+  public final SpinSpin wheel = new SpinSpin();
+  //public final LightLight lightStrips = new LightLight();
 
  // public final ActivateSpinSpin spinnerCommand = new ActivateSpinSpin(colorWheel);
   public final PowerDistributionPanel m_pdp = new PowerDistributionPanel(51);
@@ -31,6 +33,7 @@ public class OI
   public static Joystick panel = new Joystick(0);
   public static JoystickButton cannonButton = new JoystickButton(panel,RobotMap.shootButton);
   public static JoystickButton turnButton = new JoystickButton(driveJoystick,RobotMap.buttonB);
+//  public static JoystickButton climbButton = new JoystickButton(driveJoystick,RobotMap.climbUp);
   //public static JoystickButton shooterButton = new JoystickButton(driveJoystick, RobotMap.buttonA);
   /*
     public static JoystickButton mechanumSwitch = new JoystickButton(driveJoystick,RobotMap.back);
@@ -66,7 +69,7 @@ public class OI
       }
      // return new AutoCenter(ballShooter, driveTrain, elevatorSubsystem); 
         //return new Angle156Auto(elevatorSubsystem, driveTrain, ballShooter);
-        return new CloseWall5BallAuto(elevatorSubsystem, driveTrain, ballShooter);
+        return new FarWall5BallAuto(elevatorSubsystem, driveTrain, ballShooter);
     }
     private void configureButtonBindings()
     {
@@ -99,16 +102,22 @@ public class OI
       new JoystickButton(panel, RobotMap.intakeButton)
         .whileHeld(new SensorIntake(elevatorSubsystem))
         .whenReleased(elevatorSubsystem::offTake, elevatorSubsystem);
-      new JoystickButton( panel, RobotMap.climbUp)
-        .whenPressed(hangBoi :: climbUp, hangBoi)
-        .whenReleased(hangBoi :: climbOff, hangBoi);
+      new JoystickButton(panel, RobotMap.climbUp)
+        .whenPressed(new Climbing(hangBoi))
+        .whenReleased(hangBoi::armOff, hangBoi);
+        
+      new JoystickButton(panel, RobotMap.findColor)
+        .whenPressed(new SpinToColor(wheel));
+      new JoystickButton(panel, RobotMap.rotateColor)
+        .whenPressed(new ActivateSpinSpin(wheel));
+
       new JoystickButton(panel, RobotMap.climbDown)
-        .whenPressed(hangBoi :: climbDown,hangBoi)
-        .whenReleased(hangBoi :: climbOff,hangBoi);
+        .whenPressed(hangBoi::armDown,hangBoi)
+        .whenReleased(hangBoi::armOff,hangBoi);
       new JoystickButton(panel,RobotMap.hangEnable)
-        .whileHeld(hangBoi :: climbOff, hangBoi);
+        .whileHeld(hangBoi::armOff, hangBoi);
       new JoystickButton(driveJoystick, RobotMap.back)
-        .whenPressed(driveTrain :: disableDriveStraight, driveTrain);
+        .whenPressed(driveTrain::disableDriveStraight, driveTrain);
       
     }
 }

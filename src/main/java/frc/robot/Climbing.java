@@ -7,36 +7,27 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class FarWall5BallAuto extends SequentialCommandGroup 
+public class Climbing extends SequentialCommandGroup 
 {
   /**
-   * Creates a new FarWall5BallAuto.
+   * Creates a new Climbing.
    */
-  public FarWall5BallAuto(LiftLift elevator, FasterOctoCanum driveTrain, ShootShoot shooter) 
+  public Climbing(UpUp climber) 
   {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super(
-      new InstantCommand(driveTrain::resetGyro, driveTrain),
-      new InstantCommand(driveTrain::resetEncoders, driveTrain),
-      new InstantCommand(driveTrain::enableDriveStraight,driveTrain),
-      new InstantCommand(elevator::intake,elevator),
-      new AutoDrive(-0.5,0.0,95000.0, driveTrain),
-      new InstantCommand(driveTrain::enableBrake, driveTrain),
+    super
+    (
+      new InstantCommand(climber::lockEngage,climber),
       new WaitCommand(1),
-      new InstantCommand(driveTrain::disableBrake, driveTrain),
-      new WaitCommand(1),
-      new InstantCommand(driveTrain::resetEncoders, driveTrain),
-      new AutoDrive(0,0.5, 75000, driveTrain),
-     // new InstantCommand(elevator::offTake,elevator)
-      new InstantCommand(driveTrain::disableDriveStraight,driveTrain)
+      new InstantCommand(climber::armUp,climber)
     );
   }
 }
