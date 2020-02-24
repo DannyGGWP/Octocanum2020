@@ -7,10 +7,10 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.ConditionalCommand;
-import edu.wpi.first.wpilibj2.command.ConditionalCommand;
+//import edu.wpi.first.wpilibj2.command.ConditionalCommand;
+//import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
+//import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
@@ -28,36 +28,53 @@ public class CloseWall5BallAuto extends SequentialCommandGroup
     // super(new FooCommand(), new BarCommand());
     super(
       //new InstantCommand(driveTrain::toggleTank,driveTrain),
-      new WaitCommand(0.5),
+      //new WaitCommand(0.2),
+      //Start by driving straight and picking up balls
       new InstantCommand(driveTrain::resetGyro, driveTrain),
       new InstantCommand(driveTrain::resetEncoders, driveTrain),
+      new InstantCommand(driveTrain::enableDriveStraight,driveTrain),
+      new WaitCommand(0.25),
       new InstantCommand(elevator::intake,elevator),
       new InstantCommand(driveTrain::enableDriveStraight,driveTrain),
-      new AutoDrive(-0.35,0.0,120000.0, driveTrain),
-      new WaitCommand(2),
-      new InstantCommand(elevator::offTake,elevator),
+      //new AutoDrive(-0.35,0.0,120000.0, driveTrain),
+      new AutoDrive(-0.50,0.0,120000.0, driveTrain),
+      new WaitCommand(1.00),
       new InstantCommand(driveTrain::resetEncoders, driveTrain),
-      new AutoDrive(0.5,0.0,115000.0, driveTrain), 
+      new WaitCommand(0.25),
+      
+      //Now reverse and stop intake
+      //new AutoDrive(0.5,0.0,115000.0, driveTrain), 
+      new InstantCommand(elevator::offTake,elevator),
+      new AutoDrive(0.70,0.0,130000.0, driveTrain),
       new InstantCommand(driveTrain::disableDriveStraight,driveTrain),
       //new InstantCommand(driveTrain::resetGyro, driveTrain),
-      //new InstantCommand(driveTrain::toggleTank,driveTrain)/*,
-      new TurnToAngle(90, driveTrain, 0.02, 0.0001, 0.0001, 4),
-      new WaitCommand(0.5),
+      
+      // Use mecanum and turn to 90
+      new InstantCommand(driveTrain::toggleTank,driveTrain),
+      new TurnToAngle(90, driveTrain, 0.010, 0.00300, 0.0016, 4),
+      new WaitCommand(0.25),
       new InstantCommand(driveTrain::resetEncoders, driveTrain),
       new InstantCommand(driveTrain::enableDriveStraight,driveTrain),
-      new AutoDrive(-0.6,0.0,50000,driveTrain),
+      
+      // Drive out
+      new AutoDrive(-0.6,0.0,60000,driveTrain),
       new InstantCommand(driveTrain::disableDriveStraight,driveTrain),
-      //new InstantCommand(driveTrain::resetGyro, driveTrain),	     
-      new TurnToAngle(180, driveTrain, 0.02, 0.0001, 0.0001, 2),
-      new WaitCommand(0.5),
+      new InstantCommand(driveTrain::toggleTank,driveTrain),
+      
+      // Turn toward wall
+      new TurnToAngle(180, driveTrain, 0.010, 0.00300, 0.0016, 4),
+      new InstantCommand(driveTrain::resetGyro, driveTrain),	     
       new InstantCommand(driveTrain::resetEncoders, driveTrain),
       new InstantCommand(driveTrain::enableDriveStraight,driveTrain),
+      new WaitCommand(0.25),
+      
+      // Start shooter wheel and drive forward
+      new InstantCommand(shooter::onWheel,shooter), 
       new AutoDrive(-0.6,0.0,110000,driveTrain),
       new InstantCommand(driveTrain::disableDriveStraight,driveTrain),
-      //new TurnToAngle(179,driveTrain,0.02, 0.0001, 0.0001, 3),
-      //new AutoDrive(-0.6,0.0,80000,driveTrain),
-      new InstantCommand(shooter::onWheel,shooter), 
-      new WaitCommand(1),
+     
+      // SHOOT!
+      new WaitCommand(0.75),
       new InstantCommand(elevator::elevatorUp, elevator),
       new InstantCommand(shooter::openGate,shooter),
       new WaitCommand(5), 

@@ -28,7 +28,7 @@ public class UpUp extends SubsystemBase
 
   public void armUp()
   {
-    climberMotor.set(0.6);
+    climberMotor.set(1.0);
    // lockEngage();
   }
   public void armOff()
@@ -38,7 +38,7 @@ public class UpUp extends SubsystemBase
   }
   public void armDown()
   {
-    climberMotor.set(-0.6);
+    climberMotor.set(-1.0);
     lockDeengage();
   }
   public void lockEngage()

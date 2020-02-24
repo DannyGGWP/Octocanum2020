@@ -7,15 +7,20 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
+import java.awt.Color;
+
+//import edu.wpi.first.wpilibj.Timer;
+//import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import com.mach.LightDrive.LightDriveCAN;
 
 public class Cannon extends CommandBase
 {
-  private double time;
+  //private double time;
   private ShootShoot ballShooter;
-  private LiftLift elevatorSubsystem;  
+  private LiftLift elevatorSubsystem;
+  public static LightDriveCAN m_lightDrive = new LightDriveCAN(); 
+
   public Cannon(ShootShoot shooter, LiftLift elevator) 
   {
     // Use requires() here to declare subsystem dependencies
@@ -29,9 +34,14 @@ public class Cannon extends CommandBase
   @Override
   public void initialize() 
   {
-    time = Timer.getFPGATimestamp();
+    //time = Timer.getFPGATimestamp();
     ballShooter.onWheel();
     ballShooter.closeGate();
+    m_lightDrive.SetColor(1, Color.CYAN);
+    m_lightDrive.SetColor(2, Color.CYAN);
+    m_lightDrive.SetColor(3, Color.CYAN);
+    m_lightDrive.SetColor(4, Color.CYAN);
+    //m_lightDrive.Update();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -41,6 +51,11 @@ public class Cannon extends CommandBase
     //order 66
     if(ballShooter.wheelSpeed() > RobotMap.setPoint - 100) 
     {
+      m_lightDrive.SetColor(1, Color.GREEN);
+      m_lightDrive.SetColor(2, Color.GREEN);
+      m_lightDrive.SetColor(3, Color.GREEN);
+      m_lightDrive.SetColor(4, Color.GREEN);
+      //m_lightDrive.Update();
       ballShooter.openGate();
       elevatorSubsystem.elevatorUp();
   //    time = Timer.getFPGATimestamp();
