@@ -14,10 +14,10 @@ import com.mach.LightDrive.LightDriveCAN;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.PWM;
-import edu.wpi.first.wpilibj.PWMSparkMax;
-import edu.wpi.first.wpilibj.PWMSpeedController;
-import edu.wpi.first.wpilibj.PWMTalonSRX;
+//import edu.wpi.first.wpilibj.PWM;
+//import edu.wpi.first.wpilibj.PWMSparkMax;
+//import edu.wpi.first.wpilibj.PWMSpeedController;
+//import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -63,7 +63,9 @@ public class Robot extends TimedRobot
     m_oi.driveTrain.disableFieldOriented();
     //m_oi.lightStrips.setLights();
     SmartDashboard.putString("Auto Chooser", RobotMap.autoChooser);
-    
+    m_lightDrive.SetColor(1, Color.CYAN);
+    m_lightDrive.Update();
+
     /** 
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
@@ -84,25 +86,25 @@ public class Robot extends TimedRobot
   @Override
   public void robotPeriodic() 
   {
-    m_lightDrive.SetColor(1, Color.CYAN);
-    m_lightDrive.SetColor(2, Color.CYAN);
-    m_lightDrive.SetColor(3, Color.CYAN);
-    m_lightDrive.SetColor(4, Color.CYAN);
+    //m_lightDrive.SetColor(1, Color.CYAN);
+    //m_lightDrive.SetColor(2, Color.CYAN);
+    //m_lightDrive.SetColor(3, Color.CYAN);
+    //m_lightDrive.SetColor(4, Color.CYAN);
     m_lightDrive.Update();
     SmartDashboard.putNumber("Enc Count", m_oi.driveTrain.getEncPos());
     SmartDashboard.putBoolean("Out Of Phase:",_faults.SensorOutOfPhase);
-   // SmartDashboard.putNumber("Enc Direction", )
-   SmartDashboard.putNumber("Sensor Vel: Front Left", m_oi.driveTrain.m_frontLeft.getSelectedSensorVelocity());
-   SmartDashboard.putNumber("Sensor Pos: Front Left", m_oi.driveTrain.m_frontLeft.getSelectedSensorPosition());
+    // SmartDashboard.putNumber("Enc Direction", )
+    SmartDashboard.putNumber("Sensor Vel: Front Left", m_oi.driveTrain.m_frontLeft.getSelectedSensorVelocity());
+    SmartDashboard.putNumber("Sensor Pos: Front Left", m_oi.driveTrain.m_frontLeft.getSelectedSensorPosition());
     SmartDashboard.putNumber("Out %: Front Left", m_oi.driveTrain.m_frontLeft.getMotorOutputPercent());
     SmartDashboard.putNumber("Sensor Vel: Front Right", m_oi.driveTrain.m_frontRight.getSelectedSensorVelocity());
-   SmartDashboard.putNumber("Sensor Pos: Front RIght", m_oi.driveTrain.m_frontRight.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Sensor Pos: Front RIght", m_oi.driveTrain.m_frontRight.getSelectedSensorPosition());
     SmartDashboard.putNumber("Out %: Front Right", m_oi.driveTrain.m_frontRight.getMotorOutputPercent());
     SmartDashboard.putNumber("Sensor Vel: Back Left", m_oi.driveTrain.m_backLeft.getSelectedSensorVelocity());
-   SmartDashboard.putNumber("Sensor Pos: Back Left", m_oi.driveTrain.m_backLeft.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Sensor Pos: Back Left", m_oi.driveTrain.m_backLeft.getSelectedSensorPosition());
     SmartDashboard.putNumber("Out %: Back Left", m_oi.driveTrain.m_backLeft.getMotorOutputPercent());
     SmartDashboard.putNumber("Sensor Vel:  Back Right", m_oi.driveTrain.m_backRight.getSelectedSensorVelocity());
-   SmartDashboard.putNumber("Sensor Pos:  Back Right", m_oi.driveTrain.m_backRight.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Sensor Pos:  Back Right", m_oi.driveTrain.m_backRight.getSelectedSensorPosition());
     SmartDashboard.putNumber("Out %: Back Right", m_oi.driveTrain.m_backRight.getMotorOutputPercent());
     SmartDashboard.putBoolean("Out Of Phase: Front Left", _faults.SensorOutOfPhase);
     CommandScheduler.getInstance().run();
@@ -176,8 +178,9 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic() 
   {
-   // m_pwm.setRaw(8);
- //  m_pwmSpeed.setSpeed(-0.5);
+    
+    // m_pwm.setRaw(8);
+    //  m_pwmSpeed.setSpeed(-0.5);
  
   }
  

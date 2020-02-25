@@ -8,7 +8,7 @@
 
 package frc.robot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.FasterOctoCanum;
+//import frc.robot.FasterOctoCanum;
 
 public class AutoDrive extends CommandBase {
   /**
@@ -40,7 +40,7 @@ public class AutoDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //driveTrain.enableTank();
+    m_drive.enableTank();
     m_drive.drive(m_x, m_y, 0, 0);
     if(m_drive.getEncPosFront() > frontEncCount + m_distance)
     {

@@ -67,9 +67,11 @@ public class OI
       {
         return new AutoCenter(ballShooter, driveTrain, elevatorSubsystem); 
       }
-     // return new AutoCenter(ballShooter, driveTrain, elevatorSubsystem); 
+        //return new AutoCenter(ballShooter, driveTrain, elevatorSubsystem); 
         //return new Angle156Auto(elevatorSubsystem, driveTrain, ballShooter);
-        return new FarWall5BallAuto(elevatorSubsystem, driveTrain, ballShooter);
+        //return new FarWall5BallAuto(elevatorSubsystem, driveTrain, ballShooter);
+        //return new CloseWallAuto(elevatorSubsystem, driveTrain, ballShooter);
+        return new CloseWall5BallAuto(elevatorSubsystem, driveTrain, ballShooter);
     }
     private void configureButtonBindings()
     {

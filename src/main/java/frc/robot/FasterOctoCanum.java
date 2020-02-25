@@ -35,17 +35,15 @@ public class FasterOctoCanum extends SubsystemBase
   public WPI_TalonFX m_backRight; 
   private SpeedControllerGroup m_leftSideDifferentialGroup; 
   private SpeedControllerGroup m_rightSideDifferentialGroup; 
-  private Boolean m_inMecanumDrive = true; 
+  //private Boolean m_inMecanumDrive = true; 
 
-  private Boolean m_inMecanumDriveField = true; 
-  private Boolean m_inMecanumDriveRobot = true; 
-  private Boolean m_inTankDrive = true; 
-
+  //private Boolean m_inMecanumDriveField = true; 
+  //private Boolean m_inMecanumDriveRobot = true; 
+  //private Boolean m_inTankDrive = true; 
   private Boolean m_driveStraight = false;
   private double m_angleSetPoint = 0.0; 
   private static final double c_kPcorrection = 0.05; 
-
-  private DriveMode m_previousMode;
+  //private DriveMode m_previousMode;
   public DriveMode m_driveState;
   Faults _faults = new Faults();
 
@@ -121,6 +119,7 @@ public class FasterOctoCanum extends SubsystemBase
     m_gyro.reset();
   }
   
+    
   public void resetEncoders()
   {
     m_frontRight.setSelectedSensorPosition(0);
@@ -162,13 +161,14 @@ public class FasterOctoCanum extends SubsystemBase
   }
   public void enableDropDrive() 
   {
-    m_inMecanumDrive = false; 
+    //m_inMecanumDrive = false; 
   }
   public void disableDropDrive()
   {
-    m_inMecanumDrive = true; 
+    //m_inMecanumDrive = true; 
   }
-  public void enableDriveStraight()
+  
+    public void enableDriveStraight()
   {
     m_driveStraight = true; 
     m_angleSetPoint = m_gyro.getYaw(); 
@@ -177,7 +177,7 @@ public class FasterOctoCanum extends SubsystemBase
   {
     m_driveStraight = false; 
   }
-
+  /*
   private void setMode(DriveMode mode)
   {
    /* if(mode != m_driveState)
@@ -189,8 +189,8 @@ public class FasterOctoCanum extends SubsystemBase
 
       }
     }*/
-    m_driveState = mode;
-  }
+    //m_driveState = mode;
+  //}
 
   public void enableFieldOriented()
   {
@@ -214,7 +214,7 @@ public class FasterOctoCanum extends SubsystemBase
   }
   public void enableTank()
   {
-    m_previousMode = m_driveState; 
+    //m_previousMode = m_driveState; 
     m_driveState = DriveMode.tank;
     m_mecanumDrive.setSafetyEnabled(false);
     m_differentialDrive.setSafetyEnabled(true); 
