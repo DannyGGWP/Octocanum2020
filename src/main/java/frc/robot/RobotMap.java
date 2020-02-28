@@ -56,6 +56,9 @@ public class RobotMap
 	public static int climbDown = 14;
 	public static int rotateColor = 15;
 	public static int findColor = 16;
+	public static int centerAuto = 29;
+	public static int rightFiveAuto = 30;
+	public static int leftFiveAuto = 31;
 
 	//DUMB AS FUCK PID BULLSHIT
 	public static int p = 0;

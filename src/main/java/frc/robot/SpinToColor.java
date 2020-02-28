@@ -32,30 +32,34 @@ public class SpinToColor extends CommandBase
   {
     bufferMax = 0;
     buffer = bufferMax;
-    colorWheel.onWheel();
+    colorWheel.slowWheel();
     colorWheel.countColors();
     String gameData = DriverStation.getInstance().getGameSpecificMessage();
 
-    if(gameData.length() > 0)
+    if(!gameData.isBlank() && gameData.length() > 0)
     {
       switch(gameData.charAt(0))
       {
         case 'B':
-          targetColor = "Blue";
-          break;
-        case 'R':
           targetColor = "Red";
           break;
+        case 'R':
+          targetColor = "Blue";
+          break;
         case 'G':
-          targetColor = "Green";
+          targetColor = "Yellow";
           break;
         case 'Y':
-          targetColor = "Yellow";
+          targetColor = "Green";
           break;
         default:
           targetColor = colorWheel.stringColor();
           break;
       }
+    }
+    else
+    {
+      targetColor = colorWheel.stringColor();
     }
     SmartDashboard.putString("Target Color", targetColor);
   }

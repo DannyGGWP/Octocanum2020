@@ -26,7 +26,7 @@ public class Climbing extends SequentialCommandGroup
     super
     (
       new InstantCommand(climber::lockEngage,climber),
-      new WaitCommand(1),
+      new WaitCommand(.25),
       new InstantCommand(climber::armUp,climber)
     );
   }

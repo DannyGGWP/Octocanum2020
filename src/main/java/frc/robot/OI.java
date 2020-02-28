@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -33,6 +34,9 @@ public class OI
   public static Joystick panel = new Joystick(0);
   public static JoystickButton cannonButton = new JoystickButton(panel,RobotMap.shootButton);
   public static JoystickButton turnButton = new JoystickButton(driveJoystick,RobotMap.buttonB);
+  public static JoystickButton autoCenter = new JoystickButton(panel, RobotMap.centerAuto);
+  public static JoystickButton autoRight = new JoystickButton(panel, RobotMap.leftFiveAuto);
+ // public static JoystickButton auto = new JoystickButton(panel, RobotMap.centerAuto);
 //  public static JoystickButton climbButton = new JoystickButton(driveJoystick,RobotMap.climbUp);
   //public static JoystickButton shooterButton = new JoystickButton(driveJoystick, RobotMap.buttonA);
   /*
@@ -54,24 +58,21 @@ public class OI
          .drive(driveJoystick.getX(),driveJoystick.getY(),driveJoystick.getRawAxis(2),driveJoystick.getRawAxis(3)),driveTrain)
        );
      }
-    public Command getAutonomousCommand() {
-      if(RobotMap.autoChooser.equals("left"))
-      {
-        return new FarWallAuto(elevatorSubsystem, driveTrain, ballShooter);
-      }
-      if(RobotMap.autoChooser.equals("right"))
-      {
-        return new CloseWallAuto(elevatorSubsystem, driveTrain, ballShooter);
-      }
-      if(RobotMap.autoChooser.equals("center"))
+    public Command getAutonomousCommand() 
+    {
+      if(autoCenter.get())
       {
         return new AutoCenter(ballShooter, driveTrain, elevatorSubsystem); 
       }
+      if(autoRight.get())
+      {
+        return new CloseWall5BallAuto(elevatorSubsystem, driveTrain, ballShooter);
+      }  
         //return new AutoCenter(ballShooter, driveTrain, elevatorSubsystem); 
         //return new Angle156Auto(elevatorSubsystem, driveTrain, ballShooter);
         //return new FarWall5BallAuto(elevatorSubsystem, driveTrain, ballShooter);
         //return new CloseWallAuto(elevatorSubsystem, driveTrain, ballShooter);
-        return new CloseWall5BallAuto(elevatorSubsystem, driveTrain, ballShooter);
+      return new WaitCommand(5);
     }
     private void configureButtonBindings()
     {

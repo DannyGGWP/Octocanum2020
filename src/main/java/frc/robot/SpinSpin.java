@@ -75,6 +75,11 @@ public class SpinSpin extends SubsystemBase
     spinnyMotor.set(1.0);
   }
 
+  public void slowWheel()
+  {
+    spinnyMotor.set(0.5);
+  }
+
   /**
    * turns off motor
    */
@@ -192,21 +197,23 @@ public class SpinSpin extends SubsystemBase
 
   }
 
-public void moveToColor(String color)
-{
-  String sampleColor = stringColor();
-
-  if(sampleColor == currentColor)
+  public void moveToColor(String color)
   {
-    countCurrentColor++;
-  }
+    String sampleColor = stringColor();
 
-  if(countCurrentColor > 5)
-  {
-    currentColor = stringColor();
+    if(sampleColor == currentColor)
+    {
+      countCurrentColor++;
+    }
+
+    if(countCurrentColor > 5)
+    {
+      currentColor = stringColor();
+      countCurrentColor = 0;
+    }
+
     countCurrentColor = 0;
   }
 
-  countCurrentColor = 0;
-}
+  
 }
