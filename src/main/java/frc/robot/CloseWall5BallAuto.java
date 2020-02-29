@@ -57,7 +57,7 @@ public class CloseWall5BallAuto extends SequentialCommandGroup
       new InstantCommand(driveTrain::enableDriveStraight,driveTrain),
       
       // Drive out
-      new AutoDrive(-0.6,0.0,60000,driveTrain),
+      new AutoDrive(-0.6,0.0,55000,driveTrain),
       new InstantCommand(driveTrain::disableDriveStraight,driveTrain),
       new InstantCommand(driveTrain::toggleTank,driveTrain),
       
@@ -70,7 +70,10 @@ public class CloseWall5BallAuto extends SequentialCommandGroup
       
       // Start shooter wheel and drive forward
       new InstantCommand(shooter::onWheel,shooter), 
-      new AutoDrive(-0.6,0.0,110000,driveTrain),
+      new AutoDrive(-0.6,0.0,115000,driveTrain),
+      new InstantCommand(driveTrain::enableBrake, driveTrain),
+      new WaitCommand(1),
+      new InstantCommand(driveTrain::disableBrake, driveTrain),
       new InstantCommand(driveTrain::disableDriveStraight,driveTrain),
      
       // SHOOT!

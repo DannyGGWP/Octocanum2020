@@ -287,7 +287,7 @@ public class FasterOctoCanum extends SubsystemBase
         }
         break;
       case tank:
-      // Y and X are flipped intentionally 
+      // Y and X are flipped intentionally
       if (m_driveStraight && Math.abs(rotation) < RobotMap.c_deadBand)
       {
         rotation = error*c_kPcorrection;

@@ -171,6 +171,10 @@ public class Robot extends TimedRobot
     if (m_autoCommand != null) {
       m_autoCommand.cancel();
     }
+    m_oi.driveTrain.disableDriveStraight();
+    m_oi.driveTrain.disableTank();
+    m_oi.elevatorSubsystem.offTake();
+    m_oi.hangBoi.armOff();
   }
   /**
    * This function is called periodically during operator control.

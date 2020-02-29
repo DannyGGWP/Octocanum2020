@@ -23,6 +23,7 @@ public class AutoCenter extends CommandBase
     start,
     moveToGoal,
     shoot,
+    strafe,
     finished
     
   };
@@ -60,7 +61,7 @@ public class AutoCenter extends CommandBase
         currentEncCount = driveTrain.getEncPos();
         break;
       case moveToGoal:
-        //driveTrain.enableTank();
+        driveTrain.enableTank();
         driveTrain.drive(0, -0.6, 0, 0);
         if(driveTrain.getEncPos() > currentEncCount + 52000)
         {
@@ -79,12 +80,25 @@ public class AutoCenter extends CommandBase
             ballShooter.offWheel();
             //elevatorSubsystem.elevatorOff();
             ballShooter.closeGate();
-            currentState = State.finished;
+            currentState = State.strafe;
           }
         }
         else 
         {
           time = Timer.getFPGATimestamp();
+        }
+        break;
+        case strafe:
+        driveTrain.disableTank();
+        driveTrain.resetEncoders();
+     //   if(Timer.getFPGATimestamp() > time + 1.2)
+       // {
+        driveTrain.drive(-0.6, 0, 0, 0);
+        if(driveTrain.getEncPos() > currentEncCount + 50000)
+        {
+          driveTrain.drive(0, 0, 0, 0);
+          currentState = State.finished;
+   //     }
         }
         break;
        default:

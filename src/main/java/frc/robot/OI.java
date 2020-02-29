@@ -35,7 +35,9 @@ public class OI
   public static JoystickButton cannonButton = new JoystickButton(panel,RobotMap.shootButton);
   public static JoystickButton turnButton = new JoystickButton(driveJoystick,RobotMap.buttonB);
   public static JoystickButton autoCenter = new JoystickButton(panel, RobotMap.centerAuto);
-  public static JoystickButton autoRight = new JoystickButton(panel, RobotMap.leftFiveAuto);
+  public static JoystickButton autoRightFive = new JoystickButton(panel, RobotMap.rightFiveAuto);
+  public static JoystickButton autoLeftFive = new JoystickButton(panel, RobotMap.leftFiveAuto);
+  public static JoystickButton autoLeftThree = new JoystickButton(panel, RobotMap.leftThreeAuto);
  // public static JoystickButton auto = new JoystickButton(panel, RobotMap.centerAuto);
 //  public static JoystickButton climbButton = new JoystickButton(driveJoystick,RobotMap.climbUp);
   //public static JoystickButton shooterButton = new JoystickButton(driveJoystick, RobotMap.buttonA);
@@ -62,12 +64,20 @@ public class OI
     {
       if(autoCenter.get())
       {
-        return new AutoCenter(ballShooter, driveTrain, elevatorSubsystem); 
+        return new CommandGroupAutoCenter(elevatorSubsystem, driveTrain, ballShooter);
       }
-      if(autoRight.get())
+      if(autoRightFive.get())
       {
         return new CloseWall5BallAuto(elevatorSubsystem, driveTrain, ballShooter);
       }  
+      if(autoLeftFive.get())
+      {
+        return new FarWall5BallAuto(elevatorSubsystem, driveTrain, ballShooter);
+      }
+      if(autoLeftThree.get())
+      {
+        return new FarWallAuto(elevatorSubsystem, driveTrain, ballShooter);
+      }
         //return new AutoCenter(ballShooter, driveTrain, elevatorSubsystem); 
         //return new Angle156Auto(elevatorSubsystem, driveTrain, ballShooter);
         //return new FarWall5BallAuto(elevatorSubsystem, driveTrain, ballShooter);
@@ -113,6 +123,13 @@ public class OI
         .whenPressed(new SpinToColor(wheel));
       new JoystickButton(panel, RobotMap.rotateColor)
         .whenPressed(new ActivateSpinSpin(wheel));
+        
+      new JoystickButton(panel, RobotMap.elevatorUp)
+        .whenPressed(elevatorSubsystem::elevatorUp,elevatorSubsystem)
+        .whenReleased(elevatorSubsystem::elevatorOff,elevatorSubsystem);
+      new JoystickButton(panel, RobotMap.elevatorDown)
+        .whenPressed(elevatorSubsystem::elevatorDown,elevatorSubsystem)
+        .whenReleased(elevatorSubsystem::elevatorOff,elevatorSubsystem);
 
       new JoystickButton(panel, RobotMap.climbDown)
         .whenPressed(hangBoi::armDown,hangBoi)
