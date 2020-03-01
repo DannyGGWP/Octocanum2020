@@ -33,7 +33,7 @@ public class OI
   public static Joystick driveJoystick = new Joystick(1);
   public static Joystick panel = new Joystick(0);
   public static JoystickButton cannonButton = new JoystickButton(panel,RobotMap.shootButton);
-  public static JoystickButton turnButton = new JoystickButton(driveJoystick,RobotMap.buttonB);
+ // public static JoystickButton turnButton = new JoystickButton(driveJoystick,RobotMap.buttonB);
   public static JoystickButton autoCenter = new JoystickButton(panel, RobotMap.centerAuto);
   public static JoystickButton autoRightFive = new JoystickButton(panel, RobotMap.rightFiveAuto);
   public static JoystickButton autoLeftFive = new JoystickButton(panel, RobotMap.leftFiveAuto);
@@ -89,7 +89,7 @@ public class OI
       new JoystickButton(driveJoystick,RobotMap.leftBumper)
         .whenPressed(new InstantCommand(driveTrain::toggleTank, driveTrain));
         cannonButton.whenPressed(new Cannon(ballShooter, elevatorSubsystem));
-        turnButton.whenPressed(new Angle156Auto(elevatorSubsystem, driveTrain, ballShooter));
+  //      turnButton.whenPressed(new Angle156Auto(elevatorSubsystem, driveTrain, ballShooter));
       new JoystickButton(driveJoystick, RobotMap.buttonY)
         .whenPressed(new InstantCommand(elevatorSubsystem::elevatorUp, elevatorSubsystem))
        .whenReleased(elevatorSubsystem::elevatorOff, elevatorSubsystem);
