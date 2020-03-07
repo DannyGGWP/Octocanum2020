@@ -7,10 +7,7 @@
 
 package frc.robot;
 
-import java.awt.Color;
-
 import com.ctre.phoenix.motorcontrol.Faults;
-import com.mach.LightDrive.LightDriveCAN;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
@@ -43,7 +40,7 @@ public class Robot extends TimedRobot
   Faults _faults = new Faults();
 
   public static Compressor compressor = new Compressor(52);
-  public static LightDriveCAN m_lightDrive = new LightDriveCAN(); 
+ // public static LightDriveCAN m_lightDrive = new LightDriveCAN(); 
   public Command m_autoCommand; 
  // public PWM m_pwm;
  // public PWMTalonSRX m_pwmSpeed;
@@ -63,8 +60,9 @@ public class Robot extends TimedRobot
     m_oi.driveTrain.disableFieldOriented();
     //m_oi.lightStrips.setLights();
     SmartDashboard.putString("Auto Chooser", RobotMap.autoChooser);
-    m_lightDrive.SetColor(1, Color.CYAN);
-    m_lightDrive.Update();
+    m_oi.blinker.lightOn(0.87);
+  //  m_lightDrive.SetColor(1, Color.CYAN);
+    //m_lightDrive.Update();
 
     /** 
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
@@ -90,7 +88,7 @@ public class Robot extends TimedRobot
     //m_lightDrive.SetColor(2, Color.CYAN);
     //m_lightDrive.SetColor(3, Color.CYAN);
     //m_lightDrive.SetColor(4, Color.CYAN);
-    m_lightDrive.Update();
+ //   m_lightDrive.Update();
     SmartDashboard.putNumber("Enc Count", m_oi.driveTrain.getEncPos());
     SmartDashboard.putBoolean("Out Of Phase:",_faults.SensorOutOfPhase);
     // SmartDashboard.putNumber("Enc Direction", )
@@ -182,7 +180,8 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic() 
   {
-    
+    m_oi.blinker.lightOn(0.87);
+   // m_oi.blinker.lightOn(-0.99);
     // m_pwm.setRaw(8);
     //  m_pwmSpeed.setSpeed(-0.5);
  

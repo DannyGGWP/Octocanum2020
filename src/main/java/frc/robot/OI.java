@@ -26,6 +26,7 @@ public class OI
   public final LiftLift elevatorSubsystem = new LiftLift();
   public final UpUp hangBoi = new UpUp();
   public final SpinSpin wheel = new SpinSpin();
+  public final BlinkBlink blinker = new BlinkBlink();
   //public final LightLight lightStrips = new LightLight();
 
  // public final ActivateSpinSpin spinnerCommand = new ActivateSpinSpin(colorWheel);
