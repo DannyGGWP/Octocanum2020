@@ -28,6 +28,7 @@ public class UpUp extends SubsystemBase
 
   public void armUp()
   {
+    Robot.m_oi.blinker.lightOn(-0.87 );
     climberMotor.set(1.0);
    // lockEngage();
   }

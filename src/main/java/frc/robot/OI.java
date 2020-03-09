@@ -34,6 +34,7 @@ public class OI
   public static Joystick driveJoystick = new Joystick(1);
   public static Joystick panel = new Joystick(0);
   public static JoystickButton cannonButton = new JoystickButton(panel,RobotMap.shootButton);
+ //public JoystickButton compressorButton = new JoystickButton(driveJoystick, RobotMap.buttonX);
  // public static JoystickButton turnButton = new JoystickButton(driveJoystick,RobotMap.buttonB);
   public static JoystickButton autoCenter = new JoystickButton(panel, RobotMap.centerAuto);
   public static JoystickButton autoRightFive = new JoystickButton(panel, RobotMap.rightFiveAuto);
@@ -139,6 +140,10 @@ public class OI
         .whileHeld(hangBoi::armOff, hangBoi);
       new JoystickButton(driveJoystick, RobotMap.back)
         .whenPressed(driveTrain::disableDriveStraight, driveTrain);
-      
+
+    
+
+//      new JoystickButton(driveJoystick, RobotMap.buttonX)
+  //      .whenPressed(blinker:: lightOff, blinker); 
     }
 }

@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  */
 public class LiftLift extends SubsystemBase
 {
+  
   private WPI_TalonSRX liftyMotor = new WPI_TalonSRX(RobotMap.elevatorMotor);
   private WPI_TalonSRX succMotor = new WPI_TalonSRX(RobotMap.succMotor);
   private static Solenoid succSolenoid = new Solenoid(52,RobotMap.succSol);
@@ -44,6 +45,7 @@ public class LiftLift extends SubsystemBase
     {
      liftyMotor.set(-1.0);
      SmartDashboard.putBoolean("hasFifthBall", hasFifthBall());
+     
     }
     else
     {
@@ -57,7 +59,6 @@ public class LiftLift extends SubsystemBase
   }
   public void elevatorOff()
   {
-
     liftyMotor.set(0.0);
   }
   
@@ -133,9 +134,13 @@ public class LiftLift extends SubsystemBase
   {
     if(elevatorSensor.get() && hasFourthBall())
     {
+      Robot.m_oi.blinker.lightOn(.61);
+      //turns red
       return true;
     }
+    //Robot.m_oi.blinker.lightOn(.67);
     return false;
+    
   }
 
 }

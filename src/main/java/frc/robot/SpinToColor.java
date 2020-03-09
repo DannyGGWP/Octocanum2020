@@ -42,15 +42,19 @@ public class SpinToColor extends CommandBase
       {
         case 'B':
           targetColor = "Red";
+          Robot.m_oi.blinker.lightOn(.61);
           break;
         case 'R':
           targetColor = "Blue";
+          Robot.m_oi.blinker.lightOn(.87);
           break;
         case 'G':
           targetColor = "Yellow";
+          Robot.m_oi.blinker.lightOn(.69);
           break;
         case 'Y':
           targetColor = "Green";
+          Robot.m_oi.blinker.lightOn(.71);
           break;
         default:
           targetColor = colorWheel.stringColor();
@@ -94,6 +98,7 @@ public class SpinToColor extends CommandBase
   @Override
   public void end(boolean interrupted) 
   {
+    Robot.m_oi.blinker.lightOn(.67);
     colorWheel.offWheel();
     colorWheel.resetCount();
   

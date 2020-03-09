@@ -38,6 +38,7 @@ public class Robot extends TimedRobot
   public static OI m_oi;
   //public static FasterOctoCanum m_oi.driveTrain;
   Faults _faults = new Faults();
+  public boolean m_compressorButtonFlag = false;
 
   public static Compressor compressor = new Compressor(52);
  // public static LightDriveCAN m_lightDrive = new LightDriveCAN(); 
@@ -53,14 +54,18 @@ public class Robot extends TimedRobot
   {
     m_oi = new OI(); 
     //m_oi.driveTrain = new FasterOctoCanum();
+    SmartDashboard.putBoolean("TANK?: ", false);
+    SmartDashboard.putBoolean("Compressor on?", false);
+    
     _faults = new Faults();
    // m_pwm = new PWM(0);
   //  m_pwmSpeed = new PWMTalonSRX(0);
-    compressor.start();    
+    compressor.start();   
+    SmartDashboard.putBoolean("Compressor on?", true); 
     m_oi.driveTrain.disableFieldOriented();
     //m_oi.lightStrips.setLights();
     SmartDashboard.putString("Auto Chooser", RobotMap.autoChooser);
-    m_oi.blinker.lightOn(0.87);
+    m_oi.blinker.lightOn(0.67);
   //  m_lightDrive.SetColor(1, Color.CYAN);
     //m_lightDrive.Update();
 
@@ -127,6 +132,7 @@ public class Robot extends TimedRobot
     //driveTrain.enableDropDrive();
     //driveTrain.enableDriveStraight();
     //driveTrain.enableFieldOriented();
+
     m_autoCommand = m_oi.getAutonomousCommand(); 
     if (m_autoCommand != null) {
       m_autoCommand.schedule();
@@ -180,10 +186,28 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic() 
   {
-    m_oi.blinker.lightOn(0.87);
+    m_oi.blinker.periodic();
    // m_oi.blinker.lightOn(-0.99);
     // m_pwm.setRaw(8);
     //  m_pwmSpeed.setSpeed(-0.5);
+    /*if(m_oi.compressorButton.get() && !m_compressorButtonFlag)
+    {
+      m_compressorButtonFlag = true;
+      if(compressor.enabled())
+      {
+        compressor.stop();
+        SmartDashboard.putBoolean("Compressor on?", false);
+      }
+      else {
+        compressor.start();
+        SmartDashboard.putBoolean("Compressor on?", true);
+      }
+    }
+    else if(!m_oi.compressorButton.get() && m_compressorButtonFlag)
+    {
+      m_compressorButtonFlag = false;
+    }*/
+
  
   }
  

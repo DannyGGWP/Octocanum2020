@@ -37,11 +37,13 @@ public class Cannon extends CommandBase
     //time = Timer.getFPGATimestamp();
     ballShooter.onWheel();
     ballShooter.closeGate();
-    m_lightDrive.SetColor(1, Color.CYAN);
+    Robot.m_oi.blinker.lightOn(-.39);
+/*    m_lightDrive.SetColor(1, Color.CYAN);
     m_lightDrive.SetColor(2, Color.CYAN);
     m_lightDrive.SetColor(3, Color.CYAN);
     m_lightDrive.SetColor(4, Color.CYAN);
     //m_lightDrive.Update();
+    */
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -49,13 +51,17 @@ public class Cannon extends CommandBase
   public void execute() 
   {
     //order 66
+
     if(ballShooter.wheelSpeed() > RobotMap.setPoint - 100) 
     {
+      /*
       m_lightDrive.SetColor(1, Color.GREEN);
       m_lightDrive.SetColor(2, Color.GREEN);
       m_lightDrive.SetColor(3, Color.GREEN);
       m_lightDrive.SetColor(4, Color.GREEN);
       //m_lightDrive.Update();
+      */
+      Robot.m_oi.blinker.lightOn(-.39);
       ballShooter.openGate();
       elevatorSubsystem.elevatorUp();
   //    time = Timer.getFPGATimestamp();
@@ -68,6 +74,7 @@ public class Cannon extends CommandBase
   {
     if(!OI.cannonButton.get())
     {
+      Robot.m_oi.blinker.lightOn(.67);
       return true;
     }
     return false;
@@ -80,5 +87,6 @@ public class Cannon extends CommandBase
     ballShooter.offWheel();
     elevatorSubsystem.elevatorOff();
     ballShooter.closeGate();
+    Robot.m_oi.blinker.lightOn(.67);
   }
 }

@@ -36,6 +36,7 @@ public class ActivateSpinSpin extends CommandBase
   public void execute() 
   {
     colorWheel.countColors();
+    Robot.m_oi.blinker.lightOn(-.05);
     SmartDashboard.putNumber("Rotations", colorWheel.getCount("Red"));
   }
 
@@ -45,6 +46,7 @@ public class ActivateSpinSpin extends CommandBase
   {
     if(colorWheel.getCount("Red") > 6 )
     {
+      Robot.m_oi.blinker.lightOn(.93);
       return true;
     }
     return false;

@@ -81,6 +81,9 @@ public class FarWall5BallAuto extends SequentialCommandGroup
       //drive forward
       new InstantCommand(driveTrain::enableDriveStraight,driveTrain),
       new AutoDrive(-0.6,0.0,60000,driveTrain),
+      new InstantCommand(driveTrain::enableBrake, driveTrain),
+      new WaitCommand(.25),
+      new InstantCommand(driveTrain::disableBrake, driveTrain),
       new InstantCommand(driveTrain::disableDriveStraight,driveTrain),
      
       // SHOOT!

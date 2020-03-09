@@ -108,11 +108,13 @@ public class FasterOctoCanum extends SubsystemBase
   {
     m_mecanumDrive = new MecanumDrive(m_frontLeft, m_backLeft, m_frontRight, m_backRight);
     m_mecanumDrive.setDeadband(RobotMap.c_deadBand);
+    SmartDashboard.putBoolean("TANK?: ", false);
   }
   public void initTank()
   {
     m_differentialDrive = new DifferentialDrive(m_leftSideDifferentialGroup, m_rightSideDifferentialGroup);
     m_differentialDrive.setDeadband(RobotMap.c_deadBand);
+    SmartDashboard.putBoolean("TANK?: ", true);
   }
   public void resetGyro()
   {
@@ -216,6 +218,7 @@ public class FasterOctoCanum extends SubsystemBase
   {
     //m_previousMode = m_driveState; 
     m_driveState = DriveMode.tank;
+    SmartDashboard.putBoolean("TANK?: ", true);
     m_mecanumDrive.setSafetyEnabled(false);
     m_differentialDrive.setSafetyEnabled(true); 
     //m_mecanumDrive = new MecanumDrive(null, null, null, null); 
@@ -225,6 +228,7 @@ public class FasterOctoCanum extends SubsystemBase
   public void disableTank()
   {
     m_driveState = DriveMode.robotMechanum;
+    SmartDashboard.putBoolean("TANK?: ", false);
     //m_differentialDrive = new DifferentialDrive(null, null); 
     m_differentialDrive.setSafetyEnabled(false);
     m_mecanumDrive.setSafetyEnabled(true);

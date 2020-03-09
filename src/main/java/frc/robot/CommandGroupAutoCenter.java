@@ -27,7 +27,7 @@ public class CommandGroupAutoCenter extends SequentialCommandGroup {
       new InstantCommand(driveTrain::resetEncoders, driveTrain),
       new InstantCommand(driveTrain::enableDriveStraight,driveTrain),
       new WaitCommand(0.25),
-      new AutoDrive(-.6, 0, 52000, driveTrain),
+      new AutoDrive(-.6, 0, 58000, driveTrain),
       //shoot
       new InstantCommand(shooter::onWheel,shooter), 
       new WaitCommand(1),

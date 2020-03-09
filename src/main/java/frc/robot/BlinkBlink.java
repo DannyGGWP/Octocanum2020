@@ -15,22 +15,28 @@ public class BlinkBlink extends SubsystemBase {
    * Creates a new BlinkBlink.
    */
   private PWMSparkMax abeBlinkin = new PWMSparkMax(0);
+  private double colorValue;
   public BlinkBlink() {
-
+    colorValue = .67;
   }
   //set to rio sparkvalue
   public void lightOn(double colorValue)
   {
-    abeBlinkin.set(colorValue);
+  //  if(lightOff()!=true)
+    //{
+    this.colorValue = colorValue;
+    //}
   }
 
-  public void lightOff()
+  public boolean lightOff()
   {
     abeBlinkin.set(0);
+    return true;
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    abeBlinkin.set(colorValue);
   }
 }
